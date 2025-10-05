@@ -7,13 +7,17 @@ require_relative 'http_helper'
 
 CONFIG = YAML.safe_load_file('config/secrets.yml')
 
-# Get and cache Spotify client_credentials token
-# - Refreshes 60 seconds before expiration
-module SpotifyToken
+# manages Spotify token lifecycle
+class SpotifyTokenManager
   TOKEN_URL = 'https://accounts.spotify.com/api/token'
   EXPIRY_BUFFER = 60
 
-  module_function
+  def initialize(config = CONFIG)
+    @client_id = config['SPOTIFY_CLIENT_ID']
+    @client_secret = config['SPOTIFY_CLIENT_SECRET']
+    @token = nil
+    @expires_at = nil
+  end
 
   def access_token
     return @token if valid?
@@ -24,7 +28,7 @@ module SpotifyToken
     @token
   end
 
-  # --- helpers ---
+  private
 
   def valid?
     @token && @expires_at && Time.now < (@expires_at - EXPIRY_BUFFER)
@@ -39,13 +43,21 @@ module SpotifyToken
   end
 
   def client_token
-    Base64.strict_encode64("#{CONFIG['SPOTIFY_CLIENT_ID']}:#{CONFIG['SPOTIFY_CLIENT_SECRET']}")
+    Base64.strict_encode64("#{@client_id}:#{@client_secret}")
   end
 
   def new_expire_time(data)
     ttl = Integer(data['expires_in'] || 3600)
     Time.now + ttl
   end
+end
 
-  private_class_method :valid?, :request_token, :client_token, :new_expire_time
+# global usage interface
+module SpotifyToken
+  module_function
+
+  def access_token
+    @manager ||= SpotifyTokenManager.new
+    @manager.access_token
+  end
 end
