@@ -17,3 +17,9 @@ Project to gather useful information from <a href="https://developer.spotify.com
 ## Elements
 
 ## Entities
+
+## Install
+
+## Setting up this script
+
+## Running this script
