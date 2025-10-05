@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require 'fileutils'
 require 'http'
+require 'yaml'
 require_relative 'http_helper'
 require_relative 'spotify_token'
 require_relative 'spotify_results_helper'
@@ -27,4 +29,7 @@ songs_result = search_songs_via_spotify('Olivia Rodrigo', limit: 5)
 
 ## HAPPY project request
 spotify_results = SpotifyTracksResultNormalizer.normalize_results(songs_result)
-File.write('spec/fixtures/spotify_results.yml', spotify_results.to_yaml)
+
+dir = 'spec/fixtures'
+FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
+File.write(File.join(dir, 'spotify_results.yml'), spotify_results.to_yaml)
