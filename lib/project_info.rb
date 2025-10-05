@@ -20,7 +20,7 @@ def fetch_spotify_data(url, params: {})
 end
 
 def search_songs_via_spotify(query, **options)
-  params = { q: query, type: 'track', markets: 'US' }.merge(options)
+  params = { q: query, type: 'track', market: 'US' }.merge(options)
   fetch_spotify_data(spotify_api_path('search'), params: params)
 end
 
