@@ -46,6 +46,6 @@ module SpotifyToken
     ttl = Integer(data['expires_in'] || 3600)
     Time.now + ttl
   end
-  
+
   private_class_method :valid?, :request_token, :client_token, :new_expire_time
 end
