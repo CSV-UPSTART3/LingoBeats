@@ -2,7 +2,9 @@
 Project to gather useful information from <a href="https://developer.spotify.com/documentation/web-api">Spotify API</a>
 
 ## Resources
-### List of Tracks
+* Tracks
+
+## Elements
 * **Track information**
   - Spotify ID of the Song
   - Song Name
