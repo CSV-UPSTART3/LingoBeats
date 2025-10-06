@@ -2,24 +2,40 @@
 Project to gather useful information from <a href="https://developer.spotify.com/documentation/web-api">Spotify API</a>
 
 ## Resources
-### `GET /search`
+### List of Tracks
+* **Track information**
+  - Spotify ID of the Song
+  - Song Name
+  - Spotify URI
+  - Popularity
+  - Known external URLs for the track
+* **Track with artist information**
+  - Spotify ID of the Artist
+  - Artist Name
+  - Known external URLs for this artist
+* **Track with album information**
+  - Spotify ID of the Album
+  - Album Name
+  - Known external URLs for this album
+  - The source URL of the image
 
-| Param | Required | Description |
-|--------|-----------|-------------|
-| `q` | ✅ | Your search query (e.g., `"Adele"`). Supports field filters, e.g. `track:Hello artist:Adele year:2015`. |
-| `type` | ✅ | The type of item to search for. Allowed values: `"album"`, `"artist"`, `"playlist"`, `"track"`, `"show"`, `"episode"`, `"audiobook"`. |
-| `market` |  | ISO 3166-1 alpha-2 country code. If specified, only content available in that market will be returned. |
-| `limit` |  | The maximum number of results to return per item type. Default: `20`. Range: `0–50`. |
-| `offset` |  | The index of the first result to return (used for pagination). Default: `0`. Range: `0–1000`. |
-| `include_external` |  | `audio` → Marks externally hosted audio content as playable in the response. Default: unplayable. |
-
-
-## Elements
 
 ## Entities
+| Entity     | Elements                                           |
+| :--------- | :------------------------------------------------- |
+| **Track**  | `id`, `name`, `uri`, `popularity`, `external_url`  |
+| **Artist** | `id`, `name`, `external_url`                       |
+| **Album**  | `id`, `name`, `external_url`, `image`              |
 
-## Install
 
+# Install
 ## Setting up this script
+* Sign up for or log in to your **Spotify for Developers** account, create a new project, and obtain your `client_id` and `client_secret`
+* Copy `config/secrets_example.yml` to `config/secrets.yml` and update token
+* Ensure correct version of Ruby install (see `.ruby-version` for `rbenv`)
+* Run `bundle install`
 
 ## Running this script
+To create fixtures, run:
+<pre><code>ruby lib/project_info.rb </code></pre>
+Fixture data should appear in `spec/fixtures/` folder
