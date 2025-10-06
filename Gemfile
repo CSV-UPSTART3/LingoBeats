@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 gem 'flog'
 gem 'http'
+gem 'nokogiri'
 gem 'minitest'
 gem 'minitest-rg'
 gem 'mutex_m'
