@@ -3,11 +3,14 @@
 require 'fileutils'
 require 'http'
 require 'yaml'
+require 'json'
 require 'nokogiri'
 require_relative 'http_helper'
 require_relative 'spotify_token'
 require_relative 'spotify_results_helper'
 require_relative 'genius_token'
+require_relative 'genius_scraper'
+require_relative 'gemini_token'
 
 # --- Spotify API -> Retrieve Songs ---
 class SpotifyClient
@@ -79,6 +82,42 @@ class GeniusClient
   end
 end
 
+# --- Gemini API -> Build learning materials from lyrics text  ---
+class GeminiClient
+  BASE = 'https://generativelanguage.googleapis.com/v1/models'
+  MODEL = 'gemini-2.5-flash'
+
+  def initialize(token_provider: GeminiToken)
+    @token_provider = token_provider
+  end
+
+  def build_learning_materials(lyrics)
+    prompt = <<~PROMPT
+      You are an English learning assistant.
+      Given these song lyrics, create short English-learning materials:
+      - A list of 10 vocabulary (word, definition, example sentence)
+      - A list of 5 common phrases (phrase, meaning)
+      - A short summary of the lyrics (3-5 sentences)
+
+
+      Lyrics:
+      #{lyrics}
+    PROMPT
+
+    url = "#{BASE}/#{MODEL}:generateContent?key=#{@token_provider.api_key}"
+    
+    body = {
+      contents: [
+        { role: 'user', parts: [{ text: prompt }] }
+      ]
+    }
+
+    resp = HTTP.post(url, json: body)
+    data = JSON.parse(resp.to_s)
+    data.dig('candidates', 0, 'content', 'parts', 0, 'text') 
+  end
+end
+
 # --- call spotify api ---
 spotify_client = SpotifyClient.new
 song_results = spotify_client.search_songs_by_artist('Olivia Rodri', limit: 5)
@@ -100,3 +139,16 @@ File.write(File.join(dir, 'spotify_song_results.yml'), spotify_song_results.to_y
 File.write(File.join(dir, 'spotify_song_result.yml'), spotify_song_result.to_yaml)
 File.write(File.join(dir, 'url.txt'), url)
 File.write(File.join(dir, 'url.html'), doc.to_html)
+
+# Clean and extract lyrics text
+lyrics = extract_lyrics(doc)
+File.write(File.join(dir, 'lyrics_output.txt'), lyrics)
+puts "歌詞已輸出到 spec/lyrics_output.txt"
+
+# --- call gemini api ---
+gemini_client = GeminiClient.new
+lyrics = File.read(File.join(dir, 'lyrics_output.txt'))
+
+learning_materials = gemini_client.build_learning_materials(lyrics)
+File.write(File.join(dir, 'learning_materials.txt'), learning_materials)
+puts "學習材料已輸出到 spec/learning_materials.txt"
