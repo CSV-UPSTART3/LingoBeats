@@ -16,3 +16,12 @@ gem 'reek'
 
 # HTML Parsing
 gem 'nokogiri'
+
+# VCR: Use in testing
+group :test do
+  gem 'vcr', '~> 6'
+  gem 'webmock', '~> 3'
+end
+
+# Test coverage
+gem 'simplecov', '~> 0'

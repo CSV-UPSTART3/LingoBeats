@@ -1,0 +1,49 @@
+# Rakefile
+require 'rake/testtask'
+require 'fileutils'
+
+CODE_DIR = 'lib'
+
+# run all test
+Rake::TestTask.new(:spec) do |t|
+  t.libs << 'lib' << 'spec'
+  t.pattern = 'spec/**/*_spec.rb'
+  t.warning = false
+end
+
+task default: :spec
+
+# manage vcr record file
+namespace :vcr do
+  desc 'delete cassette fixtures (*.yml)'
+  task :wipe do
+    files = Dir['spec/fixtures/cassettes/*.yml']
+    if files.empty?
+      puts 'No cassettes found'
+    else
+      FileUtils.rm_f(files)
+      puts "Cassettes deleted: #{files.size}"
+    end
+  end
+end
+
+# check
+namespace :quality do
+  desc 'run all quality checks'
+  task all: %i[rubocop reek flog]
+
+  desc 'Run RuboCop'
+  task :rubocop do
+    sh 'bundle exec rubocop'
+  end
+
+  desc 'Run Reek'
+  task :reek do
+    sh "bundle exec reek #{CODE_DIR}"
+  end
+
+  desc 'Run Flog'
+  task :flog do
+    sh "bundle exec flog #{CODE_DIR}"
+  end
+end
