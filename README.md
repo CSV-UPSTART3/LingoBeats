@@ -39,5 +39,5 @@ Project to gather useful information from <a href="https://developer.spotify.com
 
 ## Running this script
 To create fixtures, run:
-<pre><code>ruby lib/project_info.rb </code></pre>
+<pre><code>ruby lib/lingo_beats.rb </code></pre>
 Fixture data should appear in `spec/fixtures/` folder
