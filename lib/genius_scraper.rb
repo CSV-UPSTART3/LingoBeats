@@ -2,27 +2,32 @@
 
 require 'nokogiri'
 
-def extract_lyrics(doc)
-  # Ensure input is a Nokogiri HTML document
-  doc = Nokogiri::HTML(doc) unless doc.is_a?(Nokogiri::HTML::Document)
+module LingoBeats
+  # Responsible for extracting and cleaning lyrics text from a Genius lyrics HTML page
+  class Scraper
+    def extract_lyrics(res)
+      # Ensure input is a Nokogiri HTML document
+      doc = res.is_a?(Nokogiri::HTML::Document) ? res : Nokogiri::HTML(res.to_s)
 
-  # Preserve <br> tags as line breaks before extracting text
-  raw_lyrics = doc.css('div[class^="Lyrics__Container"]').map do |div|
-    div.inner_html.gsub('<br>', "\n")
-  end.join("\n")
+      # Preserve <br> tags as line breaks before extracting text
+      raw_lyrics = doc.css('div[class^="Lyrics__Container"]').map do |div|
+        div.inner_html.gsub('<br>', "\n")
+      end.join("\n")
 
-  # Extract plain text from HTML
-  text_only = Nokogiri::HTML(raw_lyrics).text
+      # Extract plain text from HTML
+      text_only = Nokogiri::HTML(raw_lyrics).text
 
-  # Find the first section label (e.g. [Intro], [Verse 1], [Chorus])
-  lyrics_start = text_only.index(/\[[A-Za-z0-9\s#]+\]/)
-  trimmed_lyrics = lyrics_start ? text_only[lyrics_start..] : text_only
+      # Find the first section label (e.g. [Intro], [Verse 1], [Chorus])
+      lyrics_start = text_only.index(/\[[A-Za-z0-9\s#]+\]/)
+      trimmed_lyrics = lyrics_start ? text_only[lyrics_start..] : text_only
 
-  # Format sections and ensure proper line breaks
-  formatted_lyrics = trimmed_lyrics
-    .gsub(/\s*\[([^\]]+)\]\s*/, "\n\n[\\1]\n") # Separate section headers
-    .gsub(/([a-z\)])(\[)/, "\\1\n\\2")         # Force new line before each header
-    .strip
+      # Format sections and ensure proper line breaks
+      formatted_lyrics = trimmed_lyrics
+        .gsub(/\s*\[([^\]]+)\]\s*/, "\n\n[\\1]\n") # Separate section headers
+        .gsub(/([a-z\)])(\[)/, "\\1\n\\2")         # Force new line before each header
+        .strip
 
-  formatted_lyrics
+      formatted_lyrics
+    end
+  end
 end

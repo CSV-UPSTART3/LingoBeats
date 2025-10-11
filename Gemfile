@@ -2,11 +2,17 @@
 
 source 'https://rubygems.org'
 
-gem 'flog'
-gem 'http'
-gem 'nokogiri'
-gem 'minitest'
-gem 'minitest-rg'
-gem 'mutex_m'
-gem 'reek'
+# Networking
+gem 'http', '~> 5.0'
+
+# Testing
+gem 'minitest', '~> 5.0'
+gem 'minitest-rg', '~> 5.0'
+
+# Development
 gem 'rubocop'
+gem 'flog'
+gem 'reek'
+
+# HTML Parsing
+gem 'nokogiri'
