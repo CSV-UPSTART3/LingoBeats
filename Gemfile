@@ -18,10 +18,9 @@ gem 'reek'
 gem 'nokogiri'
 
 # VCR: Use in testing
-group :test do
-  gem 'vcr', '~> 6'
-  gem 'webmock', '~> 3'
-end
+gem 'vcr', '~> 6'
+gem 'webmock', '~> 3'
+
 
 # Test coverage
 gem 'simplecov', '~> 0'
