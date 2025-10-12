@@ -1,6 +1,8 @@
 config/secrets.yml
-spec/fixtures/
+# spec/fixtures/
 !spec/fixtures/.keep
 coverage/*
 !coverage/.resultset.json
 spec/fixtures/cassettes/
+spec/fixtures/*.html
+spec/fixtures/*.txt

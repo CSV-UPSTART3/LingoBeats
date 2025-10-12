@@ -33,4 +33,23 @@ module LingoBeats
     end
     private_class_method :parse_body
   end
+
+  # Provides HTTP request helper
+  class Request
+    include HttpHelper
+
+    def initialize(root, token)
+      @root = root
+      @token = token
+    end
+
+    def spotify_songs(method:, params: {})
+      get(@root + method, params: params)
+    end
+
+    def get(url, params: {})
+      http_response = HTTP.headers('Authorization' => "Bearer #{@token}").get(url, params: params)
+      parse_json!(http_response)
+    end
+  end
 end

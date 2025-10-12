@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
 require 'minitest/rg'
 require 'yaml'
@@ -8,11 +10,11 @@ require 'spotify_api'
 # use spec_helper.rb(vcr + webmock)
 require_relative 'spec_helper'
 
-ARTIST_NAME = 'Olivia Rodrigo'
-SONG_NAME = 'little more'
-CONFIG = YAML.safe_load(File.read('config/secrets.yml'))
-CORRECT_RESULT = YAML.safe_load(File.read('spec/fixtures/spotify_song_result.yml'), permitted_classes: [Symbol])
-CORRECT_RESULTS = YAML.safe_load(File.read('spec/fixtures/spotify_song_results.yml'), permitted_classes: [Symbol])
+ARTIST_NAME = 'Ed Sheeran'
+SONG_NAME = 'Peach'
+CONFIG = YAML.safe_load_file('config/secrets.yml')
+CORRECT_RESULT_BY_SONG = YAML.safe_load_file('spec/fixtures/spotify_song_name_result.yml', permitted_classes: [Symbol])
+CORRECT_RESULT_BY_ARTIST = YAML.safe_load_file('spec/fixtures/spotify_artist_result.yml', permitted_classes: [Symbol])
 CASSETTE_FILE = 'spotify_api' # store title for vcr
 
 # puts CORRECT_RESULT.size
@@ -32,12 +34,11 @@ describe 'Tests Spotify API library' do
       # check size, attribute, and important value
       spotify_client = LingoBeats::SpotifyClient.new.search_song_by_name(SONG_NAME)
 
-      # _(spotify_client).must_equal CORRECT_RESULT
-      _(spotify_client[0].size).must_equal CORRECT_RESULT[0].size
-      # _(spotify_client[0][:track]).must_equal CORRECT_RESULT[0][:track]
-      _(spotify_client[0].keys.sort).must_equal CORRECT_RESULT[0].keys.sort
-      _(spotify_client[0][:track]).must_equal CORRECT_RESULT[0][:track]
-      
+      # _(spotify_client).must_equal CORRECT_RESULT_BY_SONG
+      _(spotify_client[0].size).must_equal CORRECT_RESULT_BY_SONG[0].size
+      # _(spotify_client[0][:track]).must_equal CORRECT_RESULT_BY_SONG[0][:track]
+      _(spotify_client[0].keys.sort).must_equal CORRECT_RESULT_BY_SONG[0].keys.sort
+      _(spotify_client[0][:track]).must_equal CORRECT_RESULT_BY_SONG[0][:track]
     end
     # it 'SAD: should raise exception on incorrect song_name' do
     #   puts LingoBeats::SpotifyClient.new.search_song_by_name("?!@#$%^&*()")
@@ -54,14 +55,14 @@ describe 'Tests Spotify API library' do
   describe 'Multiple Songs information' do
     it 'HAPPY: should provide correct attributes of multiple songs' do
       # check size, attribute, and important value
-      spotify_client = LingoBeats::SpotifyClient.new.search_songs_by_artist(ARTIST_NAME, limit: 2)
+      spotify_client = LingoBeats::SpotifyClient.new.search_songs_by_artist(ARTIST_NAME)
       # puts spotify_client.size
       # puts spotify_client[0]
-      # _(spotify_client).must_equal CORRECT_RESULTS
-      # _(spotify_client.size).must_equal CORRECT_RESULTS.size
-      _(spotify_client[0].size).must_equal CORRECT_RESULTS[0].size
-      _(spotify_client[0].keys.sort).must_equal CORRECT_RESULTS[0].keys.sort
-      _(spotify_client[0][:track]).must_equal CORRECT_RESULTS[0][:track]
+      # _(spotify_client).must_equal CORRECT_RESULT_BY_ARTIST
+      # _(spotify_client.size).must_equal CORRECT_RESULT_BY_ARTIST.size
+      _(spotify_client[0].size).must_equal CORRECT_RESULT_BY_ARTIST[0].size
+      _(spotify_client[0].keys.sort).must_equal CORRECT_RESULT_BY_ARTIST[0].keys.sort
+      _(spotify_client[0][:track]).must_equal CORRECT_RESULT_BY_ARTIST[0][:track]
     end
   end
 end

@@ -7,14 +7,15 @@ require_relative 'genius_api'
 require_relative 'gemini_api'
 
 dir = 'spec/fixtures'
-FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
+FileUtils.mkdir_p(dir)
 
 # --- call spotify api ---
 spotify_client = LingoBeats::SpotifyClient.new
-spotify_song_results = spotify_client.search_songs_by_artist('Olivia Rodrigo', limit: 3)
-spotify_song_result = spotify_client.search_song_by_name('little more')
-File.write(File.join(dir, 'spotify_song_results.yml'), spotify_song_results.to_yaml)
-File.write(File.join(dir, 'spotify_song_result.yml'), spotify_song_result.to_yaml)
+spotify_artist_result = spotify_client.search_songs_by_artist('Ed Sheeran')
+spotify_song_name_result = spotify_client.search_song_by_name('peach')
+
+File.write(File.join(dir, 'spotify_artist_result.yml'), spotify_artist_result.to_yaml)
+File.write(File.join(dir, 'spotify_song_name_result.yml'), spotify_song_name_result.to_yaml)
 
 # # --- call genius api ---
 # genius_client = LingoBeats::GeniusClient.new
