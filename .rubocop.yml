@@ -1,4 +1,7 @@
 ---
+require:
+  - rubocop-minitest
+  
 # Apply latest style guide and new cops
 AllCops:
   TargetRubyVersion: 3.4
