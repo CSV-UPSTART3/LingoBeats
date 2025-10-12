@@ -5,39 +5,66 @@ require 'http'
 require 'yaml'
 require_relative 'spotify_token'
 require_relative 'http_helper'
-require_relative 'spotify_results_helper'
+require_relative 'spotify_track_normalizer'
 
 module LingoBeats
-
   # --- Spotify API -> Retrieve Songs ---
   class SpotifyClient
-    def initialize(token_provider: SpotifyToken)
-      @token_provider = token_provider
+    BASE_PATH = 'https://api.spotify.com/v1/'
+
+    def initialize(token_provider = LingoBeats::SpotifyToken)
+      @spotify_token = token_provider.access_token
     end
 
-    # search songs through artist
-    def search_songs_by_artist(query, **options)
-      params = { q: "artist:\"#{query}\"", type: 'track', market: 'US' }.merge(options)
-      LingoBeats::SpotifyTracksResultNormalizer.normalize_results(fetch_data(api_path('search'), params: params)) 
+    # search songs by artist name
+    def search_songs_by_artist(artist_name)
+      search_songs(category: :artist, query: artist_name, limit: 3)
     end
 
-    # search a song through song_name
-    def search_song_by_name(song_name, **options)
-      params = { q: "track:\"#{song_name}\"", type: 'track', market: 'US', limit: 1 }.merge(options)
-      LingoBeats::SpotifyTracksResultNormalizer.normalize_results(fetch_data(api_path('search'), params: params))
+    # search song by song name
+    def search_song_by_name(song_name)
+      search_songs(category: :song_name, query: song_name, limit: 1)
     end
 
-    private
-
-    def api_path(path)
-      "https://api.spotify.com/v1/#{path}"
+    # search songs with specified condition
+    def search_songs(category:, query:, **options)
+      spec = SearchSpec.new(category: category, query: query, options: options)
+      results = LingoBeats::Request.new(BASE_PATH, @spotify_token).spotify_songs(method: 'search', params: spec.params)
+      LingoBeats::SpotifyTrackNormalizer.normalize_results(results)
     end
 
-    def fetch_data(url, params: {})
-      token = @token_provider.access_token
-      res = HTTP.headers('Authorization' => "Bearer #{token}")
-                .get(url, params: params)
-      LingoBeats::HttpHelper.parse_json!(res)
+    # ---- nested class (internal) ----
+    # Function for search preparation and validation
+    class SearchSpec
+      QUERY_BY_CATEGORY = { artist: 'artist', song_name: 'track' }.freeze
+
+      def initialize(category:, query:, options: {})
+        @category = category
+        @query    = query
+        @options  = options
+
+        check_category!
+        check_query!
+      end
+
+      def check_category!
+        raise ArgumentError, "Unsupported search type: #{@category.inspect}" if
+          @category.nil? || !QUERY_BY_CATEGORY.key?(@category)
+      end
+
+      def check_query!
+        raise ArgumentError, 'Query cannot be blank' if @query.to_s.strip.empty?
+      end
+
+      def params
+        {
+          type: 'track',
+          market: 'US',
+          q: %(#{QUERY_BY_CATEGORY[@category]}:"#{@query}")
+        }.merge(@options)
+      end
     end
+
+    private_constant :SearchSpec
   end
 end

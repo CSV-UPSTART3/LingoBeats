@@ -6,7 +6,6 @@ require 'yaml'
 require_relative 'http_helper'
 
 module LingoBeats
-
   # __dir__ returns the directory of the current file
   ROOT = File.expand_path('../', __dir__)
   CONFIG = YAML.safe_load_file(File.join(ROOT, 'config/secrets.yml'))

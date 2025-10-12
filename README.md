@@ -9,7 +9,6 @@ Project to gather useful information from <a href="https://developer.spotify.com
   - Spotify ID of the Song
   - Song Name
   - Spotify URI
-  - Popularity
   - Known external URLs for the track
 * **Track with artist information**
   - Spotify ID of the Artist
@@ -25,7 +24,7 @@ Project to gather useful information from <a href="https://developer.spotify.com
 ## Entities
 | Entity     | Elements                                           |
 | :--------- | :------------------------------------------------- |
-| **Track**  | `id`, `name`, `uri`, `popularity`, `external_url`  |
+| **Track**  | `id`, `name`, `uri`, `external_url`                |
 | **Artist** | `id`, `name`, `external_url`                       |
 | **Album**  | `id`, `name`, `external_url`, `image`              |
 
