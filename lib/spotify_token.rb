@@ -38,11 +38,9 @@ module LingoBeats
     end
 
     def request_token
-      http_response = HTTP.headers(
-        'Authorization' => "Basic #{client_token}",
-        'Content-Type' => 'application/x-www-form-urlencoded'
-      ).post(TOKEN_URL, form: { grant_type: 'client_credentials' })
-      HttpHelper::Response.new(http_response).parse_result
+      # form 型態會自己設 Content-Type: application/x-www-form-urlencoded
+      HttpHelper::Request.new('Authorization' => "Basic #{client_token}")
+                         .post(TOKEN_URL, form: { grant_type: 'client_credentials' })
     end
 
     def client_token
