@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 # Networking
 gem 'http', '~> 5.0'
+gem 'rack', '~> 3.2'
 
 # Testing
 gem 'minitest', '~> 5.0'

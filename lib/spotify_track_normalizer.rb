@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'spotify_object/track'
+require_relative 'entities/track'
 
 module LingoBeats
   # Handles normalization of Spotify Track data
