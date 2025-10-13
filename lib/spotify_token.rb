@@ -42,7 +42,7 @@ module LingoBeats
         'Authorization' => "Basic #{client_token}",
         'Content-Type' => 'application/x-www-form-urlencoded'
       ).post(TOKEN_URL, form: { grant_type: 'client_credentials' })
-      Response.new(http_response).parse_result
+      HttpHelper::Response.new(http_response).parse_result
     end
 
     def client_token

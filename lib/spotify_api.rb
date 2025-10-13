@@ -11,7 +11,7 @@ module LingoBeats
   class SpotifyClient
     BASE_PATH = 'https://api.spotify.com/v1/'
 
-    def initialize(token_provider = LingoBeats::SpotifyToken)
+    def initialize(token_provider = SpotifyToken)
       @spotify_token = token_provider.access_token
     end
 
@@ -28,9 +28,9 @@ module LingoBeats
     # search songs with specified condition
     def search_songs(category:, query:, **options)
       spec = SearchSpec.new(category: category, query: query, options: options)
-      results = LingoBeats::Request.new(BASE_PATH, @spotify_token)
+      results = HttpHelper::Request.new(BASE_PATH, @spotify_token)
                                    .get(spotify_search_url('search'), params: spec.params)
-      LingoBeats::SpotifyTrackNormalizer.normalize_results(results)
+      SpotifyTrackNormalizer.normalize_results(results)
     end
 
     def spotify_search_url(method)
