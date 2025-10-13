@@ -28,10 +28,12 @@ module LingoBeats
     # search songs with specified condition
     def search_songs(category:, query:, **options)
       spec = SearchSpec.new(category: category, query: query, options: options)
-      results = HttpHelper::Request.new(BASE_PATH, @spotify_token)
+      results = HttpHelper::Request.new('Authorization' => "Bearer #{@spotify_token}")
                                    .get(spotify_search_url('search'), params: spec.params)
       SpotifyTrackNormalizer.normalize_results(results)
     end
+
+    private
 
     def spotify_search_url(method)
       "#{BASE_PATH}#{method}"
@@ -43,21 +45,24 @@ module LingoBeats
       QUERY_BY_CATEGORY = { artist: 'artist', song_name: 'track' }.freeze
 
       def initialize(category:, query:, options: {})
-        @category = category
-        @query    = query
-        @options  = options
+        @category = category.is_a?(Symbol) ? category : category.downcase.to_sym
+        @query = query
+        @options = options
 
-        check_category!
-        check_query!
+        check_category
+        check_query
       end
 
-      def check_category!
-        raise ArgumentError, "Unsupported search type: #{@category.inspect}" if
-          @category.nil? || !QUERY_BY_CATEGORY.key?(@category)
+      def check_category
+        return true if QUERY_BY_CATEGORY.key?(@category)
+
+        raise ArgumentError, "Unsupported search type: #{@category.inspect}"
       end
 
-      def check_query!
-        raise ArgumentError, 'Query cannot be blank' if @query.to_s.strip.empty?
+      def check_query
+        return true unless @query.to_s.strip.empty?
+
+        raise ArgumentError, 'Query cannot be blank'
       end
 
       def params

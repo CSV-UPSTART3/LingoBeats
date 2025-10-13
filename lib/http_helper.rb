@@ -8,14 +8,17 @@ module LingoBeats
   module HttpHelper
     # Provides HTTP Request helper
     class Request
-      def initialize(root, token)
-        @root = root
-        @token = token
+      def initialize(headers)
+        @headers = headers
       end
 
       def get(url, params: {})
-        http_response = HTTP.headers('Authorization' => "Bearer #{@token}")
-                            .get(url, params: params)
+        http_response = HTTP.headers(@headers).get(url, params: params)
+        Response.new(http_response).parse_result
+      end
+
+      def post(url, form: {})
+        http_response = HTTP.headers(@headers).post(url, form: form)
         Response.new(http_response).parse_result
       end
     end
