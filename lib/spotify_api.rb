@@ -4,7 +4,6 @@ require 'fileutils'
 require 'http'
 require 'yaml'
 require_relative 'spotify_token'
-require_relative 'http_helper'
 require_relative 'spotify_track_normalizer'
 
 module LingoBeats
@@ -29,8 +28,13 @@ module LingoBeats
     # search songs with specified condition
     def search_songs(category:, query:, **options)
       spec = SearchSpec.new(category: category, query: query, options: options)
-      results = LingoBeats::Request.new(BASE_PATH, @spotify_token).spotify_songs(method: 'search', params: spec.params)
+      results = LingoBeats::Request.new(BASE_PATH, @spotify_token)
+                                   .get(spotify_search_url('search'), params: spec.params)
       LingoBeats::SpotifyTrackNormalizer.normalize_results(results)
+    end
+
+    def spotify_search_url(method)
+      "#{BASE_PATH}#{method}"
     end
 
     # ---- nested class (internal) ----

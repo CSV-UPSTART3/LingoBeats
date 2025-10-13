@@ -2,54 +2,53 @@
 
 require 'http'
 require 'json'
+require 'rack/utils'
 
 module LingoBeats
-  # Provides result parser
-  module HttpHelper
-    # Customizes for api error
+  # Provides HTTP Request helper
+  class Request
+    def initialize(root, token)
+      @root = root
+      @token = token
+    end
+
+    def get(url, params: {})
+      http_response = HTTP.headers('Authorization' => "Bearer #{@token}")
+                          .get(url, params: params)
+      Response.new(http_response).parse_result
+    end
+  end
+
+  # Provides HTTP Response helper with success/error
+  class Response
+    # generalize api exception
     class ApiError < StandardError
       attr_reader :status, :body
 
-      def initialize(message, status:, body:)
+      def initialize(message, status:, body: nil)
         super(message)
         @status = status
         @body = body
       end
     end
 
-    module_function
+    HTTP_STATUS = Rack::Utils::HTTP_STATUS_CODES.freeze
 
-    def parse_json!(res)
-      body = parse_body(res)
-      status = res.status
-      raise ApiError.new('API Error', status: status.to_i, body: body) unless status.success?
+    def parse_params
+      status_obj = __getobj__.status
+      code = status_obj.to_i
+      text = __getobj__.body.to_s
+      body = text.empty? ? {} : JSON.parse(text)
 
-      body
+      [status_obj, code, body]
     end
 
-    def parse_body(res)
-      text = res.body.to_s
-      text.empty? ? {} : JSON.parse(text)
-    end
-    private_class_method :parse_body
-  end
+    def parse_result
+      status_obj, code, body = parse_params
+      return body if status_obj.success?
 
-  # Provides HTTP request helper
-  class Request
-    include HttpHelper
-
-    def initialize(root, token)
-      @root = root
-      @token = token
-    end
-
-    def spotify_songs(method:, params: {})
-      get(@root + method, params: params)
-    end
-
-    def get(url, params: {})
-      http_response = HTTP.headers('Authorization' => "Bearer #{@token}").get(url, params: params)
-      parse_json!(http_response)
+      msg = HTTP_STATUS[code] || 'Unknown Error'
+      raise ApiError.new(msg, status: code, body: body)
     end
   end
 end

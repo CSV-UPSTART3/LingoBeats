@@ -106,6 +106,7 @@ GEM
     prism (1.5.1)
     public_suffix (6.0.2)
     racc (1.8.1)
+    rack (3.2.3)
     rainbow (3.1.1)
     rake (13.3.0)
     reek (6.5.0)
@@ -175,6 +176,7 @@ DEPENDENCIES
   minitest (~> 5.0)
   minitest-rg (~> 5.0)
   nokogiri
+  rack (~> 3.2)
   reek
   rubocop
   rubocop-minitest (~> 0.38.2)
