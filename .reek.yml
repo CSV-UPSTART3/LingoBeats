@@ -1,0 +1,7 @@
+---
+  detectors:
+    IrresponsibleModule:
+      enabled: false
+  exclude_paths:
+    - _snippets
+    - lib/lingo_beats.rb # one-time test fixture creator
