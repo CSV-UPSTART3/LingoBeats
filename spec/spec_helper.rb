@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
-# VCR and WebMock setup for testing external API calls
-
-require 'vcr'
-require 'webmock/minitest'
 require 'simplecov'
-
 # Test coverage
 SimpleCov.start
+
+# VCR and WebMock setup for testing external API calls
+require 'vcr'
+require 'webmock/minitest'
 
 CASSETTES_FOLDER = 'spec/fixtures/cassettes'
 

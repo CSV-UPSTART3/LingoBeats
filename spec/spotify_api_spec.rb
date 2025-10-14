@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
+# use spec_helper.rb(vcr + webmock)
+require_relative 'spec_helper'
 require 'minitest/autorun'
 require 'minitest/rg'
 require 'yaml'
+require 'base64'
+require 'json'
 
 $LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
 require 'spotify_api'
-
-# use spec_helper.rb(vcr + webmock)
-require_relative 'spec_helper'
 
 ARTIST_NAME = 'Ed Sheeran'
 SONG_NAME = 'Peach'
@@ -20,6 +21,35 @@ CASSETTE_FILE = 'spotify_api' # store title for vcr
 # puts CORRECT_RESULT.size
 
 describe 'Tests Spotify API library' do
+  VCR.configure do |c|
+    c.cassette_library_dir = CASSETTES_FOLDER
+    c.hook_into :webmock
+
+    client_id = CONFIG["SPOTIFY_CLIENT_ID"]
+    client_secret = CONFIG["SPOTIFY_CLIENT_SECRET"]
+    encoded_auth = Base64.strict_encode64("#{client_id}:#{client_secret}")
+
+    c.filter_sensitive_data('<SPOTIFY_CLIENT_ID>') { client_id }
+    c.filter_sensitive_data('<SPOTIFY_CLIENT_SECRET>') { client_secret }
+    c.filter_sensitive_data('<SPOTIFY_BASIC_AUTH>') { encoded_auth }
+    c.filter_sensitive_data('<SPOTIFY_BASIC_AUTH_ESC>') { CGI.escape(encoded_auth) }
+    c.before_record do |interaction|
+      if interaction.request.headers['Authorization']&.first&.start_with?('Bearer ')
+        interaction.request.headers['Authorization'] = ['Bearer <SPOTIFY_ACCESS_TOKEN>']
+      end
+
+      begin
+        body = JSON.parse(interaction.response.body)
+        if body['access_token']
+          body['access_token'] = '<SPOTIFY_ACCESS_TOKEN>'
+          interaction.response.body = JSON.generate(body)
+        end
+      rescue JSON::ParserError
+        # Ignore non JSON response
+      end
+    end
+  end
+
   before do
     VCR.insert_cassette CASSETTE_FILE,
                         record: :new_episodes,
