@@ -29,34 +29,33 @@ module LingoBeats
       class ApiError < StandardError
         attr_reader :status, :body
 
-        def initialize(message, status:, body: nil)
-          super(message)
-          @status = status
+        HTTP_STATUS = Rack::Utils::HTTP_STATUS_CODES.freeze
+
+        def initialize(status_code:, body: nil)
+          @status_code = status_code
           @body = body
+          @message = HTTP_STATUS.fetch(@status_code, 'Unknown Error')
+          super(@message)
         end
       end
-
-      HTTP_STATUS = Rack::Utils::HTTP_STATUS_CODES.freeze
 
       def initialize(raw)
         @raw = raw
       end
 
-      def parse_params
-        status_obj = @raw.status
-        code = status_obj.to_i
-        text = @raw.body.to_s
-        body = text.empty? ? {} : JSON.parse(text)
+      def parse_result
+        status = @raw.status
+        body = parsed_body
+        return body if status.success?
 
-        [status_obj, code, body]
+        raise ApiError.new(status_code: status.to_i, body: body)
       end
 
-      def parse_result
-        status_obj, code, body = parse_params
-        return body if status_obj.success?
+      private
 
-        msg = HTTP_STATUS[code] || 'Unknown Error'
-        raise ApiError.new(msg, status: code, body: body)
+      def parsed_body
+        text = @raw.body.to_s
+        text.empty? ? {} : JSON.parse(text)
       end
     end
   end

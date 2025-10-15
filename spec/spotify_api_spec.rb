@@ -1,36 +1,20 @@
 # frozen_string_literal: true
 
-# use spec_helper.rb(vcr + webmock)
-require_relative 'spec_helper'
-require 'minitest/autorun'
-require 'minitest/rg'
-require 'yaml'
 require 'base64'
 require 'json'
 
-$LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
-require 'spotify_api'
-
-ARTIST_NAME = 'Ed Sheeran'
-SONG_NAME = 'Peach'
-CONFIG = YAML.safe_load_file('config/secrets.yml')
-CORRECT_RESULT_BY_SONG = YAML.safe_load_file('spec/fixtures/spotify_song_name_result.yml', permitted_classes: [Symbol])
-CORRECT_RESULT_BY_ARTIST = YAML.safe_load_file('spec/fixtures/spotify_artist_result.yml', permitted_classes: [Symbol])
-CASSETTE_FILE = 'spotify_api' # store title for vcr
-
-# puts CORRECT_RESULT.size
+# use spec_helper.rb(vcr + webmock)
+require_relative 'spec_helper'
 
 describe 'Tests Spotify API library' do
   VCR.configure do |c|
     c.cassette_library_dir = CASSETTES_FOLDER
     c.hook_into :webmock
 
-    client_id = CONFIG["SPOTIFY_CLIENT_ID"]
-    client_secret = CONFIG["SPOTIFY_CLIENT_SECRET"]
-    encoded_auth = Base64.strict_encode64("#{client_id}:#{client_secret}")
+    encoded_auth = Base64.strict_encode64("#{SPOTIFY_CLIENT_ID}:#{SPOTIFY_CLIENT_SECRET}")
 
-    c.filter_sensitive_data('<SPOTIFY_CLIENT_ID>') { client_id }
-    c.filter_sensitive_data('<SPOTIFY_CLIENT_SECRET>') { client_secret }
+    c.filter_sensitive_data('<SPOTIFY_CLIENT_ID>') { SPOTIFY_CLIENT_ID }
+    c.filter_sensitive_data('<SPOTIFY_CLIENT_SECRET>') { SPOTIFY_CLIENT_SECRET }
     c.filter_sensitive_data('<SPOTIFY_BASIC_AUTH>') { encoded_auth }
     c.filter_sensitive_data('<SPOTIFY_BASIC_AUTH_ESC>') { CGI.escape(encoded_auth) }
     c.before_record do |interaction|
@@ -59,21 +43,21 @@ describe 'Tests Spotify API library' do
   after do
     VCR.eject_cassette
   end
-  describe 'A Song information' do
+
+  describe 'Songs information searched by song name' do
     it 'HAPPY: should provide correct attributes of songs' do
       # check size, attribute, and important value
-      spotify_client = LingoBeats::SpotifyClient.new.search_song_by_name(SONG_NAME)
+      results = LingoBeats::Spotify::SongMapper.new(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
+                                               .search_songs_by_name(SONG_NAME)
 
-      # _(spotify_client).must_equal CORRECT_RESULT_BY_SONG
-      _(spotify_client[0].size).must_equal CORRECT_RESULT_BY_SONG[0].size
-      # _(spotify_client[0][:track]).must_equal CORRECT_RESULT_BY_SONG[0][:track]
-      _(spotify_client[0].keys.sort).must_equal CORRECT_RESULT_BY_SONG[0].keys.sort
-      _(spotify_client[0][:track]).must_equal CORRECT_RESULT_BY_SONG[0][:track]
+      _(results[0].size).must_equal CORRECT_RESULT_BY_SONG[0].size
+      _(results[0].keys.sort).must_equal CORRECT_RESULT_BY_SONG[0].keys.sort
+      _(results[0][:track]).must_equal CORRECT_RESULT_BY_SONG[0][:track]
     end
     # it 'SAD: should raise exception on incorrect song_name' do
-    #   puts LingoBeats::SpotifyClient.new.search_song_by_name("?!@#$%^&*()")
+    #   puts LingoBeats::Spotify::Api.new.search_song_by_name("?!@#$%^&*()")
     #   _(proc do
-    #   LingoBeats::SpotifyClient.new.search_song_by_name(SONG_NAME, limit: 1)
+    #   LingoBeats::Spotify::Api.new.search_song_by_name(SONG_NAME, limit: 1)
     #   end).must_raise CodePraise::GithubApi::Errors::NotFound
     # end
     # it 'SAD: should raise exception when unauthorized' do
@@ -82,17 +66,14 @@ describe 'Tests Spotify API library' do
     #   end).must_raise CodePraise::GithubApi::Errors::Unauthorized
     # end
   end
-  describe 'Multiple Songs information' do
+  describe 'Songs information searched by singer' do
     it 'HAPPY: should provide correct attributes of multiple songs' do
       # check size, attribute, and important value
-      spotify_client = LingoBeats::SpotifyClient.new.search_songs_by_artist(ARTIST_NAME)
-      # puts spotify_client.size
-      # puts spotify_client[0]
-      # _(spotify_client).must_equal CORRECT_RESULT_BY_ARTIST
-      # _(spotify_client.size).must_equal CORRECT_RESULT_BY_ARTIST.size
-      _(spotify_client[0].size).must_equal CORRECT_RESULT_BY_ARTIST[0].size
-      _(spotify_client[0].keys.sort).must_equal CORRECT_RESULT_BY_ARTIST[0].keys.sort
-      _(spotify_client[0][:track]).must_equal CORRECT_RESULT_BY_ARTIST[0][:track]
+      results = LingoBeats::Spotify::SongMapper.new(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
+                                               .search_songs_by_singer(SINGER)
+      _(results[0].size).must_equal CORRECT_RESULT_BY_SINGER[0].size
+      _(results[0].keys.sort).must_equal CORRECT_RESULT_BY_SINGER[0].keys.sort
+      _(results[0][:track]).must_equal CORRECT_RESULT_BY_SINGER[0][:track]
     end
   end
 end

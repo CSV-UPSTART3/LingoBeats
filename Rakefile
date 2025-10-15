@@ -2,8 +2,7 @@
 
 require 'rake/testtask'
 require 'fileutils'
-
-CODE_DIR = 'lib'
+require_relative 'require_app'
 
 task default: :spec
 
@@ -43,7 +42,7 @@ namespace :quality do
   desc 'Run RuboCop'
   task :rubocop do
     puts '[RuboCop]'
-    sh 'bundle exec rubocop' do
+    sh 'bundle', 'exec', 'rubocop', *CODE_DIRS do
       puts # avoid aborting
     end
   end
@@ -51,7 +50,7 @@ namespace :quality do
   desc 'Run Reek'
   task :reek do
     puts '[Reek]'
-    sh 'bundle exec reek' do
+    sh 'bundle', 'exec', 'reek', *CODE_DIRS do
       puts # avoid aborting
     end
   end
@@ -59,6 +58,6 @@ namespace :quality do
   desc 'Run Flog'
   task :flog do
     puts '[Flog]'
-    sh "bundle exec flog #{CODE_DIR}"
+    sh 'bundle', 'exec', 'flog', *CODE_DIRS
   end
 end
