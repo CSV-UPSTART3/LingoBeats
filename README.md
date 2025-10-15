@@ -18,16 +18,13 @@ Project to gather useful information from <a href="https://developer.spotify.com
   - Spotify ID of the Album
   - Album Name
   - Known external URLs for this album
-  - The source URL of the image
+  - The source URL of the album image
 
 
 ## Entities
 | Entity     | Elements                                           |
 | :--------- | :------------------------------------------------- |
-| **Track**  | `id`, `name`, `uri`, `external_url`                |
-| **Artist** | `id`, `name`, `external_url`                       |
-| **Album**  | `id`, `name`, `external_url`, `image`              |
-
+| **Song**  | `id`, `name`, `uri`, `external_url`, <br>`artist_id`, `artist_name`, `artist_url`, <br>`album_id`, `album_name`, `album_url`, `album_image_url`                |
 
 # Install
 ## Setting up this script
@@ -35,3 +32,7 @@ Project to gather useful information from <a href="https://developer.spotify.com
 * Copy `config/secrets_example.yml` to `config/secrets.yml` and update token
 * Ensure correct version of Ruby install (see `.ruby-version` for `rbenv`)
 * Run `bundle install`
+
+## Running Tests
+To run test:
+<pre><code>rake spec</pre></code>
