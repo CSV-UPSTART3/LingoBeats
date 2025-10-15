@@ -25,3 +25,7 @@ gem 'webmock', '~> 3'
 
 # Test coverage
 gem 'simplecov', '~> 0'
+
+# Entities
+gem 'dry-struct', '~> 1.8'
+gem 'dry-types', '~> 1.8'
