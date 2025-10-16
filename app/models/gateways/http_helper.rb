@@ -44,6 +44,7 @@ module LingoBeats
       end
 
       def parse_result
+        puts "test"
         status = @raw.status
         body = parsed_body
         return body if status.success?

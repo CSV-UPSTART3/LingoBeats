@@ -1,0 +1,12 @@
+.container
+  .row
+    h2.text-success.text-center.mb-4 Songs Found
+  .row
+    - songs.each do |song|
+      .col-md-4.mb-3
+        .card.shadow-sm
+          img.card-img-top src=song[:album_image_url]
+          .card-body
+            h5.card-title = song[:track]
+            p.card-text = song[:artist_name]
+            a.btn.btn-sm.btn-success href=song[:external_url] target="_blank" Listen on Spotify

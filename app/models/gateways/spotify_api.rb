@@ -22,10 +22,9 @@ module LingoBeats
       end
 
       # search songs with specified condition
-      def songs_data(category:, query:, **options)
-        spec = SearchSpec.new(category: category, query: query, options: options)
-        HttpHelper::Request.new('Authorization' => "Bearer #{@token_manager.access_token}")
-                           .get(spotify_search_url('search'), params: spec.params)
+      def songs_data(category:, query:, limit:)
+        spec = SearchSpec.new(category: category, query: query, limit: limit)
+        HttpHelper::Request.new('Authorization' => "Bearer #{@token_manager.access_token}").get(spotify_search_url('search'), params: spec.params)
       end
 
       private
@@ -109,12 +108,12 @@ module LingoBeats
 
       # Function for search preparation and validation
       class SearchSpec
-        QUERY_BY_CATEGORY = { artist: 'artist', song_name: 'track' }.freeze
+        QUERY_BY_CATEGORY = { 'singer' => 'artist', 'song_name' => 'track' }.freeze
 
-        def initialize(category:, query:, options: {})
-          @category = category.is_a?(Symbol) ? category : category.downcase.to_sym
+        def initialize(category:, query:, limit:)
+          @category = category.to_s.downcase
           @query = query
-          @options = options
+          @limit = limit
 
           check_category
           check_query
@@ -122,7 +121,7 @@ module LingoBeats
 
         def check_category
           return true if QUERY_BY_CATEGORY.key?(@category)
-
+          
           raise ArgumentError, "Unsupported search type: #{@category.inspect}"
         end
 
@@ -136,8 +135,9 @@ module LingoBeats
           {
             type: 'track',
             market: 'US',
-            q: %(#{QUERY_BY_CATEGORY[@category]}:"#{@query}")
-          }.merge(@options)
+            q: %(#{QUERY_BY_CATEGORY[@category]}:"#{@query}"),
+            limit: @limit
+          }
         end
       end
 

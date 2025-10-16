@@ -1,148 +1,6 @@
 ---
 http_interactions:
 - request:
-    method: get
-    uri: https://api.spotify.com/v1/search?limit=3&market=US&q=artist:%22Ed%20Sheeran%22&type=track
-    body:
-      encoding: ASCII-8BIT
-      string: ''
-    headers:
-      Authorization:
-      - Bearer <SPOTIFY_ACCESS_TOKEN>
-      Connection:
-      - close
-      Host:
-      - api.spotify.com
-      User-Agent:
-      - http.rb/5.3.1
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Cache-Control:
-      - public, max-age=0
-      Etag:
-      - '"MC-ImEwZDE2ZGI3MWM0MDlhYzU0NDI1MzE1MGFhNzc5NGFjIg=="'
-      X-Robots-Tag:
-      - noindex, nofollow
-      Access-Control-Allow-Origin:
-      - "*"
-      Access-Control-Allow-Headers:
-      - Accept, App-Platform, Authorization, Content-Type, Origin, Retry-After, Spotify-App-Version,
-        X-Cloud-Trace-Context, client-token, content-access-token
-      Access-Control-Allow-Methods:
-      - GET, POST, OPTIONS, PUT, DELETE, PATCH
-      Access-Control-Allow-Credentials:
-      - 'true'
-      Access-Control-Max-Age:
-      - '604800'
-      Content-Length:
-      - '5700'
-      Strict-Transport-Security:
-      - max-age=31536000
-      X-Content-Type-Options:
-      - nosniff
-      Alt-Svc:
-      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-      Vary:
-      - Accept-Encoding
-      Date:
-      - Wed, 15 Oct 2025 15:20:47 GMT
-      Server:
-      - envoy
-      Via:
-      - HTTP/2 edgeproxy, 1.1 google
-      Connection:
-      - close
-    body:
-      encoding: UTF-8
-      string: '{"tracks":{"href":"https://api.spotify.com/v1/search?offset=0&limit=3&query=artist%3A%22Ed%20Sheeran%22&type=track&market=US","limit":3,"next":"https://api.spotify.com/v1/search?offset=3&limit=3&query=artist%3A%22Ed%20Sheeran%22&type=track&market=US","offset":0,"previous":null,"total":108,"items":[{"album":{"album_type":"single","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"external_urls":{"spotify":"https://open.spotify.com/album/2omUdWl7EtzzGxU3JPFPjx"},"href":"https://api.spotify.com/v1/albums/2omUdWl7EtzzGxU3JPFPjx","id":"2omUdWl7EtzzGxU3JPFPjx","images":[{"height":720,"width":1280,"url":"https://i.scdn.co/image/ab6742d3000053b7e3f6d39c2206626654910a11"},{"height":720,"width":1280,"url":"https://i.scdn.co/image/ab6742d3000053b7e3f6d39c2206626654910a11"},{"height":360,"width":640,"url":"https://i.scdn.co/image/ab6742d3000052b7e3f6d39c2206626654910a11"}],"is_playable":true,"name":"Perfect
-        (with Andrea Bocelli)","release_date":"2017-12-15","release_date_precision":"day","total_tracks":1,"type":"album","uri":"spotify:album:2omUdWl7EtzzGxU3JPFPjx"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"},{"external_urls":{"spotify":"https://open.spotify.com/artist/3EA9hVIzKfFiQI0Kikz2wo"},"href":"https://api.spotify.com/v1/artists/3EA9hVIzKfFiQI0Kikz2wo","id":"3EA9hVIzKfFiQI0Kikz2wo","name":"Andrea
-        Bocelli","type":"artist","uri":"spotify:artist:3EA9hVIzKfFiQI0Kikz2wo"}],"disc_number":1,"duration_ms":334421,"explicit":false,"external_ids":{"isrc":"GB1301700803"},"external_urls":{"spotify":"https://open.spotify.com/track/6UzK1shbzXmEyOO8a8mlmD"},"href":"https://api.spotify.com/v1/tracks/6UzK1shbzXmEyOO8a8mlmD","id":"6UzK1shbzXmEyOO8a8mlmD","is_local":false,"is_playable":false,"name":"Perfect
-        (with Andrea Bocelli)","popularity":19,"preview_url":null,"track_number":1,"type":"track","uri":"spotify:track:6UzK1shbzXmEyOO8a8mlmD"},{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"external_urls":{"spotify":"https://open.spotify.com/album/3T4tUhGYeRNVUGevb0wThu"},"href":"https://api.spotify.com/v1/albums/3T4tUhGYeRNVUGevb0wThu","id":"3T4tUhGYeRNVUGevb0wThu","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e02ba5db46f4b838ef6027e6f96"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d00004851ba5db46f4b838ef6027e6f96"}],"is_playable":true,"name":"÷
-        (Deluxe)","release_date":"2017-03-03","release_date_precision":"day","total_tracks":16,"type":"album","uri":"spotify:album:3T4tUhGYeRNVUGevb0wThu"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"disc_number":1,"duration_ms":233712,"explicit":false,"external_ids":{"isrc":"GBAHS1600463"},"external_urls":{"spotify":"https://open.spotify.com/track/7qiZfU4dY1lWllzX7mPBI3"},"href":"https://api.spotify.com/v1/tracks/7qiZfU4dY1lWllzX7mPBI3","id":"7qiZfU4dY1lWllzX7mPBI3","is_local":false,"is_playable":true,"name":"Shape
-        of You","popularity":88,"preview_url":null,"track_number":4,"type":"track","uri":"spotify:track:7qiZfU4dY1lWllzX7mPBI3"},{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"external_urls":{"spotify":"https://open.spotify.com/album/3T4tUhGYeRNVUGevb0wThu"},"href":"https://api.spotify.com/v1/albums/3T4tUhGYeRNVUGevb0wThu","id":"3T4tUhGYeRNVUGevb0wThu","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e02ba5db46f4b838ef6027e6f96"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d00004851ba5db46f4b838ef6027e6f96"}],"is_playable":true,"name":"÷
-        (Deluxe)","release_date":"2017-03-03","release_date_precision":"day","total_tracks":16,"type":"album","uri":"spotify:album:3T4tUhGYeRNVUGevb0wThu"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"disc_number":1,"duration_ms":263400,"explicit":false,"external_ids":{"isrc":"GBAHS1700024"},"external_urls":{"spotify":"https://open.spotify.com/track/0tgVpDi06FyKpA1z0VMD4v"},"href":"https://api.spotify.com/v1/tracks/0tgVpDi06FyKpA1z0VMD4v","id":"0tgVpDi06FyKpA1z0VMD4v","is_local":false,"is_playable":true,"name":"Perfect","popularity":88,"preview_url":null,"track_number":5,"type":"track","uri":"spotify:track:0tgVpDi06FyKpA1z0VMD4v"}]}}'
-  recorded_at: Wed, 15 Oct 2025 15:20:48 GMT
-- request:
-    method: get
-    uri: https://api.spotify.com/v1/search?limit=3&market=US&q=track:%22Peach%22&type=track
-    body:
-      encoding: ASCII-8BIT
-      string: ''
-    headers:
-      Authorization:
-      - Bearer <SPOTIFY_ACCESS_TOKEN>
-      Connection:
-      - close
-      Host:
-      - api.spotify.com
-      User-Agent:
-      - http.rb/5.3.1
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Cache-Control:
-      - public, max-age=0
-      Etag:
-      - '"MC-ImFhYjIyMGViY2JmM2QyNjhjZWI5ZmNjY2QwNGI4YTg4Ig=="'
-      X-Robots-Tag:
-      - noindex, nofollow
-      Access-Control-Allow-Origin:
-      - "*"
-      Access-Control-Allow-Headers:
-      - Accept, App-Platform, Authorization, Content-Type, Origin, Retry-After, Spotify-App-Version,
-        X-Cloud-Trace-Context, client-token, content-access-token
-      Access-Control-Allow-Methods:
-      - GET, POST, OPTIONS, PUT, DELETE, PATCH
-      Access-Control-Allow-Credentials:
-      - 'true'
-      Access-Control-Max-Age:
-      - '604800'
-      Content-Length:
-      - '4134'
-      Strict-Transport-Security:
-      - max-age=31536000
-      X-Content-Type-Options:
-      - nosniff
-      Alt-Svc:
-      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-      Vary:
-      - Accept-Encoding
-      Date:
-      - Wed, 15 Oct 2025 15:20:48 GMT
-      Server:
-      - envoy
-      Via:
-      - HTTP/2 edgeproxy, 1.1 google
-      Connection:
-      - close
-    body:
-      encoding: UTF-8
-      string: '{"tracks":{"href":"https://api.spotify.com/v1/search?offset=0&limit=3&query=track%3A%22Peach%22&type=track&market=US","limit":3,"next":null,"offset":0,"previous":null,"total":2,"items":[{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/1uNFoZAHBGtllmzznpCI3s"},"href":"https://api.spotify.com/v1/artists/1uNFoZAHBGtllmzznpCI3s","id":"1uNFoZAHBGtllmzznpCI3s","name":"Justin
-        Bieber","type":"artist","uri":"spotify:artist:1uNFoZAHBGtllmzznpCI3s"}],"external_urls":{"spotify":"https://open.spotify.com/album/5dGWwsZ9iB2Xc3UKR0gif2"},"href":"https://api.spotify.com/v1/albums/5dGWwsZ9iB2Xc3UKR0gif2","id":"5dGWwsZ9iB2Xc3UKR0gif2","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b273e6f407c7f3a0ec98845e4431"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e02e6f407c7f3a0ec98845e4431"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d00004851e6f407c7f3a0ec98845e4431"}],"is_playable":true,"name":"Justice","release_date":"2021-03-19","release_date_precision":"day","total_tracks":16,"type":"album","uri":"spotify:album:5dGWwsZ9iB2Xc3UKR0gif2"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/1uNFoZAHBGtllmzznpCI3s"},"href":"https://api.spotify.com/v1/artists/1uNFoZAHBGtllmzznpCI3s","id":"1uNFoZAHBGtllmzznpCI3s","name":"Justin
-        Bieber","type":"artist","uri":"spotify:artist:1uNFoZAHBGtllmzznpCI3s"},{"external_urls":{"spotify":"https://open.spotify.com/artist/20wkVLutqVOYrc0kxFs7rA"},"href":"https://api.spotify.com/v1/artists/20wkVLutqVOYrc0kxFs7rA","id":"20wkVLutqVOYrc0kxFs7rA","name":"Daniel
-        Caesar","type":"artist","uri":"spotify:artist:20wkVLutqVOYrc0kxFs7rA"},{"external_urls":{"spotify":"https://open.spotify.com/artist/4fxd5Ee7UefO4CUXgwJ7IP"},"href":"https://api.spotify.com/v1/artists/4fxd5Ee7UefO4CUXgwJ7IP","id":"4fxd5Ee7UefO4CUXgwJ7IP","name":"GIVĒON","type":"artist","uri":"spotify:artist:4fxd5Ee7UefO4CUXgwJ7IP"}],"disc_number":1,"duration_ms":198081,"explicit":true,"external_ids":{"isrc":"USUM72102636"},"external_urls":{"spotify":"https://open.spotify.com/track/4iJyoBOLtHqaGxP12qzhQI"},"href":"https://api.spotify.com/v1/tracks/4iJyoBOLtHqaGxP12qzhQI","id":"4iJyoBOLtHqaGxP12qzhQI","is_local":false,"is_playable":true,"name":"Peaches
-        (feat. Daniel Caesar & Giveon)","popularity":80,"preview_url":null,"track_number":12,"type":"track","uri":"spotify:track:4iJyoBOLtHqaGxP12qzhQI"},{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/7n2Ycct7Beij7Dj7meI4X0"},"href":"https://api.spotify.com/v1/artists/7n2Ycct7Beij7Dj7meI4X0","id":"7n2Ycct7Beij7Dj7meI4X0","name":"TWICE","type":"artist","uri":"spotify:artist:7n2Ycct7Beij7Dj7meI4X0"}],"external_urls":{"spotify":"https://open.spotify.com/album/02dUOPB3MtmV5fawzaZiq6"},"href":"https://api.spotify.com/v1/albums/02dUOPB3MtmV5fawzaZiq6","id":"02dUOPB3MtmV5fawzaZiq6","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b2737f5ac389dbcaf7a8c17371e3"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e027f5ac389dbcaf7a8c17371e3"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d000048517f5ac389dbcaf7a8c17371e3"}],"is_playable":true,"name":"THIS
-        IS FOR","release_date":"2025-07-11","release_date_precision":"day","total_tracks":14,"type":"album","uri":"spotify:album:02dUOPB3MtmV5fawzaZiq6"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/7n2Ycct7Beij7Dj7meI4X0"},"href":"https://api.spotify.com/v1/artists/7n2Ycct7Beij7Dj7meI4X0","id":"7n2Ycct7Beij7Dj7meI4X0","name":"TWICE","type":"artist","uri":"spotify:artist:7n2Ycct7Beij7Dj7meI4X0"}],"disc_number":1,"duration_ms":138200,"explicit":false,"external_ids":{"isrc":"US5TA2500107"},"external_urls":{"spotify":"https://open.spotify.com/track/5DmLFST9kbQ932k5far6Rl"},"href":"https://api.spotify.com/v1/tracks/5DmLFST9kbQ932k5far6Rl","id":"5DmLFST9kbQ932k5far6Rl","is_local":false,"is_playable":true,"name":"PEACH
-        GELATO","popularity":61,"preview_url":null,"track_number":6,"type":"track","uri":"spotify:track:5DmLFST9kbQ932k5far6Rl"}]}}'
-  recorded_at: Wed, 15 Oct 2025 15:20:49 GMT
-- request:
     method: post
     uri: https://accounts.spotify.com/api/token
     body:
@@ -165,18 +23,18 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 15 Oct 2025 15:27:11 GMT
+      - Thu, 16 Oct 2025 12:36:19 GMT
       Content-Type:
       - application/json
       Content-Length:
       - '198'
       Request-Id:
-      - 9d7ef622-e62b-4810-a54f-cd6bec374fa2
+      - 298f329c-b955-45b1-95cf-7f4ab1f9e1c9
       Set-Cookie:
-      - __Host-device_id=AQASMFpRTP6HcGNyr3nmpvljkqq5ejzlO4I_-W1zgZdk5cs0mh9e3AU9swXQ0n4aAgvw8HABtPhScYJvKzFtflYf1e5fDCHC_QQ;Version=1;Path=/;Max-Age=2147483647;Secure;HttpOnly;SameSite=Lax
+      - __Host-device_id=AQBYJdwiQrqqvCa8rZ-NGtZTfs6Xqs3PzTnuY4nkOg2jMJs3fB1gJZg64eOuZznp4wiZqt7YkWAMeV5wHpKZcGkLFEmTHkAPQdg;Version=1;Path=/;Max-Age=2147483647;Secure;HttpOnly;SameSite=Lax
       - sp_tr=false;Version=1;Domain=accounts.spotify.com;Path=/;Secure;SameSite=Lax
       X-Envoy-Upstream-Service-Time:
-      - '12'
+      - '10'
       Server:
       - envoy
       Strict-Transport-Security:
@@ -195,75 +53,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"access_token":"<SPOTIFY_ACCESS_TOKEN>","token_type":"Bearer","expires_in":3600}'
-  recorded_at: Wed, 15 Oct 2025 15:27:11 GMT
-- request:
-    method: get
-    uri: https://api.spotify.com/v1/search?limit=3&market=US&q=track:%22Peach%22&type=track
-    body:
-      encoding: ASCII-8BIT
-      string: ''
-    headers:
-      Authorization:
-      - Bearer <SPOTIFY_ACCESS_TOKEN>
-      Connection:
-      - close
-      Host:
-      - api.spotify.com
-      User-Agent:
-      - http.rb/5.3.1
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Cache-Control:
-      - public, max-age=0
-      Etag:
-      - '"MC-ImFhYjIyMGViY2JmM2QyNjhjZWI5ZmNjY2QwNGI4YTg4Ig=="'
-      X-Robots-Tag:
-      - noindex, nofollow
-      Access-Control-Allow-Origin:
-      - "*"
-      Access-Control-Allow-Headers:
-      - Accept, App-Platform, Authorization, Content-Type, Origin, Retry-After, Spotify-App-Version,
-        X-Cloud-Trace-Context, client-token, content-access-token
-      Access-Control-Allow-Methods:
-      - GET, POST, OPTIONS, PUT, DELETE, PATCH
-      Access-Control-Allow-Credentials:
-      - 'true'
-      Access-Control-Max-Age:
-      - '604800'
-      Content-Length:
-      - '4134'
-      Strict-Transport-Security:
-      - max-age=31536000
-      X-Content-Type-Options:
-      - nosniff
-      Alt-Svc:
-      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-      Vary:
-      - Accept-Encoding
-      Date:
-      - Wed, 15 Oct 2025 15:27:11 GMT
-      Server:
-      - envoy
-      Via:
-      - HTTP/2 edgeproxy, 1.1 google
-      Connection:
-      - close
-    body:
-      encoding: UTF-8
-      string: '{"tracks":{"href":"https://api.spotify.com/v1/search?offset=0&limit=3&query=track%3A%22Peach%22&type=track&market=US","limit":3,"next":null,"offset":0,"previous":null,"total":2,"items":[{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/1uNFoZAHBGtllmzznpCI3s"},"href":"https://api.spotify.com/v1/artists/1uNFoZAHBGtllmzznpCI3s","id":"1uNFoZAHBGtllmzznpCI3s","name":"Justin
-        Bieber","type":"artist","uri":"spotify:artist:1uNFoZAHBGtllmzznpCI3s"}],"external_urls":{"spotify":"https://open.spotify.com/album/5dGWwsZ9iB2Xc3UKR0gif2"},"href":"https://api.spotify.com/v1/albums/5dGWwsZ9iB2Xc3UKR0gif2","id":"5dGWwsZ9iB2Xc3UKR0gif2","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b273e6f407c7f3a0ec98845e4431"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e02e6f407c7f3a0ec98845e4431"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d00004851e6f407c7f3a0ec98845e4431"}],"is_playable":true,"name":"Justice","release_date":"2021-03-19","release_date_precision":"day","total_tracks":16,"type":"album","uri":"spotify:album:5dGWwsZ9iB2Xc3UKR0gif2"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/1uNFoZAHBGtllmzznpCI3s"},"href":"https://api.spotify.com/v1/artists/1uNFoZAHBGtllmzznpCI3s","id":"1uNFoZAHBGtllmzznpCI3s","name":"Justin
-        Bieber","type":"artist","uri":"spotify:artist:1uNFoZAHBGtllmzznpCI3s"},{"external_urls":{"spotify":"https://open.spotify.com/artist/20wkVLutqVOYrc0kxFs7rA"},"href":"https://api.spotify.com/v1/artists/20wkVLutqVOYrc0kxFs7rA","id":"20wkVLutqVOYrc0kxFs7rA","name":"Daniel
-        Caesar","type":"artist","uri":"spotify:artist:20wkVLutqVOYrc0kxFs7rA"},{"external_urls":{"spotify":"https://open.spotify.com/artist/4fxd5Ee7UefO4CUXgwJ7IP"},"href":"https://api.spotify.com/v1/artists/4fxd5Ee7UefO4CUXgwJ7IP","id":"4fxd5Ee7UefO4CUXgwJ7IP","name":"GIVĒON","type":"artist","uri":"spotify:artist:4fxd5Ee7UefO4CUXgwJ7IP"}],"disc_number":1,"duration_ms":198081,"explicit":true,"external_ids":{"isrc":"USUM72102636"},"external_urls":{"spotify":"https://open.spotify.com/track/4iJyoBOLtHqaGxP12qzhQI"},"href":"https://api.spotify.com/v1/tracks/4iJyoBOLtHqaGxP12qzhQI","id":"4iJyoBOLtHqaGxP12qzhQI","is_local":false,"is_playable":true,"name":"Peaches
-        (feat. Daniel Caesar & Giveon)","popularity":80,"preview_url":null,"track_number":12,"type":"track","uri":"spotify:track:4iJyoBOLtHqaGxP12qzhQI"},{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/7n2Ycct7Beij7Dj7meI4X0"},"href":"https://api.spotify.com/v1/artists/7n2Ycct7Beij7Dj7meI4X0","id":"7n2Ycct7Beij7Dj7meI4X0","name":"TWICE","type":"artist","uri":"spotify:artist:7n2Ycct7Beij7Dj7meI4X0"}],"external_urls":{"spotify":"https://open.spotify.com/album/02dUOPB3MtmV5fawzaZiq6"},"href":"https://api.spotify.com/v1/albums/02dUOPB3MtmV5fawzaZiq6","id":"02dUOPB3MtmV5fawzaZiq6","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b2737f5ac389dbcaf7a8c17371e3"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e027f5ac389dbcaf7a8c17371e3"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d000048517f5ac389dbcaf7a8c17371e3"}],"is_playable":true,"name":"THIS
-        IS FOR","release_date":"2025-07-11","release_date_precision":"day","total_tracks":14,"type":"album","uri":"spotify:album:02dUOPB3MtmV5fawzaZiq6"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/7n2Ycct7Beij7Dj7meI4X0"},"href":"https://api.spotify.com/v1/artists/7n2Ycct7Beij7Dj7meI4X0","id":"7n2Ycct7Beij7Dj7meI4X0","name":"TWICE","type":"artist","uri":"spotify:artist:7n2Ycct7Beij7Dj7meI4X0"}],"disc_number":1,"duration_ms":138200,"explicit":false,"external_ids":{"isrc":"US5TA2500107"},"external_urls":{"spotify":"https://open.spotify.com/track/5DmLFST9kbQ932k5far6Rl"},"href":"https://api.spotify.com/v1/tracks/5DmLFST9kbQ932k5far6Rl","id":"5DmLFST9kbQ932k5far6Rl","is_local":false,"is_playable":true,"name":"PEACH
-        GELATO","popularity":61,"preview_url":null,"track_number":6,"type":"track","uri":"spotify:track:5DmLFST9kbQ932k5far6Rl"}]}}'
-  recorded_at: Wed, 15 Oct 2025 15:27:11 GMT
+  recorded_at: Thu, 16 Oct 2025 12:36:19 GMT
 - request:
     method: get
     uri: https://api.spotify.com/v1/search?limit=3&market=US&q=artist:%22Ed%20Sheeran%22&type=track
@@ -289,7 +79,7 @@ http_interactions:
       Cache-Control:
       - public, max-age=0
       Etag:
-      - '"MC-ImEwZDE2ZGI3MWM0MDlhYzU0NDI1MzE1MGFhNzc5NGFjIg=="'
+      - '"MC-ImFlMmUyOTFkYTBkMTZlNGQyYzU3ZjlmMjAzYzdhMWRiIg=="'
       X-Robots-Tag:
       - noindex, nofollow
       Access-Control-Allow-Origin:
@@ -304,7 +94,7 @@ http_interactions:
       Access-Control-Max-Age:
       - '604800'
       Content-Length:
-      - '5700'
+      - '3692'
       Strict-Transport-Security:
       - max-age=31536000
       X-Content-Type-Options:
@@ -315,7 +105,7 @@ http_interactions:
       Vary:
       - Accept-Encoding
       Date:
-      - Wed, 15 Oct 2025 15:27:11 GMT
+      - Thu, 16 Oct 2025 12:36:19 GMT
       Server:
       - envoy
       Via:
@@ -324,94 +114,15 @@ http_interactions:
       - close
     body:
       encoding: UTF-8
-      string: '{"tracks":{"href":"https://api.spotify.com/v1/search?offset=0&limit=3&query=artist%3A%22Ed%20Sheeran%22&type=track&market=US","limit":3,"next":"https://api.spotify.com/v1/search?offset=3&limit=3&query=artist%3A%22Ed%20Sheeran%22&type=track&market=US","offset":0,"previous":null,"total":108,"items":[{"album":{"album_type":"single","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"external_urls":{"spotify":"https://open.spotify.com/album/2omUdWl7EtzzGxU3JPFPjx"},"href":"https://api.spotify.com/v1/albums/2omUdWl7EtzzGxU3JPFPjx","id":"2omUdWl7EtzzGxU3JPFPjx","images":[{"height":720,"width":1280,"url":"https://i.scdn.co/image/ab6742d3000053b7e3f6d39c2206626654910a11"},{"height":720,"width":1280,"url":"https://i.scdn.co/image/ab6742d3000053b7e3f6d39c2206626654910a11"},{"height":360,"width":640,"url":"https://i.scdn.co/image/ab6742d3000052b7e3f6d39c2206626654910a11"}],"is_playable":true,"name":"Perfect
-        (with Andrea Bocelli)","release_date":"2017-12-15","release_date_precision":"day","total_tracks":1,"type":"album","uri":"spotify:album:2omUdWl7EtzzGxU3JPFPjx"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"},{"external_urls":{"spotify":"https://open.spotify.com/artist/3EA9hVIzKfFiQI0Kikz2wo"},"href":"https://api.spotify.com/v1/artists/3EA9hVIzKfFiQI0Kikz2wo","id":"3EA9hVIzKfFiQI0Kikz2wo","name":"Andrea
-        Bocelli","type":"artist","uri":"spotify:artist:3EA9hVIzKfFiQI0Kikz2wo"}],"disc_number":1,"duration_ms":334421,"explicit":false,"external_ids":{"isrc":"GB1301700803"},"external_urls":{"spotify":"https://open.spotify.com/track/6UzK1shbzXmEyOO8a8mlmD"},"href":"https://api.spotify.com/v1/tracks/6UzK1shbzXmEyOO8a8mlmD","id":"6UzK1shbzXmEyOO8a8mlmD","is_local":false,"is_playable":false,"name":"Perfect
-        (with Andrea Bocelli)","popularity":19,"preview_url":null,"track_number":1,"type":"track","uri":"spotify:track:6UzK1shbzXmEyOO8a8mlmD"},{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
+      string: '{"tracks":{"href":"https://api.spotify.com/v1/search?offset=0&limit=3&query=artist%3A%22Ed%20Sheeran%22&type=track&market=US","limit":3,"next":"https://api.spotify.com/v1/search?offset=3&limit=3&query=artist%3A%22Ed%20Sheeran%22&type=track&market=US","offset":0,"previous":null,"total":101,"items":[{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
+        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"external_urls":{"spotify":"https://open.spotify.com/album/3T4tUhGYeRNVUGevb0wThu"},"href":"https://api.spotify.com/v1/albums/3T4tUhGYeRNVUGevb0wThu","id":"3T4tUhGYeRNVUGevb0wThu","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e02ba5db46f4b838ef6027e6f96"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d00004851ba5db46f4b838ef6027e6f96"}],"is_playable":true,"name":"÷
+        (Deluxe)","release_date":"2017-03-03","release_date_precision":"day","total_tracks":16,"type":"album","uri":"spotify:album:3T4tUhGYeRNVUGevb0wThu"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
+        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"disc_number":1,"duration_ms":263400,"explicit":false,"external_ids":{"isrc":"GBAHS1700024"},"external_urls":{"spotify":"https://open.spotify.com/track/0tgVpDi06FyKpA1z0VMD4v"},"href":"https://api.spotify.com/v1/tracks/0tgVpDi06FyKpA1z0VMD4v","id":"0tgVpDi06FyKpA1z0VMD4v","is_local":false,"is_playable":true,"name":"Perfect","popularity":88,"preview_url":null,"track_number":5,"type":"track","uri":"spotify:track:0tgVpDi06FyKpA1z0VMD4v"},{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
         Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"external_urls":{"spotify":"https://open.spotify.com/album/3T4tUhGYeRNVUGevb0wThu"},"href":"https://api.spotify.com/v1/albums/3T4tUhGYeRNVUGevb0wThu","id":"3T4tUhGYeRNVUGevb0wThu","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e02ba5db46f4b838ef6027e6f96"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d00004851ba5db46f4b838ef6027e6f96"}],"is_playable":true,"name":"÷
         (Deluxe)","release_date":"2017-03-03","release_date_precision":"day","total_tracks":16,"type":"album","uri":"spotify:album:3T4tUhGYeRNVUGevb0wThu"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
         Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"disc_number":1,"duration_ms":233712,"explicit":false,"external_ids":{"isrc":"GBAHS1600463"},"external_urls":{"spotify":"https://open.spotify.com/track/7qiZfU4dY1lWllzX7mPBI3"},"href":"https://api.spotify.com/v1/tracks/7qiZfU4dY1lWllzX7mPBI3","id":"7qiZfU4dY1lWllzX7mPBI3","is_local":false,"is_playable":true,"name":"Shape
-        of You","popularity":88,"preview_url":null,"track_number":4,"type":"track","uri":"spotify:track:7qiZfU4dY1lWllzX7mPBI3"},{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"external_urls":{"spotify":"https://open.spotify.com/album/3T4tUhGYeRNVUGevb0wThu"},"href":"https://api.spotify.com/v1/albums/3T4tUhGYeRNVUGevb0wThu","id":"3T4tUhGYeRNVUGevb0wThu","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e02ba5db46f4b838ef6027e6f96"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d00004851ba5db46f4b838ef6027e6f96"}],"is_playable":true,"name":"÷
-        (Deluxe)","release_date":"2017-03-03","release_date_precision":"day","total_tracks":16,"type":"album","uri":"spotify:album:3T4tUhGYeRNVUGevb0wThu"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"disc_number":1,"duration_ms":263400,"explicit":false,"external_ids":{"isrc":"GBAHS1700024"},"external_urls":{"spotify":"https://open.spotify.com/track/0tgVpDi06FyKpA1z0VMD4v"},"href":"https://api.spotify.com/v1/tracks/0tgVpDi06FyKpA1z0VMD4v","id":"0tgVpDi06FyKpA1z0VMD4v","is_local":false,"is_playable":true,"name":"Perfect","popularity":88,"preview_url":null,"track_number":5,"type":"track","uri":"spotify:track:0tgVpDi06FyKpA1z0VMD4v"}]}}'
-  recorded_at: Wed, 15 Oct 2025 15:27:11 GMT
-- request:
-    method: get
-    uri: https://api.spotify.com/v1/search?limit=3&market=US&q=artist:%22Ed%20Sheeran%22&type=track
-    body:
-      encoding: ASCII-8BIT
-      string: ''
-    headers:
-      Authorization:
-      - Bearer <SPOTIFY_ACCESS_TOKEN>
-      Connection:
-      - close
-      Host:
-      - api.spotify.com
-      User-Agent:
-      - http.rb/5.3.1
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Cache-Control:
-      - public, max-age=0
-      Etag:
-      - '"MC-ImEwZDE2ZGI3MWM0MDlhYzU0NDI1MzE1MGFhNzc5NGFjIg=="'
-      X-Robots-Tag:
-      - noindex, nofollow
-      Access-Control-Allow-Origin:
-      - "*"
-      Access-Control-Allow-Headers:
-      - Accept, App-Platform, Authorization, Content-Type, Origin, Retry-After, Spotify-App-Version,
-        X-Cloud-Trace-Context, client-token, content-access-token
-      Access-Control-Allow-Methods:
-      - GET, POST, OPTIONS, PUT, DELETE, PATCH
-      Access-Control-Allow-Credentials:
-      - 'true'
-      Access-Control-Max-Age:
-      - '604800'
-      Content-Length:
-      - '5700'
-      Strict-Transport-Security:
-      - max-age=31536000
-      X-Content-Type-Options:
-      - nosniff
-      Alt-Svc:
-      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-      Vary:
-      - Accept-Encoding
-      Date:
-      - Wed, 15 Oct 2025 15:36:22 GMT
-      Server:
-      - envoy
-      Via:
-      - HTTP/2 edgeproxy, 1.1 google
-      Connection:
-      - close
-    body:
-      encoding: UTF-8
-      string: '{"tracks":{"href":"https://api.spotify.com/v1/search?offset=0&limit=3&query=artist%3A%22Ed%20Sheeran%22&type=track&market=US","limit":3,"next":"https://api.spotify.com/v1/search?offset=3&limit=3&query=artist%3A%22Ed%20Sheeran%22&type=track&market=US","offset":0,"previous":null,"total":108,"items":[{"album":{"album_type":"single","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"external_urls":{"spotify":"https://open.spotify.com/album/2omUdWl7EtzzGxU3JPFPjx"},"href":"https://api.spotify.com/v1/albums/2omUdWl7EtzzGxU3JPFPjx","id":"2omUdWl7EtzzGxU3JPFPjx","images":[{"height":720,"width":1280,"url":"https://i.scdn.co/image/ab6742d3000053b7e3f6d39c2206626654910a11"},{"height":720,"width":1280,"url":"https://i.scdn.co/image/ab6742d3000053b7e3f6d39c2206626654910a11"},{"height":360,"width":640,"url":"https://i.scdn.co/image/ab6742d3000052b7e3f6d39c2206626654910a11"}],"is_playable":true,"name":"Perfect
-        (with Andrea Bocelli)","release_date":"2017-12-15","release_date_precision":"day","total_tracks":1,"type":"album","uri":"spotify:album:2omUdWl7EtzzGxU3JPFPjx"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"},{"external_urls":{"spotify":"https://open.spotify.com/artist/3EA9hVIzKfFiQI0Kikz2wo"},"href":"https://api.spotify.com/v1/artists/3EA9hVIzKfFiQI0Kikz2wo","id":"3EA9hVIzKfFiQI0Kikz2wo","name":"Andrea
-        Bocelli","type":"artist","uri":"spotify:artist:3EA9hVIzKfFiQI0Kikz2wo"}],"disc_number":1,"duration_ms":334421,"explicit":false,"external_ids":{"isrc":"GB1301700803"},"external_urls":{"spotify":"https://open.spotify.com/track/6UzK1shbzXmEyOO8a8mlmD"},"href":"https://api.spotify.com/v1/tracks/6UzK1shbzXmEyOO8a8mlmD","id":"6UzK1shbzXmEyOO8a8mlmD","is_local":false,"is_playable":false,"name":"Perfect
-        (with Andrea Bocelli)","popularity":19,"preview_url":null,"track_number":1,"type":"track","uri":"spotify:track:6UzK1shbzXmEyOO8a8mlmD"},{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"external_urls":{"spotify":"https://open.spotify.com/album/3T4tUhGYeRNVUGevb0wThu"},"href":"https://api.spotify.com/v1/albums/3T4tUhGYeRNVUGevb0wThu","id":"3T4tUhGYeRNVUGevb0wThu","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e02ba5db46f4b838ef6027e6f96"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d00004851ba5db46f4b838ef6027e6f96"}],"is_playable":true,"name":"÷
-        (Deluxe)","release_date":"2017-03-03","release_date_precision":"day","total_tracks":16,"type":"album","uri":"spotify:album:3T4tUhGYeRNVUGevb0wThu"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"disc_number":1,"duration_ms":233712,"explicit":false,"external_ids":{"isrc":"GBAHS1600463"},"external_urls":{"spotify":"https://open.spotify.com/track/7qiZfU4dY1lWllzX7mPBI3"},"href":"https://api.spotify.com/v1/tracks/7qiZfU4dY1lWllzX7mPBI3","id":"7qiZfU4dY1lWllzX7mPBI3","is_local":false,"is_playable":true,"name":"Shape
-        of You","popularity":88,"preview_url":null,"track_number":4,"type":"track","uri":"spotify:track:7qiZfU4dY1lWllzX7mPBI3"},{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"external_urls":{"spotify":"https://open.spotify.com/album/3T4tUhGYeRNVUGevb0wThu"},"href":"https://api.spotify.com/v1/albums/3T4tUhGYeRNVUGevb0wThu","id":"3T4tUhGYeRNVUGevb0wThu","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e02ba5db46f4b838ef6027e6f96"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d00004851ba5db46f4b838ef6027e6f96"}],"is_playable":true,"name":"÷
-        (Deluxe)","release_date":"2017-03-03","release_date_precision":"day","total_tracks":16,"type":"album","uri":"spotify:album:3T4tUhGYeRNVUGevb0wThu"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"disc_number":1,"duration_ms":263400,"explicit":false,"external_ids":{"isrc":"GBAHS1700024"},"external_urls":{"spotify":"https://open.spotify.com/track/0tgVpDi06FyKpA1z0VMD4v"},"href":"https://api.spotify.com/v1/tracks/0tgVpDi06FyKpA1z0VMD4v","id":"0tgVpDi06FyKpA1z0VMD4v","is_local":false,"is_playable":true,"name":"Perfect","popularity":88,"preview_url":null,"track_number":5,"type":"track","uri":"spotify:track:0tgVpDi06FyKpA1z0VMD4v"}]}}'
-  recorded_at: Wed, 15 Oct 2025 15:36:22 GMT
+        of You","popularity":88,"preview_url":null,"track_number":4,"type":"track","uri":"spotify:track:7qiZfU4dY1lWllzX7mPBI3"}]}}'
+  recorded_at: Thu, 16 Oct 2025 12:36:20 GMT
 - request:
     method: get
     uri: https://api.spotify.com/v1/search?limit=3&market=US&q=track:%22Peach%22&type=track
@@ -437,7 +148,7 @@ http_interactions:
       Cache-Control:
       - public, max-age=0
       Etag:
-      - '"MC-ImFhYjIyMGViY2JmM2QyNjhjZWI5ZmNjY2QwNGI4YTg4Ig=="'
+      - '"MC-Ijc0ODFmYzNkNDAzNjIyNjFjMGM1YTBmY2MxYzkxYzBlIg=="'
       X-Robots-Tag:
       - noindex, nofollow
       Access-Control-Allow-Origin:
@@ -452,7 +163,7 @@ http_interactions:
       Access-Control-Max-Age:
       - '604800'
       Content-Length:
-      - '4134'
+      - '6374'
       Strict-Transport-Security:
       - max-age=31536000
       X-Content-Type-Options:
@@ -463,7 +174,7 @@ http_interactions:
       Vary:
       - Accept-Encoding
       Date:
-      - Wed, 15 Oct 2025 15:36:22 GMT
+      - Thu, 16 Oct 2025 12:36:20 GMT
       Server:
       - envoy
       Via:
@@ -472,154 +183,18 @@ http_interactions:
       - close
     body:
       encoding: UTF-8
-      string: '{"tracks":{"href":"https://api.spotify.com/v1/search?offset=0&limit=3&query=track%3A%22Peach%22&type=track&market=US","limit":3,"next":null,"offset":0,"previous":null,"total":2,"items":[{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/1uNFoZAHBGtllmzznpCI3s"},"href":"https://api.spotify.com/v1/artists/1uNFoZAHBGtllmzznpCI3s","id":"1uNFoZAHBGtllmzznpCI3s","name":"Justin
+      string: '{"tracks":{"href":"https://api.spotify.com/v1/search?offset=0&limit=3&query=track%3A%22Peach%22&type=track&market=US","limit":3,"next":"https://api.spotify.com/v1/search?offset=3&limit=3&query=track%3A%22Peach%22&type=track&market=US","offset":0,"previous":null,"total":100,"items":[{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/1uNFoZAHBGtllmzznpCI3s"},"href":"https://api.spotify.com/v1/artists/1uNFoZAHBGtllmzznpCI3s","id":"1uNFoZAHBGtllmzznpCI3s","name":"Justin
         Bieber","type":"artist","uri":"spotify:artist:1uNFoZAHBGtllmzznpCI3s"}],"external_urls":{"spotify":"https://open.spotify.com/album/5dGWwsZ9iB2Xc3UKR0gif2"},"href":"https://api.spotify.com/v1/albums/5dGWwsZ9iB2Xc3UKR0gif2","id":"5dGWwsZ9iB2Xc3UKR0gif2","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b273e6f407c7f3a0ec98845e4431"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e02e6f407c7f3a0ec98845e4431"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d00004851e6f407c7f3a0ec98845e4431"}],"is_playable":true,"name":"Justice","release_date":"2021-03-19","release_date_precision":"day","total_tracks":16,"type":"album","uri":"spotify:album:5dGWwsZ9iB2Xc3UKR0gif2"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/1uNFoZAHBGtllmzznpCI3s"},"href":"https://api.spotify.com/v1/artists/1uNFoZAHBGtllmzznpCI3s","id":"1uNFoZAHBGtllmzznpCI3s","name":"Justin
         Bieber","type":"artist","uri":"spotify:artist:1uNFoZAHBGtllmzznpCI3s"},{"external_urls":{"spotify":"https://open.spotify.com/artist/20wkVLutqVOYrc0kxFs7rA"},"href":"https://api.spotify.com/v1/artists/20wkVLutqVOYrc0kxFs7rA","id":"20wkVLutqVOYrc0kxFs7rA","name":"Daniel
         Caesar","type":"artist","uri":"spotify:artist:20wkVLutqVOYrc0kxFs7rA"},{"external_urls":{"spotify":"https://open.spotify.com/artist/4fxd5Ee7UefO4CUXgwJ7IP"},"href":"https://api.spotify.com/v1/artists/4fxd5Ee7UefO4CUXgwJ7IP","id":"4fxd5Ee7UefO4CUXgwJ7IP","name":"GIVĒON","type":"artist","uri":"spotify:artist:4fxd5Ee7UefO4CUXgwJ7IP"}],"disc_number":1,"duration_ms":198081,"explicit":true,"external_ids":{"isrc":"USUM72102636"},"external_urls":{"spotify":"https://open.spotify.com/track/4iJyoBOLtHqaGxP12qzhQI"},"href":"https://api.spotify.com/v1/tracks/4iJyoBOLtHqaGxP12qzhQI","id":"4iJyoBOLtHqaGxP12qzhQI","is_local":false,"is_playable":true,"name":"Peaches
-        (feat. Daniel Caesar & Giveon)","popularity":80,"preview_url":null,"track_number":12,"type":"track","uri":"spotify:track:4iJyoBOLtHqaGxP12qzhQI"},{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/7n2Ycct7Beij7Dj7meI4X0"},"href":"https://api.spotify.com/v1/artists/7n2Ycct7Beij7Dj7meI4X0","id":"7n2Ycct7Beij7Dj7meI4X0","name":"TWICE","type":"artist","uri":"spotify:artist:7n2Ycct7Beij7Dj7meI4X0"}],"external_urls":{"spotify":"https://open.spotify.com/album/02dUOPB3MtmV5fawzaZiq6"},"href":"https://api.spotify.com/v1/albums/02dUOPB3MtmV5fawzaZiq6","id":"02dUOPB3MtmV5fawzaZiq6","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b2737f5ac389dbcaf7a8c17371e3"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e027f5ac389dbcaf7a8c17371e3"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d000048517f5ac389dbcaf7a8c17371e3"}],"is_playable":true,"name":"THIS
-        IS FOR","release_date":"2025-07-11","release_date_precision":"day","total_tracks":14,"type":"album","uri":"spotify:album:02dUOPB3MtmV5fawzaZiq6"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/7n2Ycct7Beij7Dj7meI4X0"},"href":"https://api.spotify.com/v1/artists/7n2Ycct7Beij7Dj7meI4X0","id":"7n2Ycct7Beij7Dj7meI4X0","name":"TWICE","type":"artist","uri":"spotify:artist:7n2Ycct7Beij7Dj7meI4X0"}],"disc_number":1,"duration_ms":138200,"explicit":false,"external_ids":{"isrc":"US5TA2500107"},"external_urls":{"spotify":"https://open.spotify.com/track/5DmLFST9kbQ932k5far6Rl"},"href":"https://api.spotify.com/v1/tracks/5DmLFST9kbQ932k5far6Rl","id":"5DmLFST9kbQ932k5far6Rl","is_local":false,"is_playable":true,"name":"PEACH
-        GELATO","popularity":61,"preview_url":null,"track_number":6,"type":"track","uri":"spotify:track:5DmLFST9kbQ932k5far6Rl"}]}}'
-  recorded_at: Wed, 15 Oct 2025 15:36:23 GMT
-- request:
-    method: get
-    uri: https://api.spotify.com/v1/search?limit=3&market=US&q=track:%22Peach%22&type=track
-    body:
-      encoding: ASCII-8BIT
-      string: ''
-    headers:
-      Authorization:
-      - Bearer <SPOTIFY_ACCESS_TOKEN>
-      Connection:
-      - close
-      Host:
-      - api.spotify.com
-      User-Agent:
-      - http.rb/5.3.1
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Cache-Control:
-      - public, max-age=0
-      Etag:
-      - '"MC-ImFhYjIyMGViY2JmM2QyNjhjZWI5ZmNjY2QwNGI4YTg4Ig=="'
-      X-Robots-Tag:
-      - noindex, nofollow
-      Access-Control-Allow-Origin:
-      - "*"
-      Access-Control-Allow-Headers:
-      - Accept, App-Platform, Authorization, Content-Type, Origin, Retry-After, Spotify-App-Version,
-        X-Cloud-Trace-Context, client-token, content-access-token
-      Access-Control-Allow-Methods:
-      - GET, POST, OPTIONS, PUT, DELETE, PATCH
-      Access-Control-Allow-Credentials:
-      - 'true'
-      Access-Control-Max-Age:
-      - '604800'
-      Content-Length:
-      - '4134'
-      Strict-Transport-Security:
-      - max-age=31536000
-      X-Content-Type-Options:
-      - nosniff
-      Alt-Svc:
-      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-      Vary:
-      - Accept-Encoding
-      Date:
-      - Wed, 15 Oct 2025 15:39:55 GMT
-      Server:
-      - envoy
-      Via:
-      - HTTP/2 edgeproxy, 1.1 google
-      Connection:
-      - close
-    body:
-      encoding: UTF-8
-      string: '{"tracks":{"href":"https://api.spotify.com/v1/search?offset=0&limit=3&query=track%3A%22Peach%22&type=track&market=US","limit":3,"next":null,"offset":0,"previous":null,"total":2,"items":[{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/1uNFoZAHBGtllmzznpCI3s"},"href":"https://api.spotify.com/v1/artists/1uNFoZAHBGtllmzznpCI3s","id":"1uNFoZAHBGtllmzznpCI3s","name":"Justin
-        Bieber","type":"artist","uri":"spotify:artist:1uNFoZAHBGtllmzznpCI3s"}],"external_urls":{"spotify":"https://open.spotify.com/album/5dGWwsZ9iB2Xc3UKR0gif2"},"href":"https://api.spotify.com/v1/albums/5dGWwsZ9iB2Xc3UKR0gif2","id":"5dGWwsZ9iB2Xc3UKR0gif2","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b273e6f407c7f3a0ec98845e4431"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e02e6f407c7f3a0ec98845e4431"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d00004851e6f407c7f3a0ec98845e4431"}],"is_playable":true,"name":"Justice","release_date":"2021-03-19","release_date_precision":"day","total_tracks":16,"type":"album","uri":"spotify:album:5dGWwsZ9iB2Xc3UKR0gif2"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/1uNFoZAHBGtllmzznpCI3s"},"href":"https://api.spotify.com/v1/artists/1uNFoZAHBGtllmzznpCI3s","id":"1uNFoZAHBGtllmzznpCI3s","name":"Justin
-        Bieber","type":"artist","uri":"spotify:artist:1uNFoZAHBGtllmzznpCI3s"},{"external_urls":{"spotify":"https://open.spotify.com/artist/20wkVLutqVOYrc0kxFs7rA"},"href":"https://api.spotify.com/v1/artists/20wkVLutqVOYrc0kxFs7rA","id":"20wkVLutqVOYrc0kxFs7rA","name":"Daniel
-        Caesar","type":"artist","uri":"spotify:artist:20wkVLutqVOYrc0kxFs7rA"},{"external_urls":{"spotify":"https://open.spotify.com/artist/4fxd5Ee7UefO4CUXgwJ7IP"},"href":"https://api.spotify.com/v1/artists/4fxd5Ee7UefO4CUXgwJ7IP","id":"4fxd5Ee7UefO4CUXgwJ7IP","name":"GIVĒON","type":"artist","uri":"spotify:artist:4fxd5Ee7UefO4CUXgwJ7IP"}],"disc_number":1,"duration_ms":198081,"explicit":true,"external_ids":{"isrc":"USUM72102636"},"external_urls":{"spotify":"https://open.spotify.com/track/4iJyoBOLtHqaGxP12qzhQI"},"href":"https://api.spotify.com/v1/tracks/4iJyoBOLtHqaGxP12qzhQI","id":"4iJyoBOLtHqaGxP12qzhQI","is_local":false,"is_playable":true,"name":"Peaches
-        (feat. Daniel Caesar & Giveon)","popularity":80,"preview_url":null,"track_number":12,"type":"track","uri":"spotify:track:4iJyoBOLtHqaGxP12qzhQI"},{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/7n2Ycct7Beij7Dj7meI4X0"},"href":"https://api.spotify.com/v1/artists/7n2Ycct7Beij7Dj7meI4X0","id":"7n2Ycct7Beij7Dj7meI4X0","name":"TWICE","type":"artist","uri":"spotify:artist:7n2Ycct7Beij7Dj7meI4X0"}],"external_urls":{"spotify":"https://open.spotify.com/album/02dUOPB3MtmV5fawzaZiq6"},"href":"https://api.spotify.com/v1/albums/02dUOPB3MtmV5fawzaZiq6","id":"02dUOPB3MtmV5fawzaZiq6","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b2737f5ac389dbcaf7a8c17371e3"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e027f5ac389dbcaf7a8c17371e3"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d000048517f5ac389dbcaf7a8c17371e3"}],"is_playable":true,"name":"THIS
-        IS FOR","release_date":"2025-07-11","release_date_precision":"day","total_tracks":14,"type":"album","uri":"spotify:album:02dUOPB3MtmV5fawzaZiq6"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/7n2Ycct7Beij7Dj7meI4X0"},"href":"https://api.spotify.com/v1/artists/7n2Ycct7Beij7Dj7meI4X0","id":"7n2Ycct7Beij7Dj7meI4X0","name":"TWICE","type":"artist","uri":"spotify:artist:7n2Ycct7Beij7Dj7meI4X0"}],"disc_number":1,"duration_ms":138200,"explicit":false,"external_ids":{"isrc":"US5TA2500107"},"external_urls":{"spotify":"https://open.spotify.com/track/5DmLFST9kbQ932k5far6Rl"},"href":"https://api.spotify.com/v1/tracks/5DmLFST9kbQ932k5far6Rl","id":"5DmLFST9kbQ932k5far6Rl","is_local":false,"is_playable":true,"name":"PEACH
-        GELATO","popularity":61,"preview_url":null,"track_number":6,"type":"track","uri":"spotify:track:5DmLFST9kbQ932k5far6Rl"}]}}'
-  recorded_at: Wed, 15 Oct 2025 15:39:56 GMT
-- request:
-    method: get
-    uri: https://api.spotify.com/v1/search?limit=3&market=US&q=artist:%22Ed%20Sheeran%22&type=track
-    body:
-      encoding: ASCII-8BIT
-      string: ''
-    headers:
-      Authorization:
-      - Bearer <SPOTIFY_ACCESS_TOKEN>
-      Connection:
-      - close
-      Host:
-      - api.spotify.com
-      User-Agent:
-      - http.rb/5.3.1
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Cache-Control:
-      - public, max-age=0
-      Etag:
-      - '"MC-ImEwZDE2ZGI3MWM0MDlhYzU0NDI1MzE1MGFhNzc5NGFjIg=="'
-      X-Robots-Tag:
-      - noindex, nofollow
-      Access-Control-Allow-Origin:
-      - "*"
-      Access-Control-Allow-Headers:
-      - Accept, App-Platform, Authorization, Content-Type, Origin, Retry-After, Spotify-App-Version,
-        X-Cloud-Trace-Context, client-token, content-access-token
-      Access-Control-Allow-Methods:
-      - GET, POST, OPTIONS, PUT, DELETE, PATCH
-      Access-Control-Allow-Credentials:
-      - 'true'
-      Access-Control-Max-Age:
-      - '604800'
-      Content-Length:
-      - '5700'
-      Strict-Transport-Security:
-      - max-age=31536000
-      X-Content-Type-Options:
-      - nosniff
-      Alt-Svc:
-      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-      Vary:
-      - Accept-Encoding
-      Date:
-      - Wed, 15 Oct 2025 15:39:56 GMT
-      Server:
-      - envoy
-      Via:
-      - HTTP/2 edgeproxy, 1.1 google
-      Connection:
-      - close
-    body:
-      encoding: UTF-8
-      string: '{"tracks":{"href":"https://api.spotify.com/v1/search?offset=0&limit=3&query=artist%3A%22Ed%20Sheeran%22&type=track&market=US","limit":3,"next":"https://api.spotify.com/v1/search?offset=3&limit=3&query=artist%3A%22Ed%20Sheeran%22&type=track&market=US","offset":0,"previous":null,"total":108,"items":[{"album":{"album_type":"single","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"external_urls":{"spotify":"https://open.spotify.com/album/2omUdWl7EtzzGxU3JPFPjx"},"href":"https://api.spotify.com/v1/albums/2omUdWl7EtzzGxU3JPFPjx","id":"2omUdWl7EtzzGxU3JPFPjx","images":[{"height":720,"width":1280,"url":"https://i.scdn.co/image/ab6742d3000053b7e3f6d39c2206626654910a11"},{"height":720,"width":1280,"url":"https://i.scdn.co/image/ab6742d3000053b7e3f6d39c2206626654910a11"},{"height":360,"width":640,"url":"https://i.scdn.co/image/ab6742d3000052b7e3f6d39c2206626654910a11"}],"is_playable":true,"name":"Perfect
-        (with Andrea Bocelli)","release_date":"2017-12-15","release_date_precision":"day","total_tracks":1,"type":"album","uri":"spotify:album:2omUdWl7EtzzGxU3JPFPjx"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"},{"external_urls":{"spotify":"https://open.spotify.com/artist/3EA9hVIzKfFiQI0Kikz2wo"},"href":"https://api.spotify.com/v1/artists/3EA9hVIzKfFiQI0Kikz2wo","id":"3EA9hVIzKfFiQI0Kikz2wo","name":"Andrea
-        Bocelli","type":"artist","uri":"spotify:artist:3EA9hVIzKfFiQI0Kikz2wo"}],"disc_number":1,"duration_ms":334421,"explicit":false,"external_ids":{"isrc":"GB1301700803"},"external_urls":{"spotify":"https://open.spotify.com/track/6UzK1shbzXmEyOO8a8mlmD"},"href":"https://api.spotify.com/v1/tracks/6UzK1shbzXmEyOO8a8mlmD","id":"6UzK1shbzXmEyOO8a8mlmD","is_local":false,"is_playable":false,"name":"Perfect
-        (with Andrea Bocelli)","popularity":19,"preview_url":null,"track_number":1,"type":"track","uri":"spotify:track:6UzK1shbzXmEyOO8a8mlmD"},{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"external_urls":{"spotify":"https://open.spotify.com/album/3T4tUhGYeRNVUGevb0wThu"},"href":"https://api.spotify.com/v1/albums/3T4tUhGYeRNVUGevb0wThu","id":"3T4tUhGYeRNVUGevb0wThu","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e02ba5db46f4b838ef6027e6f96"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d00004851ba5db46f4b838ef6027e6f96"}],"is_playable":true,"name":"÷
-        (Deluxe)","release_date":"2017-03-03","release_date_precision":"day","total_tracks":16,"type":"album","uri":"spotify:album:3T4tUhGYeRNVUGevb0wThu"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"disc_number":1,"duration_ms":233712,"explicit":false,"external_ids":{"isrc":"GBAHS1600463"},"external_urls":{"spotify":"https://open.spotify.com/track/7qiZfU4dY1lWllzX7mPBI3"},"href":"https://api.spotify.com/v1/tracks/7qiZfU4dY1lWllzX7mPBI3","id":"7qiZfU4dY1lWllzX7mPBI3","is_local":false,"is_playable":true,"name":"Shape
-        of You","popularity":88,"preview_url":null,"track_number":4,"type":"track","uri":"spotify:track:7qiZfU4dY1lWllzX7mPBI3"},{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"external_urls":{"spotify":"https://open.spotify.com/album/3T4tUhGYeRNVUGevb0wThu"},"href":"https://api.spotify.com/v1/albums/3T4tUhGYeRNVUGevb0wThu","id":"3T4tUhGYeRNVUGevb0wThu","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e02ba5db46f4b838ef6027e6f96"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d00004851ba5db46f4b838ef6027e6f96"}],"is_playable":true,"name":"÷
-        (Deluxe)","release_date":"2017-03-03","release_date_precision":"day","total_tracks":16,"type":"album","uri":"spotify:album:3T4tUhGYeRNVUGevb0wThu"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"},"href":"https://api.spotify.com/v1/artists/6eUKZXaKkcviH0Ku9w2n3V","id":"6eUKZXaKkcviH0Ku9w2n3V","name":"Ed
-        Sheeran","type":"artist","uri":"spotify:artist:6eUKZXaKkcviH0Ku9w2n3V"}],"disc_number":1,"duration_ms":263400,"explicit":false,"external_ids":{"isrc":"GBAHS1700024"},"external_urls":{"spotify":"https://open.spotify.com/track/0tgVpDi06FyKpA1z0VMD4v"},"href":"https://api.spotify.com/v1/tracks/0tgVpDi06FyKpA1z0VMD4v","id":"0tgVpDi06FyKpA1z0VMD4v","is_local":false,"is_playable":true,"name":"Perfect","popularity":88,"preview_url":null,"track_number":5,"type":"track","uri":"spotify:track:0tgVpDi06FyKpA1z0VMD4v"}]}}'
-  recorded_at: Wed, 15 Oct 2025 15:39:56 GMT
+        (feat. Daniel Caesar & Giveon)","popularity":80,"preview_url":null,"track_number":12,"type":"track","uri":"spotify:track:4iJyoBOLtHqaGxP12qzhQI"},{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/1lZvg4fNAqHoj6I9N8naBM"},"href":"https://api.spotify.com/v1/artists/1lZvg4fNAqHoj6I9N8naBM","id":"1lZvg4fNAqHoj6I9N8naBM","name":"The
+        Presidents Of The United States Of America","type":"artist","uri":"spotify:artist:1lZvg4fNAqHoj6I9N8naBM"}],"external_urls":{"spotify":"https://open.spotify.com/album/7qh8188T5LB7bdCBlk6SO1"},"href":"https://api.spotify.com/v1/albums/7qh8188T5LB7bdCBlk6SO1","id":"7qh8188T5LB7bdCBlk6SO1","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b273f26fe2d28f3ea184db9be5a2"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e02f26fe2d28f3ea184db9be5a2"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d00004851f26fe2d28f3ea184db9be5a2"}],"is_playable":true,"name":"The
+        Presidents of The United States of America: Ten Year Super Bonus Special Anniversary
+        Edition","release_date":"1995-01-01","release_date_precision":"day","total_tracks":26,"type":"album","uri":"spotify:album:7qh8188T5LB7bdCBlk6SO1"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/1lZvg4fNAqHoj6I9N8naBM"},"href":"https://api.spotify.com/v1/artists/1lZvg4fNAqHoj6I9N8naBM","id":"1lZvg4fNAqHoj6I9N8naBM","name":"The
+        Presidents Of The United States Of America","type":"artist","uri":"spotify:artist:1lZvg4fNAqHoj6I9N8naBM"}],"disc_number":1,"duration_ms":171693,"explicit":false,"external_ids":{"isrc":"US35G0400026"},"external_urls":{"spotify":"https://open.spotify.com/track/5huLMzIzFEdVcvEzt2hfk1"},"href":"https://api.spotify.com/v1/tracks/5huLMzIzFEdVcvEzt2hfk1","id":"5huLMzIzFEdVcvEzt2hfk1","is_local":false,"is_playable":true,"name":"Peaches","popularity":64,"preview_url":null,"track_number":6,"type":"track","uri":"spotify:track:5huLMzIzFEdVcvEzt2hfk1"},{"album":{"album_type":"album","artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/5yPzzu25VzEk8qrGTLIrE1"},"href":"https://api.spotify.com/v1/artists/5yPzzu25VzEk8qrGTLIrE1","id":"5yPzzu25VzEk8qrGTLIrE1","name":"Young
+        Nudy","type":"artist","uri":"spotify:artist:5yPzzu25VzEk8qrGTLIrE1"}],"external_urls":{"spotify":"https://open.spotify.com/album/1UbeEAPS49eulB659XSU9g"},"href":"https://api.spotify.com/v1/albums/1UbeEAPS49eulB659XSU9g","id":"1UbeEAPS49eulB659XSU9g","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/ab67616d0000b273209981a18ed76b7c72e673ea"},{"height":300,"width":300,"url":"https://i.scdn.co/image/ab67616d00001e02209981a18ed76b7c72e673ea"},{"height":64,"width":64,"url":"https://i.scdn.co/image/ab67616d00004851209981a18ed76b7c72e673ea"}],"is_playable":true,"name":"Gumbo","release_date":"2023-02-28","release_date_precision":"day","total_tracks":13,"type":"album","uri":"spotify:album:1UbeEAPS49eulB659XSU9g"},"artists":[{"external_urls":{"spotify":"https://open.spotify.com/artist/5yPzzu25VzEk8qrGTLIrE1"},"href":"https://api.spotify.com/v1/artists/5yPzzu25VzEk8qrGTLIrE1","id":"5yPzzu25VzEk8qrGTLIrE1","name":"Young
+        Nudy","type":"artist","uri":"spotify:artist:5yPzzu25VzEk8qrGTLIrE1"},{"external_urls":{"spotify":"https://open.spotify.com/artist/1URnnhqYAYcrqrcwql10ft"},"href":"https://api.spotify.com/v1/artists/1URnnhqYAYcrqrcwql10ft","id":"1URnnhqYAYcrqrcwql10ft","name":"21
+        Savage","type":"artist","uri":"spotify:artist:1URnnhqYAYcrqrcwql10ft"}],"disc_number":1,"duration_ms":203813,"explicit":true,"external_ids":{"isrc":"USRC12300570"},"external_urls":{"spotify":"https://open.spotify.com/track/2KcQ0PbPj0O3P48B9YX7iN"},"href":"https://api.spotify.com/v1/tracks/2KcQ0PbPj0O3P48B9YX7iN","id":"2KcQ0PbPj0O3P48B9YX7iN","is_local":false,"is_playable":true,"name":"Peaches
+        & Eggplants (feat. 21 Savage)","popularity":64,"preview_url":null,"track_number":8,"type":"track","uri":"spotify:track:2KcQ0PbPj0O3P48B9YX7iN"}]}}'
+  recorded_at: Thu, 16 Oct 2025 12:36:21 GMT
 recorded_with: VCR 6.3.1

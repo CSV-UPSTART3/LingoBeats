@@ -2,6 +2,11 @@
 
 source 'https://rubygems.org'
 
+# Web Application
+gem 'puma', '~> 6.0'
+gem 'roda', '~> 3.0'
+gem 'slim', '~> 4.0'
+
 # Networking
 gem 'http', '~> 5.0'
 gem 'rack', '~> 3.2'

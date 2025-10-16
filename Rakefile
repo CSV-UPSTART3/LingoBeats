@@ -61,3 +61,10 @@ namespace :quality do
     sh 'bundle', 'exec', 'flog', *CODE_DIRS
   end
 end
+
+namespace :app do
+  desc 'Run web app'
+  task :run do
+    sh 'bundle exec puma'
+  end
+end

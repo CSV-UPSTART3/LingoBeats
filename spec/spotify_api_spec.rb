@@ -28,8 +28,8 @@ describe 'Tests Spotify API library' do
           body['access_token'] = '<SPOTIFY_ACCESS_TOKEN>'
           interaction.response.body = JSON.generate(body)
         end
+      # Ignore non JSON response
       rescue JSON::ParserError
-        # Ignore non JSON response
       end
     end
   end
@@ -52,7 +52,9 @@ describe 'Tests Spotify API library' do
 
       _(results[0].size).must_equal CORRECT_RESULT_BY_SONG[0].size
       _(results[0].keys.sort).must_equal CORRECT_RESULT_BY_SONG[0].keys.sort
-      _(results[0][:track]).must_equal CORRECT_RESULT_BY_SONG[0][:track]
+      # puts "RESULT id: #{results[0][:id].inspect}"
+      # puts "RESULT name: #{results[0][:name].inspect}"
+      _(results[0][:name]).must_equal CORRECT_RESULT_BY_SONG[0][:name]
     end
     # it 'SAD: should raise exception on incorrect song_name' do
     #   puts LingoBeats::Spotify::Api.new.search_song_by_name("?!@#$%^&*()")
@@ -73,7 +75,7 @@ describe 'Tests Spotify API library' do
                                                .search_songs_by_singer(SINGER)
       _(results[0].size).must_equal CORRECT_RESULT_BY_SINGER[0].size
       _(results[0].keys.sort).must_equal CORRECT_RESULT_BY_SINGER[0].keys.sort
-      _(results[0][:track]).must_equal CORRECT_RESULT_BY_SINGER[0][:track]
+      _(results[0][:name]).must_equal CORRECT_RESULT_BY_SINGER[0][:name]
     end
   end
 end
