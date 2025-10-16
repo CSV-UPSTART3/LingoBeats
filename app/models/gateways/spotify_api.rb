@@ -24,7 +24,8 @@ module LingoBeats
       # search songs with specified condition
       def songs_data(category:, query:, limit:)
         spec = SearchSpec.new(category: category, query: query, limit: limit)
-        HttpHelper::Request.new('Authorization' => "Bearer #{@token_manager.access_token}").get(spotify_search_url('search'), params: spec.params)
+        HttpHelper::Request.new('Authorization' => "Bearer #{@token_manager.access_token}")
+                           .get(spotify_search_url('search'), params: spec.params)
       end
 
       private
@@ -121,7 +122,7 @@ module LingoBeats
 
         def check_category
           return true if QUERY_BY_CATEGORY.key?(@category)
-          
+
           raise ArgumentError, "Unsupported search type: #{@category.inspect}"
         end
 

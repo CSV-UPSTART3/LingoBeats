@@ -41,9 +41,8 @@ module LingoBeats
           routing.get do
             query = query.tr('+', ' ')
             category = category_str.to_sym
-
             spotify_mapper = LingoBeats::Spotify::SongMapper
-                              .new(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
+                             .new(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
 
             spotify_songs =
               if category == :artist
@@ -52,7 +51,7 @@ module LingoBeats
                 spotify_mapper.search_songs_by_name(query)
               end
 
-            view 'songs', locals: { songs: spotify_songs, category:, query: }
+            view 'project', locals: { songs: spotify_songs, category:, query: }
           end
         end
       end

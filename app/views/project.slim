@@ -7,6 +7,7 @@
         .card.shadow-sm
           img.card-img-top src=song[:album_image_url]
           .card-body
-            h5.card-title = song[:track]
-            p.card-text = song[:artist_name]
+            h5.card-title = song[:album_name]
+            h5.card-title = song[:name]
+            a href=song[:artist_url] target="_blank" = song[:artist_name]
             a.btn.btn-sm.btn-success href=song[:external_url] target="_blank" Listen on Spotify
