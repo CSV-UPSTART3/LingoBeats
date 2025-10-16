@@ -1,13 +1,45 @@
 .container
-  .row
-    h2.text-success.text-center.mb-4 Songs Found
-  .row
-    - songs.each do |song|
-      .col-md-4.mb-3
-        .card.shadow-sm
-          img.card-img-top src=song[:album_image_url]
-          .card-body
-            h5.card-title = song[:album_name]
-            h5.card-title = song[:name]
-            a href=song[:artist_url] target="_blank" = song[:artist_name]
-            a.btn.btn-sm.btn-success href=song[:external_url] target="_blank" Listen on Spotify
+  - if songs.empty?
+    .text-center.mt-5.pt-5
+      i.fas.fa-triangle-exclamation.fa-3x.text-secondary.mb-3
+      h5.text-muted#noResultMsg Cannot find result
+  - else
+    .results-container
+      .row.justify-content-center
+        - songs.each do |song|
+          .col-12.col-md-10.col-lg-8.mb-3
+            .card.flex-row.align-items-center.shadow-sm.border-0.p-2
+              / --- cover ---
+              img.img-fluid.rounded.start-img.me-3 src=song[:album_image_url] alt=song[:album_name] onerror="this.src='/assets/img/placeholder-album.png';this.onerror=null;"
+
+              / --- info ---
+              .card-body.p-2
+                / 1. song name
+                h5.card-title.mb-1.fw-semibold.song-title = song[:name]
+
+                / 2. album name
+                .text-secondary.small.mb-1.album-line = song[:album_name]
+
+                .d-flex.align-items-end.justify-content-between.mt-auto
+                  / 3. artist
+                  .artist-line.d-flex.align-items-center
+                    i.fas.fa-user.me-2.text-black-50
+                    a.artist-link.text-black-50 href=song[:artist_url] target="_blank" rel="noopener"
+                      = song[:artist_name]
+                  /4. external url
+                  a.spotify-btn-square.btn.d-flex.align-items-center.justify-content-center href=song[:external_url] target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Listen on Spotify"
+                    i.fab.fa-spotify
+
+javascript:
+  document.addEventListener('DOMContentLoaded', function() {
+    const query = sessionStorage.getItem('lastSearchQuery');
+    const msg = document.getElementById('noResultMsg');
+    if (query && msg) {
+      msg.textContent = `Cannot find result with "${query}"`;
+    }
+
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+      new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  });

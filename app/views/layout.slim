@@ -9,10 +9,14 @@ html
       rel="stylesheet" 
       crossorigin="anonymous"
     }
-    
-    / Custom CSS
-    / link rel='stylesheet' href='/presentation/assets/css/style.css'
+
+    / Font Awesome
+    link{
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet" 
+    } 
     == assets(:css)
+
   body
     / Popper
     script{ 
@@ -26,18 +30,104 @@ html
       crossorigin="anonymous"
     }
 
-    .container.mt-4
-      header.text-center
-        h1.display-4.text-success.font-weight-bold LingoBeats
-        hr
+    / Fixed Header
+    nav.navbar.navbar-dark.bg-lingobeats.fixed-top.shadow-sm
+      .container.justify-content-center
+        a.navbar-brand.mb-0.fw-bold.text-white href="/" LingoBeats
 
-      section
+    main.container.mt-3
+      / ---- Tabs ----
+      .d-flex.justify-content-center
+        .pill-switch.position-relative.bg-light.rounded-pill.p-1
+          .slider.position-absolute.rounded-pill aria-hidden="true"
+          ul.nav.nav-pills(role="tablist")
+            li.nav-item.flex-fill
+              a.nav-link.active.text-white.fw-semibold.py-1.px-4 href="#" role="button" Artist
+              span.d-none data-category="artist"
+            li.nav-item.flex-fill
+              a.nav-link.text-dark.fw-semibold.py-1.px-4 href="#" role="button" Song
+              span.d-none data-category="song_name"
+
+      / ---- Search ----
+      form#spotify-form.role-form.mt-3 action="/spotify" method="POST"
+        input type="hidden" name="category" id="category" value="artist"
+        .row.justify-content-center.mt-3
+          .col-12.col-md-8.col-lg-6
+            .position-relative
+              input#spotify_query_input.form-control.form-control-lg.rounded-pill.ps-4.pe-5 type="text" name="query" placeholder="e.g. Taylor Swift" autocomplete="off"
+              button#submitBtn.btn.btn-link.position-absolute.top-50.end-0.translate-middle-y.pe-4 type="submit" 
+                i.fas.fa-search.text-midgray
+
+      section.mt-4
         == yield
 
-      footer.text-center.mt-5.text-muted
+      / Fixed Footer
+      footer.navbar.fixed-bottom.bg-light.text-center.text-muted.py-2
         small
           | LingoBeats is made for demonstration purposes.
           br
           | We cannot warrant full correctness of all content.
           br
           | LingoBeats may use cookies for sessions but does not track users.
+
+
+    / Behavior Control
+    javascript:
+      document.addEventListener('DOMContentLoaded', () => {
+        const switcher = document.querySelector('.pill-switch');
+        const slider = switcher.querySelector('.slider');
+        const links = switcher.querySelectorAll('.nav-link');
+        const submitBtn = document.getElementById('submitBtn');
+        const searchInput = document.getElementById('spotify_query_input');
+        const categoryInput = document.getElementById('category');
+
+        const placeholders = { artist: 'e.g. Taylor Swift', song_name: 'e.g. Blank Space' };
+
+        const form = document.getElementById('spotify-form');
+        const input = document.getElementById('spotify_query_input');
+        form.addEventListener('submit', function() {
+          sessionStorage.setItem('lastSearchQuery', input.value.trim());
+        });
+
+        function activeCategory(el) {
+          const span = el.parentElement.querySelector('span[data-category]');
+          return (span && span.dataset.category) || 'artist';
+        }
+
+        function moveSlider() {
+          const active = switcher.querySelector('.nav-link.active');
+          if (!active) return;
+          const left = active.offsetLeft;
+          const width = active.offsetWidth;
+          slider.style.left = left + 'px';
+          slider.style.width = width + 'px';
+        }
+
+        // switch tabs
+        links.forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            links.forEach(a => a.classList.remove('active', 'text-white'));
+            link.classList.add('active', 'text-white');
+
+            const cat = activeCategory(link);
+            if (categoryInput) categoryInput.value = cat;
+            if (searchInput) {
+              searchInput.placeholder = placeholders[cat] || placeholders.artist;
+              searchInput.focus();
+            }
+
+            moveSlider();
+          });
+        });
+
+        // send button status control
+        function toggleSubmit() { submitBtn.disabled = !searchInput.value.trim(); }
+        searchInput.addEventListener('input', toggleSubmit);
+
+        // init
+        toggleSubmit();
+        requestAnimationFrame(moveSlider);
+        window.addEventListener('resize', moveSlider);
+        window.addEventListener('load', moveSlider);
+      });
