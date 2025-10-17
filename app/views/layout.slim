@@ -42,7 +42,7 @@ html
           .slider.position-absolute.rounded-pill aria-hidden="true"
           ul.nav.nav-pills(role="tablist")
             li.nav-item.flex-fill
-              a.nav-link.active.text-white.fw-semibold.py-1.px-4 href="#" role="button" Artist
+              a.nav-link.text-dark.fw-semibold.py-1.px-4 href="#" role="button" Artist
               span.d-none data-category="artist"
             li.nav-item.flex-fill
               a.nav-link.text-dark.fw-semibold.py-1.px-4 href="#" role="button" Song
@@ -80,14 +80,8 @@ html
         const submitBtn = document.getElementById('submitBtn');
         const searchInput = document.getElementById('spotify_query_input');
         const categoryInput = document.getElementById('category');
-
-        const placeholders = { artist: 'e.g. Taylor Swift', song_name: 'e.g. Blank Space' };
-
         const form = document.getElementById('spotify-form');
-        const input = document.getElementById('spotify_query_input');
-        form.addEventListener('submit', function() {
-          sessionStorage.setItem('lastSearchQuery', input.value.trim());
-        });
+        const placeholders = { artist: 'e.g. Taylor Swift', song_name: 'e.g. Blank Space' };
 
         function activeCategory(el) {
           const span = el.parentElement.querySelector('span[data-category]');
@@ -103,6 +97,12 @@ html
           slider.style.width = width + 'px';
         }
 
+        // store search info
+        form.addEventListener('submit', function() {
+          sessionStorage.setItem('lastSearchQuery', searchInput.value.trim());
+          sessionStorage.setItem('lastCategory', categoryInput.value);
+        });
+
         // switch tabs
         links.forEach(link => {
           link.addEventListener('click', (e) => {
@@ -110,15 +110,37 @@ html
             links.forEach(a => a.classList.remove('active', 'text-white'));
             link.classList.add('active', 'text-white');
 
-            const cat = activeCategory(link);
-            if (categoryInput) categoryInput.value = cat;
-            if (searchInput) {
-              searchInput.placeholder = placeholders[cat] || placeholders.artist;
-              searchInput.focus();
-            }
+            const category = activeCategory(link);
+            categoryInput.value = category;
+            searchInput.placeholder = placeholders[category];
 
-            moveSlider();
+            // animation
+            const index = Array.from(links).indexOf(link);
+            slider.style.left = index === 1 ? '50%' : '0';
+            slider.style.width = '50%';
           });
+        });
+
+        // last status
+        const isHomePage = window.location.pathname === '/';
+        let lastCategory = 'artist';
+
+        if (!isHomePage) {
+          lastCategory = sessionStorage.getItem('lastCategory') || 'artist';
+        } else {
+          // clear history
+          sessionStorage.removeItem('lastCategory');
+          sessionStorage.removeItem('lastSearchQuery');
+        }
+
+        categoryInput.value = lastCategory;
+        searchInput.placeholder = placeholders[lastCategory];
+
+        // active tab
+        links.forEach(link => {
+          const span = link.parentElement.querySelector('span[data-category]');
+          const cat = activeCategory(link);
+          link.classList.toggle('active', cat === lastCategory);
         });
 
         // send button status control
