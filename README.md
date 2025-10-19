@@ -1,38 +1,42 @@
-# Spotify API Client
-Project to gather useful information from <a href="https://developer.spotify.com/documentation/web-api">Spotify API</a>
+## LingoBeats
 
-## Resources
-* Tracks
+An application that transforms *songs* into AI-generated content for an engaging language-learning experience.
 
-## Elements
-* **Track information**
-  - Spotify ID of the Song
-  - Song Name
-  - Spotify URI
-  - Known external URLs for the track
-* **Track with artist information**
-  - Spotify ID of the Artist
-  - Artist Name
-  - Known external URLs for this artist
-* **Track with album information**
-  - Spotify ID of the Album
-  - Album Name
-  - Known external URLs for this album
-  - The source URL of the album image
+## **Overview**
 
+LingoBeats will connect to **Spotify** to retrieve songs and **Genius** to fetch lyrics, then analyzes the text using **Zipf frequency** and **CEFR levels** to match content with each learner’s proficiency. 
 
-## Entities
-| Entity     | Elements                                           |
-| :--------- | :------------------------------------------------- |
-| **Song**  | `id`, `name`, `uri`, `external_url`, <br>`artist_id`, `artist_name`, `artist_url`, <br>`album_id`, `album_name`, `album_url`, `album_image_url`                |
+Leveraging **Wordnik**, it enriches users’ vocabulary understanding through contextual meanings and usage examples. 
 
-# Install
-## Setting up this script
-* Sign up for or log in to your **Spotify for Developers** account, create a new project, and obtain your `client_id` and `client_secret`
-* Copy `config/secrets_example.yml` to `config/secrets.yml` and update token
-* Ensure correct version of Ruby install (see `.ruby-version` for `rbenv`)
-* Run `bundle install`
+Finally, **Gemini AI** generates personalized learning contents and exercises based on the linguistic insights extracted from the previous stages.
 
-## Running Tests
-To run test:
-<pre><code>rake spec</pre></code>
+By combining music, AI, and intelligent content generation, LingoBeats hopes to turn passive listening into an interactive and personalized learning journey, boosting learners’ motivation.
+
+## Objectives
+
+### **Short-term usability goals**
+
+1. Integrate Spotify and Genius APIs to retrieve and preprocess song and lyric data
+2. Analyze word with Zipf, CEFR levels and Wordnik API
+3. Get personalized learning materials using Gemini AI
+
+### **Long-term goals**
+
+1. Expand the platform to support multiple languages and cross-cultural learning
+2. Build adaptive learning models that personalize content based on learner progress
+
+## **Running Tests**
+
+### To run tests：
+
+```yaml
+rake spec
+```
+
+### To test code quality：
+
+```yaml
+rake quality:all
+```
+
+### To run the app：

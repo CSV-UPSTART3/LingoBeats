@@ -42,15 +42,15 @@ html
           .slider.position-absolute.rounded-pill aria-hidden="true"
           ul.nav.nav-pills(role="tablist")
             li.nav-item.flex-fill
-              a.nav-link.text-dark.fw-semibold.py-1.px-4 href="#" role="button" Artist
-              span.d-none data-category="artist"
+              a.nav-link.text-dark.fw-semibold.py-1.px-4 href="#" role="button" Singer
+              span.d-none data-category="singer"
             li.nav-item.flex-fill
               a.nav-link.text-dark.fw-semibold.py-1.px-4 href="#" role="button" Song
               span.d-none data-category="song_name"
 
       / ---- Search ----
       form#spotify-form.role-form.mt-3 action="/spotify" method="POST"
-        input type="hidden" name="category" id="category" value="artist"
+        input type="hidden" name="category" id="category" value="singer"
         .row.justify-content-center.mt-3
           .col-12.col-md-8.col-lg-6
             .position-relative
@@ -81,11 +81,11 @@ html
         const searchInput = document.getElementById('spotify_query_input');
         const categoryInput = document.getElementById('category');
         const form = document.getElementById('spotify-form');
-        const placeholders = { artist: 'e.g. Taylor Swift', song_name: 'e.g. Blank Space' };
+        const placeholders = { singer: 'e.g. Taylor Swift', song_name: 'e.g. Blank Space' };
 
         function activeCategory(el) {
           const span = el.parentElement.querySelector('span[data-category]');
-          return (span && span.dataset.category) || 'artist';
+          return (span && span.dataset.category) || 'singer';
         }
 
         function moveSlider() {
@@ -123,14 +123,14 @@ html
 
         // last status
         const isHomePage = window.location.pathname === '/';
-        let lastCategory = 'artist';
+        let lastCategory = 'singer';
 
         if (!isHomePage) {
-          lastCategory = sessionStorage.getItem('lastCategory') || 'artist';
+          lastCategory = sessionStorage.getItem('lastCategory') || 'singer';
         } else {
           // clear history
           sessionStorage.removeItem('lastCategory');
-          sessionStorage.removeItem('lastSearchQuery');
+          //sessionStorage.removeItem('lastSearchQuery');
         }
 
         categoryInput.value = lastCategory;

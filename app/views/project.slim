@@ -21,10 +21,10 @@
                 .text-secondary.small.mb-1.album-line = song[:album_name]
 
                 .d-flex.align-items-end.justify-content-between.mt-auto
-                  / 3. artist
-                  .artist-line.d-flex.align-items-center
+                  / 3. singer
+                  .singer-line.d-flex.align-items-center
                     i.fas.fa-user.me-2.text-black-50
-                    a.artist-link.text-black-50 href=song[:artist_url] target="_blank" rel="noopener"
+                    a.singer-link.text-black-50 href=song[:artist_url] target="_blank" rel="noopener"
                       = song[:artist_name]
                   /4. external url
                   a.spotify-btn-square.btn.d-flex.align-items-center.justify-content-center href=song[:external_url] target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Listen on Spotify"
@@ -32,8 +32,12 @@
 
 javascript:
   document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('spotify_query_input');
     const query = sessionStorage.getItem('lastSearchQuery');
     const msg = document.getElementById('noResultMsg');
+
+    searchInput.value = query;
+
     if (query && msg) {
       msg.textContent = `Cannot find result with "${query}"`;
     }
