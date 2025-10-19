@@ -9,3 +9,4 @@ spec/fixtures/*.txt
 lib/gemini_*
 lib/genius_*
 lib/lingo_beats.rb
+vendor/*

@@ -18,7 +18,7 @@ module LingoBeats
         self.class.build_entities(data)
       end
 
-      def search_songs_by_name(query)
+      def search_songs_by_song_name(query)
         data = @gateway.songs_data(category: 'song_name', query: query, limit: 3)
         self.class.build_entities(data)
       end

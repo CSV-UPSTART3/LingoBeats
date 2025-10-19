@@ -3,6 +3,7 @@
 require 'uri'
 require 'roda'
 require 'slim'
+require 'rack/utils'
 
 # LingoBeats: include routing and service
 module LingoBeats
@@ -16,6 +17,7 @@ module LingoBeats
 
     def initialize(*)
       super
+      @allowed_categories = %w[singer song_name].freeze
       @spotify_mapper = LingoBeats::Spotify::SongMapper
                         .new(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
     end
@@ -33,39 +35,35 @@ module LingoBeats
 
     route('spotify') do |routing|
       # Post /spotify
-      routing.is { routing.post { spotify_post(routing) } }
+      routing.is do
+        routing.post do
+          category, query = SpotifyHelper.get_params(routing)
+          routing.redirect SpotifyHelper.search_path(category, query)
+        end
+      end
 
-      # GET /spotify/:category/:query
-      routing.on String, String do |category_str, raw_query|
+      # GET /spotify/search?category=...&query=...
+      routing.on 'search' do
         routing.get do
-          category = category_str.to_sym
-          query    = raw_query.tr('+', ' ')
-          spotify_get(category, query)
+          category, query = SpotifyHelper.get_params(routing)
+          songs = @spotify_mapper.public_send("search_songs_by_#{category}", query)
+          view 'project', locals: { songs: songs, category: category, query: query }
         end
       end
     end
 
-    private
+    # Helper methods for Spotify flow
+    module SpotifyHelper
+      module_function
 
-    def spotify_post(routing)
-      params = routing.params
-      query = params['query'].to_s
-      category = params['category']&.to_sym # :song_name or :artist
-      request.halt(400) if query.strip.empty? || !%i[song_name singer].include?(category)
-      # puts query
-      # encoded_query = URI.encode_www_form_component(query)
-      # puts encoded_query
-      request.redirect "spotify/#{category}/#{query}" # e.g. /spotify/artist/Taylor%20Swift
-    end
+      def get_params(req)
+        req.params.values_at('category', 'query').map(&:to_s)
+      end
 
-    def spotify_get(category, query)
-      spotify_songs =
-        if category == :singer
-          @spotify_mapper.search_songs_by_singer(query)
-        else
-          @spotify_mapper.search_songs_by_name(query)
-        end
-      view 'project', locals: { songs: spotify_songs, category: category, query: query }
+      def search_path(category, query)
+        qs = Rack::Utils.build_query('category' => category, 'query' => query)
+        "/spotify/search?#{qs}"
+      end
     end
   end
 end

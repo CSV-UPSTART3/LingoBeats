@@ -115,9 +115,7 @@ html
             searchInput.placeholder = placeholders[category];
 
             // animation
-            const index = Array.from(links).indexOf(link);
-            slider.style.left = index === 1 ? '50%' : '0';
-            slider.style.width = '50%';
+            requestAnimationFrame(moveSlider);
           });
         });
 
@@ -138,7 +136,6 @@ html
 
         // active tab
         links.forEach(link => {
-          const span = link.parentElement.querySelector('span[data-category]');
           const cat = activeCategory(link);
           link.classList.toggle('active', cat === lastCategory);
         });

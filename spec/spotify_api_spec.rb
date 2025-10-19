@@ -48,7 +48,7 @@ describe 'Tests Spotify API library' do
     it 'HAPPY: should provide correct attributes of songs' do
       # check size, attribute, and important value
       results = LingoBeats::Spotify::SongMapper.new(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
-                                               .search_songs_by_name(SONG_NAME)
+                                               .search_songs_by_song_name(SONG_NAME)
 
       _(results[0].size).must_equal CORRECT_RESULT_BY_SONG[0].size
       _(results[0].keys.sort).must_equal CORRECT_RESULT_BY_SONG[0].keys.sort
@@ -59,7 +59,7 @@ describe 'Tests Spotify API library' do
     it 'HAPPY: returns empty list when no songs matched' do
       songs = LingoBeats::Spotify::SongMapper
               .new(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
-              .search_songs_by_name('totally-not-exist-zzz')
+              .search_songs_by_song_name('totally-not-exist-zzz')
 
       _(songs).must_be_kind_of Array
       _(songs.length).must_equal 0
