@@ -12,6 +12,7 @@ module LingoBeats
     plugin :assets, css: 'style.css', path: 'app/views/assets'
     plugin :common_logger, $stderr
     plugin :halt
+    plugin :multi_route
 
     def initialize(*)
       super
@@ -28,25 +29,37 @@ module LingoBeats
       # GET /
       routing.root { view 'home' }
 
-      routing.on 'spotify' do
-        spotify_run(routing)
+      routing.multi_route
+
+      # routing.on 'spotify' do
+      #   spotify_run(routing)
+      # end
+    end
+
+    route('spotify') do |routing|
+      routing.is { routing.post { spotify_post(routing) } }
+
+      routing.on String, String do |category_str, raw_query|
+        @category = category_str.to_sym
+        @query    = raw_query.tr('+', ' ')
+        spotify_get(routing)
       end
     end
 
     private
 
-    def spotify_run(routing)
-      routing.is do
-        # POST /spotify/
-        routing.post { spotify_post(routing) }
-      end
-      # GET /spotify/[category]/[query]
-      routing.on String, String do |category_str, query|
-        @query = query.tr('+', ' ')
-        @category = category_str.to_sym
-        spotify_get(routing)
-      end
-    end
+    # def spotify_run(routing)
+    #   routing.is do
+    #     # POST /spotify/
+    #     routing.post { spotify_post(routing) }
+    #   end
+    #   # GET /spotify/[category]/[query]
+    #   routing.on String, String do |category_str, query|
+    #     @query = query.tr('+', ' ')
+    #     @category = category_str.to_sym
+    #     spotify_get(routing)
+    #   end
+    # end
 
     def spotify_post(routing)
       params = routing.params
@@ -67,7 +80,7 @@ module LingoBeats
           else
             @spotify_mapper.search_songs_by_name(@query)
           end
-        view 'project', locals: { songs: spotify_songs, category: @category, query: @query}
+        view 'project', locals: { songs: spotify_songs, category: @category, query: @query }
       end
     end
   end
