@@ -28,8 +28,8 @@ describe 'Tests Spotify API library' do
           body['access_token'] = '<SPOTIFY_ACCESS_TOKEN>'
           interaction.response.body = JSON.generate(body)
         end
+      # Ignore non JSON response
       rescue JSON::ParserError
-        # Ignore non JSON response
       end
     end
   end
@@ -48,24 +48,29 @@ describe 'Tests Spotify API library' do
     it 'HAPPY: should provide correct attributes of songs' do
       # check size, attribute, and important value
       results = LingoBeats::Spotify::SongMapper.new(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
-                                               .search_songs_by_name(SONG_NAME)
+                                               .search_songs_by_song_name(SONG_NAME)
 
       _(results[0].size).must_equal CORRECT_RESULT_BY_SONG[0].size
       _(results[0].keys.sort).must_equal CORRECT_RESULT_BY_SONG[0].keys.sort
-      _(results[0][:track]).must_equal CORRECT_RESULT_BY_SONG[0][:track]
+      # puts "RESULT id: #{results[0][:id].inspect}"
+      # puts "RESULT name: #{results[0][:name].inspect}"
+      _(results[0][:name]).must_equal CORRECT_RESULT_BY_SONG[0][:name]
     end
-    # it 'SAD: should raise exception on incorrect song_name' do
-    #   puts LingoBeats::Spotify::Api.new.search_song_by_name("?!@#$%^&*()")
-    #   _(proc do
-    #   LingoBeats::Spotify::Api.new.search_song_by_name(SONG_NAME, limit: 1)
-    #   end).must_raise CodePraise::GithubApi::Errors::NotFound
-    # end
+    it 'HAPPY: returns empty list when no songs matched' do
+      songs = LingoBeats::Spotify::SongMapper
+              .new(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
+              .search_songs_by_song_name('totally-not-exist-zzz')
+
+      _(songs).must_be_kind_of Array
+      _(songs.length).must_equal 0
+    end
     # it 'SAD: should raise exception when unauthorized' do
     #   _(proc do
     #   CodePraise::GithubApi.new('BAD_TOKEN').project('soumyaray', 'foobar')
     #   end).must_raise CodePraise::GithubApi::Errors::Unauthorized
     # end
   end
+
   describe 'Songs information searched by singer' do
     it 'HAPPY: should provide correct attributes of multiple songs' do
       # check size, attribute, and important value
@@ -73,7 +78,15 @@ describe 'Tests Spotify API library' do
                                                .search_songs_by_singer(SINGER)
       _(results[0].size).must_equal CORRECT_RESULT_BY_SINGER[0].size
       _(results[0].keys.sort).must_equal CORRECT_RESULT_BY_SINGER[0].keys.sort
-      _(results[0][:track]).must_equal CORRECT_RESULT_BY_SINGER[0][:track]
+      _(results[0][:name]).must_equal CORRECT_RESULT_BY_SINGER[0][:name]
+    end
+    it 'HAPPY: returns empty list when no songs matched' do
+      songs = LingoBeats::Spotify::SongMapper
+              .new(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
+              .search_songs_by_singer('totally-not-exist-zzz')
+
+      _(songs).must_be_kind_of Array
+      _(songs.length).must_equal 0
     end
   end
 end

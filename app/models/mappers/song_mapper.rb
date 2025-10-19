@@ -14,12 +14,12 @@ module LingoBeats
       end
 
       def search_songs_by_singer(query)
-        data = @gateway.songs_data(category: :artist, query: query, limit: 3)
+        data = @gateway.songs_data(category: 'singer', query: query, limit: 3)
         self.class.build_entities(data)
       end
 
-      def search_songs_by_name(query)
-        data = @gateway.songs_data(category: :song_name, query: query, limit: 3)
+      def search_songs_by_song_name(query)
+        data = @gateway.songs_data(category: 'song_name', query: query, limit: 3)
         self.class.build_entities(data)
       end
 

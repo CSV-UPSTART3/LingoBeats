@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-CODE_DIRS = %w[lib/gateways lib/mappers lib/entities].freeze
+CODE_DIRS = %w[app config].freeze
 
 # Requires all ruby files in specified app folders
 def require_app
