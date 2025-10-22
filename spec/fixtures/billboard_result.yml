@@ -1,0 +1,172 @@
+---
+- :name: Golden
+  :id: 1CPZ5BxNNd0n0nF4Orb9JS
+  :uri: spotify:track:1CPZ5BxNNd0n0nF4Orb9JS
+  :external_url: https://open.spotify.com/track/1CPZ5BxNNd0n0nF4Orb9JS
+  :singers:
+  - :name: HUNTR/X
+    :id: 2yNNYQBChuox9A5Ka93BIn
+    :external_url: https://open.spotify.com/artist/2yNNYQBChuox9A5Ka93BIn
+  - :name: EJAE
+    :id: 0RMJOzHDhAKY1o2j0W0vxY
+    :external_url: https://open.spotify.com/artist/0RMJOzHDhAKY1o2j0W0vxY
+  - :name: AUDREY NUNA
+    :id: 0Wwji82sLA0Hcvtuak3omb
+    :external_url: https://open.spotify.com/artist/0Wwji82sLA0Hcvtuak3omb
+  - :name: REI AMI
+    :id: 6U1dV7aL68N7Gb0Naq34V5
+    :external_url: https://open.spotify.com/artist/6U1dV7aL68N7Gb0Naq34V5
+  - :name: KPop Demon Hunters Cast
+    :id: 7mW7Tv7NvywKKXqafZo0Lc
+    :external_url: https://open.spotify.com/artist/7mW7Tv7NvywKKXqafZo0Lc
+  :album_name: KPop Demon Hunters (Soundtrack from the Netflix Film)
+  :album_id: 14JkAa6IiFaOh5s0nMyMU9
+  :album_url: https://open.spotify.com/album/14JkAa6IiFaOh5s0nMyMU9
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4
+- :name: Ordinary
+  :id: 6qqrTXSdwiJaq8SO0X2lSe
+  :uri: spotify:track:6qqrTXSdwiJaq8SO0X2lSe
+  :external_url: https://open.spotify.com/track/6qqrTXSdwiJaq8SO0X2lSe
+  :singers:
+  - :name: Alex Warren
+    :id: 0fTSzq9jAh4c36UVb4V7CB
+    :external_url: https://open.spotify.com/artist/0fTSzq9jAh4c36UVb4V7CB
+  :album_name: Ordinary
+  :album_id: 6xomx5ekO7qHDvDh57rZ5S
+  :album_url: https://open.spotify.com/album/6xomx5ekO7qHDvDh57rZ5S
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b273fa2bcf3df669bde08b2e7d36
+- :name: TIT FOR TAT
+  :id: 04a44cx2PJthIbN2aLMXhl
+  :uri: spotify:track:04a44cx2PJthIbN2aLMXhl
+  :external_url: https://open.spotify.com/track/04a44cx2PJthIbN2aLMXhl
+  :singers:
+  - :name: Tate McRae
+    :id: 45dkTj5sMRSjrmBSBeiHym
+    :external_url: https://open.spotify.com/artist/45dkTj5sMRSjrmBSBeiHym
+  :album_name: TIT FOR TAT
+  :album_id: 1ks1k7zln4TyBjn1CF3vCz
+  :album_url: https://open.spotify.com/album/1ks1k7zln4TyBjn1CF3vCz
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b273a8c77f8a83844a458d2692e3
+- :name: What I Want (feat. Tate McRae)
+  :id: 48NthgcgfoRrWT8LtgW28A
+  :uri: spotify:track:48NthgcgfoRrWT8LtgW28A
+  :external_url: https://open.spotify.com/track/48NthgcgfoRrWT8LtgW28A
+  :singers:
+  - :name: Morgan Wallen
+    :id: 4oUHIQIBe0LHzYfvXNW4QM
+    :external_url: https://open.spotify.com/artist/4oUHIQIBe0LHzYfvXNW4QM
+  - :name: Tate McRae
+    :id: 45dkTj5sMRSjrmBSBeiHym
+    :external_url: https://open.spotify.com/artist/45dkTj5sMRSjrmBSBeiHym
+  :album_name: I’m The Problem
+  :album_id: 1o844O5I0qVpZKiePtIGcF
+  :album_url: https://open.spotify.com/album/1o844O5I0qVpZKiePtIGcF
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b273a70a80359930eea5bfdf11f5
+- :name: DAISIES
+  :id: 5BZsQlgw21vDOAjoqkNgKb
+  :uri: spotify:track:5BZsQlgw21vDOAjoqkNgKb
+  :external_url: https://open.spotify.com/track/5BZsQlgw21vDOAjoqkNgKb
+  :singers:
+  - :name: Justin Bieber
+    :id: 1uNFoZAHBGtllmzznpCI3s
+    :external_url: https://open.spotify.com/artist/1uNFoZAHBGtllmzznpCI3s
+  :album_name: SWAG
+  :album_id: 5vD5M5VW62LL78Ko8x0CVZ
+  :album_url: https://open.spotify.com/album/5vD5M5VW62LL78Ko8x0CVZ
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b273d65c4773bc5061fd27facc5b
+- :name: Lose Control
+  :id: 6usohdchdzW9oML7VC4Uhk
+  :uri: spotify:track:6usohdchdzW9oML7VC4Uhk
+  :external_url: https://open.spotify.com/track/6usohdchdzW9oML7VC4Uhk
+  :singers:
+  - :name: Teddy Swims
+    :id: 33qOK5uJ8AR2xuQQAhHump
+    :external_url: https://open.spotify.com/artist/33qOK5uJ8AR2xuQQAhHump
+  :album_name: Lose Control
+  :album_id: 5QMiub2LonMqxB7dhtbPlX
+  :album_url: https://open.spotify.com/album/5QMiub2LonMqxB7dhtbPlX
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b2731d856e66d33e22746c21a09c
+- :name: Soda Pop
+  :id: 02sy7FAs8dkDNYsHp4Ul3f
+  :uri: spotify:track:02sy7FAs8dkDNYsHp4Ul3f
+  :external_url: https://open.spotify.com/track/02sy7FAs8dkDNYsHp4Ul3f
+  :singers:
+  - :name: Saja Boys
+    :id: 0BJ2EjOqcfgFvlZXNKrNbE
+    :external_url: https://open.spotify.com/artist/0BJ2EjOqcfgFvlZXNKrNbE
+  - :name: Andrew Choi
+    :id: 7JBaynR7JFeniONqbnn1U4
+    :external_url: https://open.spotify.com/artist/7JBaynR7JFeniONqbnn1U4
+  - :name: Neckwav
+    :id: 5bXNU0MAF2HSqyFPhYtscH
+    :external_url: https://open.spotify.com/artist/5bXNU0MAF2HSqyFPhYtscH
+  - :name: Danny Chung
+    :id: 11pXvO7wYuzRWYONDOBd33
+    :external_url: https://open.spotify.com/artist/11pXvO7wYuzRWYONDOBd33
+  - :name: KEVIN WOO
+    :id: 2RYonYiVhhzBz82UFXOvEN
+    :external_url: https://open.spotify.com/artist/2RYonYiVhhzBz82UFXOvEN
+  - :name: samUIL Lee
+    :id: 1eDupbD9kIx8UaZlzcBG5r
+    :external_url: https://open.spotify.com/artist/1eDupbD9kIx8UaZlzcBG5r
+  - :name: KPop Demon Hunters Cast
+    :id: 7mW7Tv7NvywKKXqafZo0Lc
+    :external_url: https://open.spotify.com/artist/7mW7Tv7NvywKKXqafZo0Lc
+  :album_name: KPop Demon Hunters (Soundtrack from the Netflix Film)
+  :album_id: 14JkAa6IiFaOh5s0nMyMU9
+  :album_url: https://open.spotify.com/album/14JkAa6IiFaOh5s0nMyMU9
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4
+- :name: I Got Better
+  :id: 4GBNnoGf1FgsPtsgghZ381
+  :uri: spotify:track:4GBNnoGf1FgsPtsgghZ381
+  :external_url: https://open.spotify.com/track/4GBNnoGf1FgsPtsgghZ381
+  :singers:
+  - :name: Morgan Wallen
+    :id: 4oUHIQIBe0LHzYfvXNW4QM
+    :external_url: https://open.spotify.com/artist/4oUHIQIBe0LHzYfvXNW4QM
+  :album_name: I’m The Problem
+  :album_id: 1o844O5I0qVpZKiePtIGcF
+  :album_url: https://open.spotify.com/album/1o844O5I0qVpZKiePtIGcF
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b273a70a80359930eea5bfdf11f5
+- :name: Love Me Not
+  :id: 1UNEuG9DYOWiikf00ayr52
+  :uri: spotify:track:1UNEuG9DYOWiikf00ayr52
+  :external_url: https://open.spotify.com/track/1UNEuG9DYOWiikf00ayr52
+  :singers:
+  - :name: Ravyn Lenae
+    :id: 5RTLRtXjbXI2lSXc6jxlAz
+    :external_url: https://open.spotify.com/artist/5RTLRtXjbXI2lSXc6jxlAz
+  :album_name: Love Me Not / Love Is Blind
+  :album_id: 6YHaDmwYvX8vREotCZTV6g
+  :album_url: https://open.spotify.com/album/6YHaDmwYvX8vREotCZTV6g
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b2735511ceaa955a2bfd9ae90c21
+- :name: Your Idol
+  :id: 1I37Zz2g3hk9eWxaNkj031
+  :uri: spotify:track:1I37Zz2g3hk9eWxaNkj031
+  :external_url: https://open.spotify.com/track/1I37Zz2g3hk9eWxaNkj031
+  :singers:
+  - :name: Saja Boys
+    :id: 0BJ2EjOqcfgFvlZXNKrNbE
+    :external_url: https://open.spotify.com/artist/0BJ2EjOqcfgFvlZXNKrNbE
+  - :name: Andrew Choi
+    :id: 7JBaynR7JFeniONqbnn1U4
+    :external_url: https://open.spotify.com/artist/7JBaynR7JFeniONqbnn1U4
+  - :name: Neckwav
+    :id: 5bXNU0MAF2HSqyFPhYtscH
+    :external_url: https://open.spotify.com/artist/5bXNU0MAF2HSqyFPhYtscH
+  - :name: Danny Chung
+    :id: 11pXvO7wYuzRWYONDOBd33
+    :external_url: https://open.spotify.com/artist/11pXvO7wYuzRWYONDOBd33
+  - :name: KEVIN WOO
+    :id: 2RYonYiVhhzBz82UFXOvEN
+    :external_url: https://open.spotify.com/artist/2RYonYiVhhzBz82UFXOvEN
+  - :name: samUIL Lee
+    :id: 1eDupbD9kIx8UaZlzcBG5r
+    :external_url: https://open.spotify.com/artist/1eDupbD9kIx8UaZlzcBG5r
+  - :name: KPop Demon Hunters Cast
+    :id: 7mW7Tv7NvywKKXqafZo0Lc
+    :external_url: https://open.spotify.com/artist/7mW7Tv7NvywKKXqafZo0Lc
+  :album_name: KPop Demon Hunters (Soundtrack from the Netflix Film)
+  :album_id: 14JkAa6IiFaOh5s0nMyMU9
+  :album_url: https://open.spotify.com/album/14JkAa6IiFaOh5s0nMyMU9
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4

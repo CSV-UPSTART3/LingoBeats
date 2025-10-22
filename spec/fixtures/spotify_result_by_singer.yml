@@ -3,9 +3,10 @@
   :id: 0tgVpDi06FyKpA1z0VMD4v
   :uri: spotify:track:0tgVpDi06FyKpA1z0VMD4v
   :external_url: https://open.spotify.com/track/0tgVpDi06FyKpA1z0VMD4v
-  :artist_name: Ed Sheeran
-  :artist_id: 6eUKZXaKkcviH0Ku9w2n3V
-  :artist_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
+  :singers:
+  - :name: Ed Sheeran
+    :id: 6eUKZXaKkcviH0Ku9w2n3V
+    :external_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
   :album_name: "÷ (Deluxe)"
   :album_id: 3T4tUhGYeRNVUGevb0wThu
   :album_url: https://open.spotify.com/album/3T4tUhGYeRNVUGevb0wThu
@@ -14,9 +15,10 @@
   :id: 7qiZfU4dY1lWllzX7mPBI3
   :uri: spotify:track:7qiZfU4dY1lWllzX7mPBI3
   :external_url: https://open.spotify.com/track/7qiZfU4dY1lWllzX7mPBI3
-  :artist_name: Ed Sheeran
-  :artist_id: 6eUKZXaKkcviH0Ku9w2n3V
-  :artist_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
+  :singers:
+  - :name: Ed Sheeran
+    :id: 6eUKZXaKkcviH0Ku9w2n3V
+    :external_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
   :album_name: "÷ (Deluxe)"
   :album_id: 3T4tUhGYeRNVUGevb0wThu
   :album_url: https://open.spotify.com/album/3T4tUhGYeRNVUGevb0wThu

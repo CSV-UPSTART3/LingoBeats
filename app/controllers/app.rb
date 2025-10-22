@@ -27,7 +27,11 @@ module LingoBeats
       response['Content-Type'] = 'text/html; charset=utf-8'
 
       # GET /
-      routing.root { view 'home' }
+      # routing.root { view 'home' }
+      routing.root do
+        popular = @spotify_mapper.display_popular_songs
+        view 'home', locals: { popular: popular }
+      end
 
       # sub route for spotify
       routing.multi_route
