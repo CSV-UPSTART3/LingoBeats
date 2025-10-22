@@ -3,6 +3,8 @@
 require 'dry-types'
 require 'dry-struct'
 
+require_relative 'singer'
+
 module LingoBeats
   module Entity
     # Domain entity for song
@@ -13,9 +15,7 @@ module LingoBeats
       attribute :id,              Strict::String
       attribute :uri,             Strict::String
       attribute :external_url,    Strict::String
-      attribute :artist_name,     Strict::String
-      attribute :artist_id,       Strict::String
-      attribute :artist_url,      Strict::String
+      attribute :singers,         Strict::Array.of(Singer)
       attribute :album_name,      Strict::String
       attribute :album_id,        Strict::String
       attribute :album_url,       Strict::String

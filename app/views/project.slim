@@ -24,8 +24,12 @@
                   / 3. singer
                   .singer-line.d-flex.align-items-center
                     i.fas.fa-user.me-2.text-black-50
-                    a.singer-link.text-black-50 href=song[:artist_url] target="_blank" rel="noopener"
-                      = song[:artist_name]
+                    .singer-text
+                      - song[:singers].each_with_index do |singer, idx|
+                        a.singer-link.text-black-50 href=singer[:external_url] target="_blank" rel="noopener"
+                          = singer[:name]
+                        - unless idx == song[:singers].length - 1
+                          | , 
                   / 4. external url
                   a.spotify-btn-square.btn.d-flex.align-items-center.justify-content-center href=song[:external_url] target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Listen on Spotify"
                     i.fab.fa-spotify

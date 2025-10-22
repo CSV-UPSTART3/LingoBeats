@@ -121,6 +121,25 @@ body {
   transition: all 0.25s ease;
 }
 
+.card.flex-row .card-body { 
+  min-width: 0;
+}
+
+.singer-line {
+  display: flex;
+  align-items: center;
+  overflow: hidden !important;
+}
+
+.song-title,
+.album-line,
+.singer-text {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
 /* =========================================================
     Tooltip
    ========================================================= */
@@ -144,6 +163,10 @@ body {
 .results-container::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.15);
   border-radius: 3px;
+}
+
+.results-container::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 /* =========================================================

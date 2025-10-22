@@ -10,7 +10,8 @@ module LingoBeats
   module Spotify
     # Library for Spotify Web API
     class Api
-      BASE_PATH = 'https://api.spotify.com/v1/'
+      BASE_PATH = 'https://api.spotify.com/v1'
+      BILLBORAD_PLAYLIST_ID = '6UeSakyzhiEt4NB3UAd6NQ'
       Credentials = Struct.new(:id, :secret) do
         # register for token management
         def key = "#{id}:#{secret}"
@@ -25,13 +26,24 @@ module LingoBeats
       def songs_data(category:, query:, limit:)
         spec = SearchSpec.new(category: category, query: query, limit: limit)
         HttpHelper::Request.new('Authorization' => "Bearer #{@token_manager.access_token}")
-                           .get(spotify_search_url('search'), params: spec.params)
+                           .get(spotify_search_url, params: spec.params)
+      end
+
+      # get billboard 100 playlist songs
+      def billboard_data(limit:)
+        params = { limit: limit }
+        HttpHelper::Request.new('Authorization' => "Bearer #{@token_manager.access_token}")
+                           .get(spotify_playlist_url(BILLBORAD_PLAYLIST_ID), params: params)
       end
 
       private
 
-      def spotify_search_url(method)
-        "#{BASE_PATH}#{method}"
+      def spotify_search_url
+        "#{BASE_PATH}/search"
+      end
+
+      def spotify_playlist_url(id)
+        "#{BASE_PATH}/playlists/#{id}/tracks"
       end
 
       # ---- nested class (internal) ----
