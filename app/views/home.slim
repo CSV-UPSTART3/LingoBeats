@@ -1,9 +1,11 @@
 .results-container
   - if defined?(popular) && popular.any?
-    h5.text-warning.d-flex.align-items-center.fs-6
-      i.fas.fa-fire.text-warning.me-2
-      | Highlights of the Week
-    .row.justify-content-center
+    .row.justify-content-center.g-0
+      .col-12.col-md-10.col-lg-8
+        h5.text-warning.d-flex.align-items-center.fs-6.mb-3
+          i.fas.fa-fire.text-warning.me-2
+          | Highlights of the Week
+
       - popular.each do |song|
         .col-12.col-md-10.col-lg-8.mb-3
           .card.flex-row.align-items-center.shadow-sm.border-0.p-2
@@ -24,8 +26,7 @@
                   i.fas.fa-user.me-2.text-black-50
                   .singer-text
                     - song[:singers].each_with_index do |singer, idx|
-                      a.singer-link.text-black-50 href=singer[:external_url] target="_blank" rel="noopener"
-                        = singer[:name]
+                      a.singer-link.text-black-50 href=singer[:external_url] target="_blank" rel="noopener" = singer[:name]
                       - unless idx == song[:singers].length - 1
                         | , 
                 / 4. external url

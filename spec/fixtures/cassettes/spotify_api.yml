@@ -1241,4 +1241,69 @@ http_interactions:
         Savage","type":"artist","uri":"spotify:artist:1URnnhqYAYcrqrcwql10ft"}],"disc_number":1,"duration_ms":203813,"explicit":true,"external_ids":{"isrc":"USRC12300570"},"external_urls":{"spotify":"https://open.spotify.com/track/2KcQ0PbPj0O3P48B9YX7iN"},"href":"https://api.spotify.com/v1/tracks/2KcQ0PbPj0O3P48B9YX7iN","id":"2KcQ0PbPj0O3P48B9YX7iN","is_local":false,"is_playable":true,"name":"Peaches
         & Eggplants (feat. 21 Savage)","popularity":64,"preview_url":null,"track_number":8,"type":"track","uri":"spotify:track:2KcQ0PbPj0O3P48B9YX7iN"}]}}'
   recorded_at: Sun, 19 Oct 2025 09:08:35 GMT
+- request:
+    method: get
+    uri: https://api.spotify.com/v1/search?limit=3&market=US&q=track:%22golden%22&type=track
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SPOTIFY_ACCESS_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.spotify.com
+      User-Agent:
+      - http.rb/5.3.1
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Www-Authenticate:
+      - Bearer realm="spotify", error="invalid_request", error_description="Only valid
+        bearer authentication supported"
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Accept, App-Platform, Authorization, Content-Type, Origin, Retry-After, Spotify-App-Version,
+        X-Cloud-Trace-Context, client-token, content-access-token
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS, PUT, DELETE, PATCH
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Max-Age:
+      - '604800'
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '99'
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Thu, 23 Oct 2025 14:40:13 GMT
+      Server:
+      - envoy
+      Via:
+      - HTTP/2 edgeproxy, 1.1 google
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "error": {
+            "status": 400,
+            "message": "Only valid bearer authentication supported"
+          }
+        }
+  recorded_at: Thu, 23 Oct 2025 14:40:13 GMT
 recorded_with: VCR 6.3.1

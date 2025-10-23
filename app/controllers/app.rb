@@ -19,7 +19,7 @@ module LingoBeats
       super
       @allowed_categories = %w[singer song_name].freeze
       @spotify_mapper = LingoBeats::Spotify::SongMapper
-                        .new(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
+                        .new(App.config.SPOTIFY_CLIENT_ID, App.config.SPOTIFY_CLIENT_SECRET)
     end
 
     route do |routing|

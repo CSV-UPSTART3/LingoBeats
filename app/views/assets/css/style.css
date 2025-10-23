@@ -153,6 +153,7 @@ body {
 .results-container {
   max-height: calc(100vh - 260px);
   overflow-y: auto;
+  overflow-x: hidden;
   scrollbar-width: thin;
 }
 

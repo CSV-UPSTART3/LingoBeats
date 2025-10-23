@@ -26,8 +26,7 @@
                     i.fas.fa-user.me-2.text-black-50
                     .singer-text
                       - song[:singers].each_with_index do |singer, idx|
-                        a.singer-link.text-black-50 href=singer[:external_url] target="_blank" rel="noopener"
-                          = singer[:name]
+                        a.singer-link.text-black-50 href=singer[:external_url] target="_blank" rel="noopener" = singer[:name]
                         - unless idx == song[:singers].length - 1
                           | , 
                   / 4. external url
