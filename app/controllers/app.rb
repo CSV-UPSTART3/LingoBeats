@@ -20,7 +20,14 @@ module LingoBeats
       @allowed_categories = %w[singer song_name].freeze
       @spotify_mapper = LingoBeats::Spotify::SongMapper
                         .new(App.config.SPOTIFY_CLIENT_ID, App.config.SPOTIFY_CLIENT_SECRET)
+
+      App.config.GENIUS_CLIENT_ACCESS_TOKEN
+      genius_api = LingoBeats::Genius::Api.new(
+        token_provider: GeniusToken
+      )
     end
+
+
 
     route do |routing|
       routing.assets # load CSS
