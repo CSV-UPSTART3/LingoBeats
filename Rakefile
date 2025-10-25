@@ -4,7 +4,7 @@ require 'rake/testtask'
 require 'fileutils'
 require_relative 'require_app'
 require 'bundler/setup'
-Bundler.require(:default)
+# Bundler.require(:default)
 
 
 task :default do
@@ -24,7 +24,7 @@ task :respec do
   sh "rerun -c 'rake spec' --ignore 'coverage/*'"
 end
 
-desc 'Run application console'
+desc 'Run application console (irb)'
 task :console do
   sh 'pry -r ./load_all'
 end
@@ -108,7 +108,7 @@ namespace :db do
       return
     end
 
-    require_app(%w[models infrastructure])
+    require_app
     DatabaseHelper.wipe_database
   end
 

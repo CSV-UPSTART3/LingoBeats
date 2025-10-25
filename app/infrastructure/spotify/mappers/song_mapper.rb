@@ -2,7 +2,7 @@
 
 require 'yaml'
 
-require_relative '../entities/song'
+require_relative '../../../models/entities/song'
 require_relative 'singer_mapper'
 
 module LingoBeats

@@ -6,18 +6,16 @@ require 'dry-struct'
 module LingoBeats
   module Entity
     # Domain entity for song
-    class Singer < Dry::Struct
+    class Lyric < Dry::Struct
       include Dry.Types
 
       attribute :id,              Strict::String
-      attribute :name,            Strict::String
-      attribute :external_url,    Strict::String
+      attribute :lyric,           Strict::String
 
       def to_attr_hash
         {
           id: id,
-          name: name,
-          external_url: external_url
+          lyric: lyric
         }
       end
     end
