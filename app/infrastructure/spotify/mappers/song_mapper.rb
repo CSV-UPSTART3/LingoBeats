@@ -67,7 +67,8 @@ module LingoBeats
             name:, id:, uri:, external_url:,
             # artist_name:, artist_id:, artist_url:,
             singers:,
-            album_name:, album_id:, album_url:, album_image_url:
+            album_name:, album_id:, album_url:, album_image_url:,
+            lyric: nil
           )
         end
 

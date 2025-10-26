@@ -21,10 +21,8 @@ module LingoBeats
       @spotify_mapper = LingoBeats::Spotify::SongMapper
                         .new(App.config.SPOTIFY_CLIENT_ID, App.config.SPOTIFY_CLIENT_SECRET)
 
-      App.config.GENIUS_CLIENT_ACCESS_TOKEN
-      genius_api = LingoBeats::Genius::Api.new(
-        token_provider: GeniusToken
-      )
+      @lyric_mapper = LingoBeats::Genius::LyricMapper
+                      .new(App.config.GENIUS_CLIENT_ACCESS_TOKEN)
     end
 
 
