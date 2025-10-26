@@ -5,7 +5,7 @@ module LingoBeats
     # Repository for Lyrics
     class Lyrics
       def self.rebuild_entity(db_record)
-        return nil if db_record.nil? || db_record.respond_to?(:empty?) && db_record.empty?
+        return nil if db_record.nil?
 
         db_record = db_record.first if db_record.is_a?(Array)
 

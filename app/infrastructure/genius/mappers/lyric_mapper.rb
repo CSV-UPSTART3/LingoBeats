@@ -4,6 +4,7 @@ require 'nokogiri'
 
 module LingoBeats
   module Genius
+    # Maps Genius API lyric data into domain entities.
     class LyricMapper
       def initialize(access_token, gateway_class = LingoBeats::Genius::Api)
         @gateway_class = gateway_class
@@ -56,6 +57,7 @@ module LingoBeats
         hits = json.dig('response', 'hits') || []
         first_hit = hits.first
         return nil unless first_hit
+
         first_hit.dig('result', 'url')
       end
 
@@ -69,23 +71,21 @@ module LingoBeats
 
         # 2. 保留 <br> 換行
         raw_html = blocks
-          .map { |div| div.inner_html.gsub('<br>', "\n") }
-          .join("\n")
+                   .map { |div| div.inner_html.gsub('<br>', "\n") }
+                   .join("\n")
 
         # 3. 再跑一次 Nokogiri，把 tag 拿掉
         text_only = Nokogiri::HTML(raw_html).text
 
-        # 4. 切掉貢獻者/廣告雜訊，只留從 [Verse]/[Chorus] 那種段落開始
+        # 4. 從 [Verse]/[Chorus] 開始
         lyrics_start_idx = text_only.index(/\[[A-Za-z0-9\s#]+\]/)
         core_lyrics = lyrics_start_idx ? text_only[lyrics_start_idx..] : text_only
 
-        # 5. 美化段落
-        formatted = core_lyrics
+        # 5. 美化
+        core_lyrics
           .gsub(/\s*\[([^\]]+)\]\s*/, "\n\n[\\1]\n") # section header 獨立一行，前面留空行
-          .gsub(/([a-z\)])(\[)/, "\\1\n\\2")         # 如果 header 黏在歌詞後面就斷行
+          .gsub(/([a-z)])(\[)/, "\\1\n\\2") # 如果 header 黏在歌詞後面就斷行
           .strip
-
-        formatted
       end
     end
   end

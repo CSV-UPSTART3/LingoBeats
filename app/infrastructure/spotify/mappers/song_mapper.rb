@@ -35,7 +35,6 @@ module LingoBeats
       # --- class methods ---
 
       def self.build_entities(data)
-        #Array(data).map { |track| build_entity(track).to_h }
         Array(data).map { |track| build_entity(track) }
       end
 
