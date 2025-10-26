@@ -1,4 +1,4 @@
-## **LingoBeats**
+# **LingoBeats**
 
 An application that transforms *songs* into AI-generated content for an engaging language-learning experience.
 
@@ -25,6 +25,21 @@ By combining music, AI, and intelligent content generation, LingoBeats hopes to 
 1. Expand the platform to support multiple languages and cross-cultural learning
 2. Build adaptive learning models that personalize content based on learner progress
 
+## **System Design**
+### Entity-Relationship Diagram
+<p>
+  <img src="app/models/entities/er-diagram.png" width="600" alt="ERD Preview">
+</p>
+
+## **Setup**
+1. Sign up for or log in to your **Spotify for Developers** account, create a new project, and obtain your `client_id` and `client_secret`
+2. Copy `config/secrets_example.yml` to `config/secrets.yml` and update token
+3. Ensure correct version of Ruby install (see `.ruby-version` for `rbenv`)
+4. Run `bundle install`
+5. Rub `bundle exec rake db:migrate` to create dev database
+6. Rub `RACK_ENV=test bundle exec rake db:migrate` to create test database
+
+
 ## **Running Tests**
 
 ### To run tests：
@@ -35,5 +50,5 @@ By combining music, AI, and intelligent content generation, LingoBeats hopes to 
 
 <pre><code>rake quality:all</pre></code>
 
-### To run the app：
+## **Running Application**
 <pre><code>rake app:run</pre></code>

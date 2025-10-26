@@ -6,7 +6,6 @@ require_relative 'require_app'
 require 'bundler/setup'
 # Bundler.require(:default)
 
-
 task :default do
   puts `rake -T`
 end
@@ -86,23 +85,23 @@ end
 
 # db manipulation
 namespace :db do
-  task :config do # rubocop:disable Rake/Desc
+  task :config do
     require 'sequel'
     require_relative 'config/environment' # load config info
     require_relative 'spec/helpers/database_helper'
 
-    def app = LingoBeats::App # rubocop:disable Rake/MethodDefinitionInTask
+    def app = LingoBeats::App
   end
 
   desc 'Run migrations'
-  task :migrate => :config do
+  task migrate: :config do
     Sequel.extension :migration
     puts "Migrating #{app.environment} database to latest"
     Sequel::Migrator.run(app.db, 'db/migrations')
   end
 
   desc 'Wipe records from all tables'
-  task :wipe => :config do
+  task wipe: :config do
     if app.environment == :production
       puts 'Do not damage production database!'
       return
@@ -113,7 +112,7 @@ namespace :db do
   end
 
   desc 'Delete dev or test database file (set correct RACK_ENV)'
-  task :drop => :config do
+  task drop: :config do
     if app.environment == :production
       puts 'Do not damage production database!'
       return
