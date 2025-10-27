@@ -38,10 +38,10 @@ module LingoBeats
         lyric_repo = LingoBeats::Repository::For.klass(LingoBeats::Entity::Lyric)
 
         popular.each do |song_entity|
-          # 先看看資料庫裡有沒有這首歌
           db_song_entity = song_repo.find_id(song_entity.id)
           existing_lyric = lyric_repo.find_by_song_id(song_entity.id)
 
+          # if song already exists in DB
           if db_song_entity
             # 歌已經存在了
             # 如果它還沒有歌詞 -> 試著補歌詞
@@ -61,22 +61,27 @@ module LingoBeats
               end
             end
 
-            # 這首歌處理完了（存在+可能補了詞），換下一首
             next
           end
 
-          # ==========
-          # 歌目前不在 DB 的情況
-          # Step 1: 先把歌（跟歌手關聯）寫進 songs 資料表
+          # if song does not exist in DB
+          # 先把歌（跟歌手關聯）寫進 songs 資料表
           song_repo.create(song_entity)
 
-          # Step 2: 再去拿歌詞，然後再存入 lyrics
+          # 再去拿歌詞，然後再存入 lyrics
           first_singer_name = song_entity.singers.first&.name
           lyric_text = @lyric_mapper.lyrics_for(
             song_name: song_entity.name,
             artist_name: first_singer_name
           )
 
+          next unless lyric_text
+
+          lyric_entity = LingoBeats::Entity::Lyric.new(
+            song_id: song_entity.id,
+            lyric: lyric_text
+          )
+          lyric_repo.create(lyric_entity)
           next unless lyric_text
 
           lyric_entity = LingoBeats::Entity::Lyric.new(

@@ -6,7 +6,7 @@ module LingoBeats
   module Database
     # Object-Relational Mapper for Songs
     class SongOrm < Sequel::Model(:songs)
-      unrestrict_primary_key # 允許設定主鍵
+      unrestrict_primary_key
 
       many_to_many :singers,
                    class: :'LingoBeats::Database::SingerOrm',
@@ -20,7 +20,7 @@ module LingoBeats
       plugin :timestamps, update_on_create: true
 
       def self.find_or_create(song_info)
-        first(uri: song_info[:uri]) || create(song_info) # 都是內建方法
+        first(uri: song_info[:uri]) || create(song_info)
       end
     end
   end

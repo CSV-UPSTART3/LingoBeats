@@ -20,7 +20,7 @@ module LingoBeats
       attribute :album_name,      Strict::String
       attribute :album_url,       Strict::String
       attribute :album_image_url, Strict::String
-      #attribute :lyric,           Lyric.optional
+      attribute :lyric,           Lyric.optional
       attribute :singers,         Strict::Array.of(Singer)
 
       def to_attr_hash
