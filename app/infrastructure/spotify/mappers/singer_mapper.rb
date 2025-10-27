@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-require_relative '../entities/singer'
+require_relative '../../../models/entities/singer'
 
 module LingoBeats
   module Spotify

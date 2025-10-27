@@ -1,47 +1,15 @@
 # frozen_string_literal: true
 
-require 'base64'
-require 'json'
-
-# use spec_helper.rb(vcr + webmock)
-require_relative 'spec_helper'
+require_relative 'helpers/spec_helper'
+require_relative 'helpers/vcr_helper'
 
 describe 'Tests Spotify API library' do
-  VCR.configure do |c|
-    c.cassette_library_dir = CASSETTES_FOLDER
-    c.hook_into :webmock
-
-    encoded_auth = Base64.strict_encode64("#{SPOTIFY_CLIENT_ID}:#{SPOTIFY_CLIENT_SECRET}")
-
-    c.filter_sensitive_data('<SPOTIFY_CLIENT_ID>') { SPOTIFY_CLIENT_ID }
-    c.filter_sensitive_data('<SPOTIFY_CLIENT_SECRET>') { SPOTIFY_CLIENT_SECRET }
-    c.filter_sensitive_data('<SPOTIFY_BASIC_AUTH>') { encoded_auth }
-    c.filter_sensitive_data('<SPOTIFY_BASIC_AUTH_ESC>') { CGI.escape(encoded_auth) }
-    c.before_record do |interaction|
-      if interaction.request.headers['Authorization']&.first&.start_with?('Bearer ')
-        interaction.request.headers['Authorization'] = ['Bearer <SPOTIFY_ACCESS_TOKEN>']
-      end
-
-      begin
-        body = JSON.parse(interaction.response.body)
-        if body['access_token']
-          body['access_token'] = '<SPOTIFY_ACCESS_TOKEN>'
-          interaction.response.body = JSON.generate(body)
-        end
-      # Ignore non JSON response
-      rescue JSON::ParserError
-      end
-    end
-  end
-
   before do
-    VCR.insert_cassette CASSETTE_FILE,
-                        record: :new_episodes,
-                        match_requests_on: %i[method uri headers]
+    VcrHelper.configure_vcr_for_spotify
   end
 
   after do
-    VCR.eject_cassette
+    VcrHelper.eject_vcr
   end
 
   describe 'Songs information searched by song name' do

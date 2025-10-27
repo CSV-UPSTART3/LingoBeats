@@ -2,7 +2,7 @@
 
 require 'yaml'
 
-require_relative '../entities/song'
+require_relative '../../../models/entities/song'
 require_relative 'singer_mapper'
 
 module LingoBeats
@@ -35,7 +35,7 @@ module LingoBeats
       # --- class methods ---
 
       def self.build_entities(data)
-        Array(data).map { |track| build_entity(track).to_h }
+        Array(data).map { |track| build_entity(track) }
       end
 
       def self.build_entity(data)
@@ -67,7 +67,8 @@ module LingoBeats
             name:, id:, uri:, external_url:,
             # artist_name:, artist_id:, artist_url:,
             singers:,
-            album_name:, album_id:, album_url:, album_image_url:
+            album_name:, album_id:, album_url:, album_image_url:,
+            lyric: nil
           )
         end
 

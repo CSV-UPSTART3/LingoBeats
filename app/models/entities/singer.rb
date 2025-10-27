@@ -9,9 +9,17 @@ module LingoBeats
     class Singer < Dry::Struct
       include Dry.Types
 
-      attribute :name,            Strict::String
       attribute :id,              Strict::String
+      attribute :name,            Strict::String
       attribute :external_url,    Strict::String
+
+      def to_attr_hash
+        {
+          id: id,
+          name: name,
+          external_url: external_url
+        }
+      end
     end
   end
 end

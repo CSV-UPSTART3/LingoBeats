@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+ENV['RACK_ENV'] = 'test'
+
 require 'simplecov'
 # Test coverage
 SimpleCov.start do
@@ -15,11 +17,11 @@ require 'minitest/rg'
 require 'vcr'
 require 'webmock'
 
-require_relative '../require_app'
+require_relative '../../require_app'
 require_app
 
 SINGER = 'Ed Sheeran'
-SONG_NAME = 'Peach'
+SONG_NAME = 'golden'
 CONFIG = YAML.safe_load_file('config/secrets.yml')
 SPOTIFY_CLIENT_ID = CONFIG['SPOTIFY_CLIENT_ID']
 SPOTIFY_CLIENT_SECRET = CONFIG['SPOTIFY_CLIENT_SECRET']
@@ -27,6 +29,3 @@ CORRECT_RESULT_BY_SINGER = YAML.safe_load_file('spec/fixtures/spotify_result_by_
                                                permitted_classes: [Symbol])
 CORRECT_RESULT_BY_SONG = YAML.safe_load_file('spec/fixtures/spotify_result_by_song_name.yml',
                                              permitted_classes: [Symbol])
-
-CASSETTES_FOLDER = 'spec/fixtures/cassettes'
-CASSETTE_FILE = 'spotify_api' # store title for vcr

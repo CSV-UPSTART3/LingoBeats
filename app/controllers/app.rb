@@ -19,7 +19,10 @@ module LingoBeats
       super
       @allowed_categories = %w[singer song_name].freeze
       @spotify_mapper = LingoBeats::Spotify::SongMapper
-                        .new(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
+                        .new(App.config.SPOTIFY_CLIENT_ID, App.config.SPOTIFY_CLIENT_SECRET)
+
+      @lyric_mapper = LingoBeats::Genius::LyricMapper
+                      .new(App.config.GENIUS_CLIENT_ACCESS_TOKEN)
     end
 
     route do |routing|
@@ -30,6 +33,64 @@ module LingoBeats
       # routing.root { view 'home' }
       routing.root do
         popular = @spotify_mapper.display_popular_songs
+
+        song_repo = LingoBeats::Repository::For.klass(LingoBeats::Entity::Song)
+        lyric_repo = LingoBeats::Repository::For.klass(LingoBeats::Entity::Lyric)
+
+        popular.each do |song_entity|
+          db_song_entity = song_repo.find_id(song_entity.id)
+          existing_lyric = lyric_repo.find_by_song_id(song_entity.id)
+
+          # if song already exists in DB
+          if db_song_entity
+            # 歌已經存在了
+            # 如果它還沒有歌詞 -> 試著補歌詞
+            if existing_lyric.nil?
+              first_singer_name = song_entity.singers.first&.name
+              lyric_text = @lyric_mapper.lyrics_for(
+                song_name: song_entity.name,
+                artist_name: first_singer_name
+              )
+
+              if lyric_text
+                lyric_entity = LingoBeats::Entity::Lyric.new(
+                  song_id: song_entity.id,
+                  lyric: lyric_text
+                )
+                lyric_repo.create(lyric_entity)
+              end
+            end
+
+            next
+          end
+
+          # if song does not exist in DB
+          # 先把歌（跟歌手關聯）寫進 songs 資料表
+          song_repo.create(song_entity)
+
+          # 再去拿歌詞，然後再存入 lyrics
+          first_singer_name = song_entity.singers.first&.name
+          lyric_text = @lyric_mapper.lyrics_for(
+            song_name: song_entity.name,
+            artist_name: first_singer_name
+          )
+
+          next unless lyric_text
+
+          lyric_entity = LingoBeats::Entity::Lyric.new(
+            song_id: song_entity.id,
+            lyric: lyric_text
+          )
+          lyric_repo.create(lyric_entity)
+          next unless lyric_text
+
+          lyric_entity = LingoBeats::Entity::Lyric.new(
+            song_id: song_entity.id,
+            lyric: lyric_text
+          )
+          lyric_repo.create(lyric_entity)
+        end
+
         view 'home', locals: { popular: popular }
       end
 
