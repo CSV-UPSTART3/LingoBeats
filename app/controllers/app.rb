@@ -25,8 +25,6 @@ module LingoBeats
                       .new(App.config.GENIUS_CLIENT_ACCESS_TOKEN)
     end
 
-
-
     route do |routing|
       routing.assets # load CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
@@ -42,11 +40,12 @@ module LingoBeats
         popular.each do |song_entity|
           # 先看看資料庫裡有沒有這首歌
           db_song_entity = song_repo.find_id(song_entity.id)
+          existing_lyric = lyric_repo.find_by_song_id(song_entity.id)
 
           if db_song_entity
             # 歌已經存在了
             # 如果它還沒有歌詞 -> 試著補歌詞
-            if db_song_entity.lyric.nil?
+            if existing_lyric.nil?
               first_singer_name = song_entity.singers.first&.name
               lyric_text = @lyric_mapper.lyrics_for(
                 song_name: song_entity.name,
@@ -78,13 +77,13 @@ module LingoBeats
             artist_name: first_singer_name
           )
 
-          if lyric_text
-            lyric_entity = LingoBeats::Entity::Lyric.new(
-              song_id: song_entity.id,
-              lyric: lyric_text
-            )
-            lyric_repo.create(lyric_entity)
-          end
+          next unless lyric_text
+
+          lyric_entity = LingoBeats::Entity::Lyric.new(
+            song_id: song_entity.id,
+            lyric: lyric_text
+          )
+          lyric_repo.create(lyric_entity)
         end
 
         view 'home', locals: { popular: popular }

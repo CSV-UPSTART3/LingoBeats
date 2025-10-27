@@ -14,8 +14,8 @@ module LingoBeats
                    left_key: :song_id, right_key: :singer_id
 
       one_to_one :lyric,
-                  class: :'LingoBeats::Database::LyricOrm',
-                  key: :song_id
+                 class: :'LingoBeats::Database::LyricOrm',
+                 key: :song_id
 
       plugin :timestamps, update_on_create: true
 

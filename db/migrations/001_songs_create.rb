@@ -11,7 +11,6 @@ Sequel.migration do
       String    :uri
       String    :external_url
 
-      #String    :album_id, unique: true
       String    :album_id
       String    :album_name
       String    :album_url

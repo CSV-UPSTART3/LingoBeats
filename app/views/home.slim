@@ -4,7 +4,7 @@
       .col-12.col-md-10.col-lg-8
         h5.text-warning.d-flex.align-items-center.fs-6.mb-3
           i.fas.fa-fire.text-warning.me-2
-          | Highlights of the Week
+          | Top 10 Hits
 
       - popular.each do |song|
         .col-12.col-md-10.col-lg-8.mb-3
@@ -36,3 +36,26 @@
     .text-center.mt-5
       i.fas.fa-music.fa-3x.text-success.mb-3
       h4.text-muted Start exploring songs!
+
+javascript:
+  document.addEventListener('DOMContentLoaded', function() {
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+      new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  });
+  document.addEventListener('wheel', (e) => {
+    const results = document.querySelector('.results-container');
+    if (!results) return;
+
+    const atTop = results.scrollTop === 0;
+    const atBottom = results.scrollHeight - results.scrollTop === results.clientHeight;
+
+    // scroll when the the target is not results-container
+    if (!results.contains(e.target)) {
+      e.preventDefault();
+      results.scrollTop += e.deltaY; // let the results scroll
+    } else if ((atTop && e.deltaY < 0) || (atBottom && e.deltaY > 0)) {
+      e.preventDefault();
+    }
+  }, { passive: false });

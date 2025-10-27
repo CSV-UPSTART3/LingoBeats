@@ -10,8 +10,8 @@ module LingoBeats
     module For
       ENTITY_REPOSITORY = {
         Entity::Singer => Singers,
-        Entity::Song   => Songs,
-        Entity::Lyric  => Lyrics
+        Entity::Song => Songs,
+        Entity::Lyric => Lyrics
       }.freeze
 
       def self.klass(entity_klass)

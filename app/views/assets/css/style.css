@@ -3,6 +3,7 @@
    ========================================================= */
 body {
   padding-top: 4.5rem; /* for fixed header */
+  overflow: hidden;
 }
 
 :root {
@@ -152,22 +153,29 @@ body {
    ========================================================= */
 .results-container {
   max-height: calc(100vh - 260px);
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow-y: scroll !important;
+  overscroll-behavior: contain;
+  -ms-overflow-style: none;  
   scrollbar-width: thin;
 }
 
-.results-container::-webkit-scrollbar {
+.results-container::-webkit-scrollbar,
+.results-container:hover::-webkit-scrollbar {
   width: 4px;
+  background: transparent;
 }
 
-.results-container::-webkit-scrollbar-thumb {
+.results-container::-webkit-scrollbar-thumb,
+.results-container:hover::-webkit-scrollbar-thumb,
+.results-container::-webkit-scrollbar-thumb:hover {
   background-color: rgba(0, 0, 0, 0.15);
   border-radius: 3px;
 }
 
-.results-container::-webkit-scrollbar-track {
+.results-container::-webkit-scrollbar-track,
+.results-container::-webkit-scrollbar-track:hover  {
   background: transparent;
+  border-color: transparent;
 }
 
 /* =========================================================

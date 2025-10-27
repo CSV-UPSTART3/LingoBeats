@@ -50,3 +50,18 @@ javascript:
       new bootstrap.Tooltip(tooltipTriggerEl)
     })
   });
+  document.addEventListener('wheel', (e) => {
+    const results = document.querySelector('.results-container');
+    if (!results) return;
+
+    const atTop = results.scrollTop === 0;
+    const atBottom = results.scrollHeight - results.scrollTop === results.clientHeight;
+
+    // scroll when the the target is not results-container
+    if (!results.contains(e.target)) {
+      e.preventDefault();
+      results.scrollTop += e.deltaY; // let the results scroll
+    } else if ((atTop && e.deltaY < 0) || (atBottom && e.deltaY > 0)) {
+      e.preventDefault();
+    }
+  }, { passive: false });
