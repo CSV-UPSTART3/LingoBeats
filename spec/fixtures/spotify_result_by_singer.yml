@@ -15,19 +15,6 @@
   - :id: 6DARBhWbfcS9E4yJzcliqQ
     :name: Karan Aujla
     :external_url: https://open.spotify.com/artist/6DARBhWbfcS9E4yJzcliqQ
-- :id: 4Q0qVhFQa7j6jRKzo3HDmP
-  :name: Sapphire
-  :uri: spotify:track:4Q0qVhFQa7j6jRKzo3HDmP
-  :external_url: https://open.spotify.com/track/4Q0qVhFQa7j6jRKzo3HDmP
-  :album_id: 1ZrWlhMUoyMKsoQ1tvRR2t
-  :album_name: Sapphire
-  :album_url: https://open.spotify.com/album/1ZrWlhMUoyMKsoQ1tvRR2t
-  :album_image_url: https://i.scdn.co/image/ab67616d0000b2736fbb60d6a7e03ccb940a518e
-  :lyric:
-  :singers:
-  - :id: 6eUKZXaKkcviH0Ku9w2n3V
-    :name: Ed Sheeran
-    :external_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
 - :id: 1HNkqx9Ahdgi1Ixy2xkKkL
   :name: Photograph
   :uri: spotify:track:1HNkqx9Ahdgi1Ixy2xkKkL
@@ -41,14 +28,27 @@
   - :id: 6eUKZXaKkcviH0Ku9w2n3V
     :name: Ed Sheeran
     :external_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
-- :id: 6vqyk3mbDBv3npTpctYoka
-  :name: Camera
-  :uri: spotify:track:6vqyk3mbDBv3npTpctYoka
-  :external_url: https://open.spotify.com/track/6vqyk3mbDBv3npTpctYoka
-  :album_id: 20dY0uZi9SzfrcWYfiWGqH
-  :album_name: Play
-  :album_url: https://open.spotify.com/album/20dY0uZi9SzfrcWYfiWGqH
-  :album_image_url: https://i.scdn.co/image/ab67616d0000b27333a7966fa1f664e6657fdc5f
+- :id: 34gCuhDGsG4bRPIf9bb02f
+  :name: Thinking out Loud
+  :uri: spotify:track:34gCuhDGsG4bRPIf9bb02f
+  :external_url: https://open.spotify.com/track/34gCuhDGsG4bRPIf9bb02f
+  :album_id: 1xn54DMo2qIqBuMqHtUsFd
+  :album_name: x (Deluxe Edition)
+  :album_url: https://open.spotify.com/album/1xn54DMo2qIqBuMqHtUsFd
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b27313b3e37318a0c247b550bccd
+  :lyric:
+  :singers:
+  - :id: 6eUKZXaKkcviH0Ku9w2n3V
+    :name: Ed Sheeran
+    :external_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
+- :id: 4Q0qVhFQa7j6jRKzo3HDmP
+  :name: Sapphire
+  :uri: spotify:track:4Q0qVhFQa7j6jRKzo3HDmP
+  :external_url: https://open.spotify.com/track/4Q0qVhFQa7j6jRKzo3HDmP
+  :album_id: 1ZrWlhMUoyMKsoQ1tvRR2t
+  :album_name: Sapphire
+  :album_url: https://open.spotify.com/album/1ZrWlhMUoyMKsoQ1tvRR2t
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b2736fbb60d6a7e03ccb940a518e
   :lyric:
   :singers:
   - :id: 6eUKZXaKkcviH0Ku9w2n3V
@@ -73,32 +73,6 @@
   - :id: 1RyvyyTE3xzB2ZywiAwp0i
     :name: Future
     :external_url: https://open.spotify.com/artist/1RyvyyTE3xzB2ZywiAwp0i
-- :id: 34gCuhDGsG4bRPIf9bb02f
-  :name: Thinking out Loud
-  :uri: spotify:track:34gCuhDGsG4bRPIf9bb02f
-  :external_url: https://open.spotify.com/track/34gCuhDGsG4bRPIf9bb02f
-  :album_id: 1xn54DMo2qIqBuMqHtUsFd
-  :album_name: x (Deluxe Edition)
-  :album_url: https://open.spotify.com/album/1xn54DMo2qIqBuMqHtUsFd
-  :album_image_url: https://i.scdn.co/image/ab67616d0000b27313b3e37318a0c247b550bccd
-  :lyric:
-  :singers:
-  - :id: 6eUKZXaKkcviH0Ku9w2n3V
-    :name: Ed Sheeran
-    :external_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
-- :id: 6PCUP3dWmTjcTtXY02oFdT
-  :name: Castle on the Hill
-  :uri: spotify:track:6PCUP3dWmTjcTtXY02oFdT
-  :external_url: https://open.spotify.com/track/6PCUP3dWmTjcTtXY02oFdT
-  :album_id: 3T4tUhGYeRNVUGevb0wThu
-  :album_name: "÷ (Deluxe)"
-  :album_url: https://open.spotify.com/album/3T4tUhGYeRNVUGevb0wThu
-  :album_image_url: https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96
-  :lyric:
-  :singers:
-  - :id: 6eUKZXaKkcviH0Ku9w2n3V
-    :name: Ed Sheeran
-    :external_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
 - :id: 1VdZ0vKfR5jneCmWIUAMxK
   :name: The A Team
   :uri: spotify:track:1VdZ0vKfR5jneCmWIUAMxK
@@ -125,10 +99,36 @@
   - :id: 6eUKZXaKkcviH0Ku9w2n3V
     :name: Ed Sheeran
     :external_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
-- :id: 0tgVpDi06FyKpA1z0VMD4v
-  :name: Perfect
-  :uri: spotify:track:0tgVpDi06FyKpA1z0VMD4v
-  :external_url: https://open.spotify.com/track/0tgVpDi06FyKpA1z0VMD4v
+- :id: 6vqyk3mbDBv3npTpctYoka
+  :name: Camera
+  :uri: spotify:track:6vqyk3mbDBv3npTpctYoka
+  :external_url: https://open.spotify.com/track/6vqyk3mbDBv3npTpctYoka
+  :album_id: 20dY0uZi9SzfrcWYfiWGqH
+  :album_name: Play
+  :album_url: https://open.spotify.com/album/20dY0uZi9SzfrcWYfiWGqH
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b273d42be8d4bebc9cf111ce98a1
+  :lyric:
+  :singers:
+  - :id: 6eUKZXaKkcviH0Ku9w2n3V
+    :name: Ed Sheeran
+    :external_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
+- :id: 6PCUP3dWmTjcTtXY02oFdT
+  :name: Castle on the Hill
+  :uri: spotify:track:6PCUP3dWmTjcTtXY02oFdT
+  :external_url: https://open.spotify.com/track/6PCUP3dWmTjcTtXY02oFdT
+  :album_id: 3T4tUhGYeRNVUGevb0wThu
+  :album_name: "÷ (Deluxe)"
+  :album_url: https://open.spotify.com/album/3T4tUhGYeRNVUGevb0wThu
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96
+  :lyric:
+  :singers:
+  - :id: 6eUKZXaKkcviH0Ku9w2n3V
+    :name: Ed Sheeran
+    :external_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
+- :id: 0afhq8XCExXpqazXczTSve
+  :name: Galway Girl
+  :uri: spotify:track:0afhq8XCExXpqazXczTSve
+  :external_url: https://open.spotify.com/track/0afhq8XCExXpqazXczTSve
   :album_id: 3T4tUhGYeRNVUGevb0wThu
   :album_name: "÷ (Deluxe)"
   :album_url: https://open.spotify.com/album/3T4tUhGYeRNVUGevb0wThu
@@ -151,23 +151,10 @@
   - :id: 6eUKZXaKkcviH0Ku9w2n3V
     :name: Ed Sheeran
     :external_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
-- :id: 3rmo8F54jFF8OgYsqTxm5d
-  :name: Bad Habits
-  :uri: spotify:track:3rmo8F54jFF8OgYsqTxm5d
-  :external_url: https://open.spotify.com/track/3rmo8F54jFF8OgYsqTxm5d
-  :album_id: 32iAEBstCjauDhyKpGjTuq
-  :album_name: "="
-  :album_url: https://open.spotify.com/album/32iAEBstCjauDhyKpGjTuq
-  :album_image_url: https://i.scdn.co/image/ab67616d0000b273ef24c3fdbf856340d55cfeb2
-  :lyric:
-  :singers:
-  - :id: 6eUKZXaKkcviH0Ku9w2n3V
-    :name: Ed Sheeran
-    :external_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
-- :id: 0afhq8XCExXpqazXczTSve
-  :name: Galway Girl
-  :uri: spotify:track:0afhq8XCExXpqazXczTSve
-  :external_url: https://open.spotify.com/track/0afhq8XCExXpqazXczTSve
+- :id: 0tgVpDi06FyKpA1z0VMD4v
+  :name: Perfect
+  :uri: spotify:track:0tgVpDi06FyKpA1z0VMD4v
+  :external_url: https://open.spotify.com/track/0tgVpDi06FyKpA1z0VMD4v
   :album_id: 3T4tUhGYeRNVUGevb0wThu
   :album_name: "÷ (Deluxe)"
   :album_url: https://open.spotify.com/album/3T4tUhGYeRNVUGevb0wThu
@@ -190,6 +177,19 @@
   - :id: 6eUKZXaKkcviH0Ku9w2n3V
     :name: Ed Sheeran
     :external_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
+- :id: 3rmo8F54jFF8OgYsqTxm5d
+  :name: Bad Habits
+  :uri: spotify:track:3rmo8F54jFF8OgYsqTxm5d
+  :external_url: https://open.spotify.com/track/3rmo8F54jFF8OgYsqTxm5d
+  :album_id: 32iAEBstCjauDhyKpGjTuq
+  :album_name: "="
+  :album_url: https://open.spotify.com/album/32iAEBstCjauDhyKpGjTuq
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b273ef24c3fdbf856340d55cfeb2
+  :lyric:
+  :singers:
+  - :id: 6eUKZXaKkcviH0Ku9w2n3V
+    :name: Ed Sheeran
+    :external_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
 - :id: 0GRc3eGTg8HBdWLRGYgqIc
   :name: Azizam
   :uri: spotify:track:0GRc3eGTg8HBdWLRGYgqIc
@@ -198,32 +198,6 @@
   :album_name: Azizam
   :album_url: https://open.spotify.com/album/37HwcDtLqY2WXN7NArODvI
   :album_image_url: https://i.scdn.co/image/ab67616d0000b273d29a003b6e8d4c1c47bd4da4
-  :lyric:
-  :singers:
-  - :id: 6eUKZXaKkcviH0Ku9w2n3V
-    :name: Ed Sheeran
-    :external_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
-- :id: 1Slwb6dOYkBlWal1PGtnNg
-  :name: Thinking out Loud
-  :uri: spotify:track:1Slwb6dOYkBlWal1PGtnNg
-  :external_url: https://open.spotify.com/track/1Slwb6dOYkBlWal1PGtnNg
-  :album_id: 6NoBzYmh5gUusGPCfg0pct
-  :album_name: x (Wembley Edition)
-  :album_url: https://open.spotify.com/album/6NoBzYmh5gUusGPCfg0pct
-  :album_image_url: https://i.scdn.co/image/ab67616d0000b273d08209944468440145f01524
-  :lyric:
-  :singers:
-  - :id: 6eUKZXaKkcviH0Ku9w2n3V
-    :name: Ed Sheeran
-    :external_url: https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
-- :id: 6fxVffaTuwjgEk5h9QyRjy
-  :name: Photograph
-  :uri: spotify:track:6fxVffaTuwjgEk5h9QyRjy
-  :external_url: https://open.spotify.com/track/6fxVffaTuwjgEk5h9QyRjy
-  :album_id: 6NoBzYmh5gUusGPCfg0pct
-  :album_name: x (Wembley Edition)
-  :album_url: https://open.spotify.com/album/6NoBzYmh5gUusGPCfg0pct
-  :album_image_url: https://i.scdn.co/image/ab67616d0000b273d08209944468440145f01524
   :lyric:
   :singers:
   - :id: 6eUKZXaKkcviH0Ku9w2n3V
