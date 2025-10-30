@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-require_relative '../../../models/entities/singer'
+require_relative '../../../domain/songs/entities/singer'
 
 module LingoBeats
   module Spotify
@@ -9,7 +9,7 @@ module LingoBeats
       def initialize(*); end
 
       def self.build_entities(data)
-        Array(data).map { |singer| build_entity(singer).to_h }
+        Array(data).map { |singer| build_entity(singer) }
       end
 
       def self.build_entity(data)

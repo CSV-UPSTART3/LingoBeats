@@ -82,13 +82,6 @@ module LingoBeats
             lyric: lyric_text
           )
           lyric_repo.create(lyric_entity)
-          next unless lyric_text
-
-          lyric_entity = LingoBeats::Entity::Lyric.new(
-            song_id: song_entity.id,
-            lyric: lyric_text
-          )
-          lyric_repo.create(lyric_entity)
         end
 
         view 'home', locals: { popular: popular }
