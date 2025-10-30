@@ -5,7 +5,7 @@ ENV['RACK_ENV'] = 'test'
 require 'simplecov'
 # Test coverage
 SimpleCov.start do
-  add_filter '/lib/gateways/http_helper.rb'
+  add_filter '/spotify/gateways/http_helper.rb'
 end
 
 require 'yaml'
@@ -20,12 +20,18 @@ require 'webmock'
 require_relative '../../require_app'
 require_app
 
+require_relative 'vcr_helper'
+VcrHelper.setup_vcr
+
 SINGER = 'Ed Sheeran'
-SONG_NAME = 'golden'
+SONG_NAME = 'Golden'
 CONFIG = YAML.safe_load_file('config/secrets.yml')
-SPOTIFY_CLIENT_ID = CONFIG['SPOTIFY_CLIENT_ID']
-SPOTIFY_CLIENT_SECRET = CONFIG['SPOTIFY_CLIENT_SECRET']
+SPOTIFY_CLIENT_ID = CONFIG['development']['SPOTIFY_CLIENT_ID']
+SPOTIFY_CLIENT_SECRET = CONFIG['development']['SPOTIFY_CLIENT_SECRET']
+GENIUS_CLIENT_ACCESS_TOKEN = CONFIG['development']['GENIUS_CLIENT_ACCESS_TOKEN']
 CORRECT_RESULT_BY_SINGER = YAML.safe_load_file('spec/fixtures/spotify_result_by_singer.yml',
                                                permitted_classes: [Symbol])
 CORRECT_RESULT_BY_SONG = YAML.safe_load_file('spec/fixtures/spotify_result_by_song_name.yml',
+                                             permitted_classes: [Symbol])
+CORRECT_RESULT_BY_BILLBOARD = YAML.safe_load_file('spec/fixtures/billboard_result.yml',
                                              permitted_classes: [Symbol])

@@ -15,6 +15,8 @@ desc 'Run tests once'
 Rake::TestTask.new(:spec) do |t|
   t.libs << 'lib' << 'spec'
   t.pattern = 'spec/**/*_spec.rb'
+  # t.pattern = 'spec/spotify_api_spec.rb'
+  # t.pattern = 'spec/gateway_database_spec.rb'
   t.warning = false
 end
 

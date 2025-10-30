@@ -9,6 +9,7 @@ spec/fixtures/*.txt
 lib/gemini_*
 lib/genius_*
 lib/lingo_beats.rb
+lib/scraper.rb
 vendor/*
 *.db
 # Ignore application configuration
