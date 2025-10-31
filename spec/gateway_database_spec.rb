@@ -40,16 +40,16 @@ describe 'Integration Tests of Spotify API and Database' do
 
       # 再去拿歌詞，然後再存入 lyrics
       first_singer_name = song_entity.singers.first&.name
-      # lyric_text = lyric_mapper.lyrics_for(
-      #   song_name: song_entity.name,
-      #   artist_name: first_singer_name
-      # )
+      lyric_text = lyric_mapper.lyrics_for(
+        song_name: song_entity.name,
+        artist_name: first_singer_name
+      )
 
-      # lyric_entity = LingoBeats::Entity::Lyric.new(
-      #   song_id: song_entity.id,
-      #   lyric: lyric_text
-      # )
-      # lyric_repo.create(lyric_entity)
+      lyric_entity = LingoBeats::Entity::Lyric.new(
+        song_id: song_entity.id,
+        lyric: lyric_text
+      )
+      lyric_repo.create(lyric_entity)
 
       # puts rebuilt
       # puts rebuilt.singers
@@ -70,6 +70,11 @@ describe 'Integration Tests of Spotify API and Database' do
         _(singer.id).must_equal results.first.singers[index].id
         _(singer.name).must_equal results.first.singers[index].name
         _(singer.external_url).must_equal results.first.singers[index].external_url
+      # verify stored lyric
+      stored_lyric = lyric_repo.find_by_song_id(song_entity.id)
+      _(stored_lyric).wont_be_nil
+      _(stored_lyric.lyric).must_equal lyric_text
+      _(stored_lyric.song_id).must_equal song_entity.id
       end
     end
   end

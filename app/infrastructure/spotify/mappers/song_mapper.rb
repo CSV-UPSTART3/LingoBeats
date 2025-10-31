@@ -36,9 +36,7 @@ module LingoBeats
 
       def self.build_entities(data)
         songs = Array(data).map { |track| build_entity(track) }
-        unique_songs = songs.uniq
-        
-        return unique_songs
+        songs.uniq
       end
 
       def self.build_entity(data)

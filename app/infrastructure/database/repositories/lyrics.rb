@@ -5,7 +5,7 @@ module LingoBeats
     # Repository for Lyrics
     class Lyrics
       def self.rebuild_entity(db_record)
-        return nil if db_record.nil?
+        return nil unless db_record
 
         Entity::Lyric.new(
           song_id: db_record[:song_id] || db_record.song_id,
@@ -20,12 +20,13 @@ module LingoBeats
 
       def self.create(entity)
         ds = Database::LyricOrm.dataset # 或 DB[:lyrics]
+        song_id = entity.song_id
 
         ds.insert_conflict(target: :song_id,
                            update: { lyric: Sequel[:excluded][:lyric] })
-          .insert(song_id: entity.song_id, lyric: entity.lyric)
+          .insert(song_id: song_id, lyric: entity.lyric)
 
-        find_by_song_id(entity.song_id)
+        find_by_song_id(song_id)
       end
     end
   end

@@ -25,6 +25,7 @@ module LingoBeats
 
       def ==(other)
         return false unless other.is_a?(Song) # 這個物件是不是某個類別（class）的實例
+
         first_singer_id = singers.first&.id
         other_first_singer_id = other.singers.first&.id
         name == other.name && first_singer_id == other_first_singer_id

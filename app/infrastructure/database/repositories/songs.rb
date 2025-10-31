@@ -9,6 +9,11 @@ module LingoBeats
   module Repository
     # Repository for Song Entities
     class Songs
+      def self.find_or_create(song_info)
+        orm = LingoBeats::Database::SongOrm
+        orm.first(uri: song_info[:uri]) || orm.create(song_info)
+      end
+
       def self.all
         rows = Database::SongOrm.all
         return rebuild_many(rows) unless rows.empty?
@@ -50,10 +55,6 @@ module LingoBeats
         )
       end
 
-      def self.db_find_or_create(entity)
-        Database::SongOrm.find_or_create(entity.to_attr_hash)
-      end
-
       def self.create(entity)
         raise 'Song already exists' if find_id(entity.id)
 
@@ -64,10 +65,7 @@ module LingoBeats
 
       def self.seed_from_spotify
         # 初始化 mapper
-        mapper = LingoBeats::Spotify::SongMapper.new(
-          LingoBeats::App.config.SPOTIFY_CLIENT_ID,
-          LingoBeats::App.config.SPOTIFY_CLIENT_SECRET
-        )
+        mapper = build_spotify_mapper
 
         # 從 Spotify 抓熱門歌:回來是一個 [Entity::Song, ...]
         songs_from_api = mapper.display_popular_songs
@@ -78,6 +76,14 @@ module LingoBeats
         end
 
         songs_from_api
+      end
+
+      def self.build_spotify_mapper
+        config = LingoBeats::App.config
+        LingoBeats::Spotify::SongMapper.new(
+          config.SPOTIFY_CLIENT_ID,
+          config.SPOTIFY_CLIENT_SECRET
+        )
       end
 
       # helper class to persist song, lyric, singers
@@ -95,7 +101,7 @@ module LingoBeats
 
           # 建立歌手關聯
           @entity.singers.each do |singer|
-            db_singer = Singers.db_find_or_create(singer)
+            db_singer = LingoBeats::Repository::Singers.find_or_create(singer.to_attr_hash)
             db_song.add_singer(db_singer) unless db_song.singers.include?(db_singer)
           end
 

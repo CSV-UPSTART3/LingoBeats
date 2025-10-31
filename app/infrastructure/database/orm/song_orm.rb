@@ -18,10 +18,6 @@ module LingoBeats
                  key: :song_id
 
       plugin :timestamps, update_on_create: true
-
-      def self.find_or_create(song_info)
-        first(uri: song_info[:uri]) || create(song_info)
-      end
     end
   end
 end

@@ -4,6 +4,11 @@ module LingoBeats
   module Repository
     # Repository for Singers
     class Singers
+      def self.find_or_create(singer_info)
+        orm = LingoBeats::Database::SingerOrm
+        orm.first(id: singer_info[:id]) || orm.create(singer_info) # 都是內建方法
+      end
+
       def self.find_id(id)
         rebuild_entity Database::SingerOrm.first(id: id)
       end
@@ -30,10 +35,6 @@ module LingoBeats
         db_records.map do |db_singer|
           Singers.rebuild_entity(db_singer)
         end
-      end
-
-      def self.db_find_or_create(entity)
-        Database::SingerOrm.find_or_create(entity.to_attr_hash)
       end
     end
   end

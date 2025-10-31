@@ -24,26 +24,18 @@ module LingoBeats
         end
       end
 
-      # 對外公開的方法：
       # 給歌名/歌手名字，回傳乾淨歌詞字串，或 nil
       def lyrics_for(song_name:, artist_name:)
-        query = build_query(song_name, artist_name)
-
-        lyrics_page_url = first_lyrics_url(query)
+        lyrics_page_url = first_lyrics_url(self.class.build_query(song_name, artist_name))
         return nil unless lyrics_page_url
 
         html_doc = @gateway.fetch_lyrics_html(lyrics_page_url)
         return nil unless html_doc
 
-        extract_lyrics_text(html_doc)
-      rescue StandardError => e
-        warn "[Genius::LyricMapper] lyrics_for failed: #{e.message}"
-        nil
+        LyricsExtractor.extract_lyrics_text(html_doc)
       end
 
-      private
-
-      def build_query(song_name, artist_name)
+      def self.build_query(song_name, artist_name)
         if artist_name && !artist_name.strip.empty?
           "#{song_name} #{artist_name}"
         else
@@ -61,31 +53,38 @@ module LingoBeats
         first_hit.dig('result', 'url')
       end
 
-      # 把 HTML 轉成「整齊歌詞字串」
-      def extract_lyrics_text(html_doc)
-        return nil unless html_doc
+      # Extract lyric from html document
+      module LyricsExtractor
+        module_function
 
-        # 1. 找可能是歌詞的區塊
-        blocks = html_doc.css('div[class^="Lyrics__Container"]')
-        return nil if blocks.empty?
+        # 把 HTML 轉成「整齊歌詞字串」
+        def extract_lyrics_text(html_doc)
+          return nil unless html_doc
 
-        # 2. 保留 <br> 換行
-        raw_html = blocks
-                   .map { |div| div.inner_html.gsub('<br>', "\n") }
-                   .join("\n")
+          blocks = find_lyric_blocks(html_doc)
+          return nil if blocks.empty?
 
-        # 3. 再跑一次 Nokogiri，把 tag 拿掉
-        text_only = Nokogiri::HTML(raw_html).text
+          text_only = strip_tags_with_br(blocks)
+          refine_lyrics(text_only)
+        end
 
-        # 4. 從 [Verse]/[Chorus] 開始
-        lyrics_start_idx = text_only.index(/\[[A-Za-z0-9\s#]+\]/)
-        core_lyrics = lyrics_start_idx ? text_only[lyrics_start_idx..] : text_only
+        def find_lyric_blocks(html_doc)
+          html_doc.css('div[class^="Lyrics__Container"]')
+        end
 
-        # 5. 美化
-        core_lyrics
-          .gsub(/\s*\[([^\]]+)\]\s*/, "\n\n[\\1]\n") # section header 獨立一行，前面留空行
-          .gsub(/([a-z)])(\[)/, "\\1\n\\2") # 如果 header 黏在歌詞後面就斷行
-          .strip
+        def strip_tags_with_br(blocks)
+          raw_html = blocks.map { |div| div.inner_html.gsub('<br>', "\n") }.join("\n")
+          Nokogiri::HTML(raw_html).text
+        end
+
+        def refine_lyrics(text)
+          text = text.sub(/\A.*?(?=\[[^\]]+\])/m, '')
+          lyrics_start_idx = text.index(/\[[A-Za-z0-9\s#]+\]/)
+          core = lyrics_start_idx ? text[lyrics_start_idx..] : text
+          core.gsub(/\s*\[([^\]]+)\]\s*/, "\n\n[\\1]\n")
+              .gsub(/([a-z)])(\[)/, "\\1\n\\2")
+              .strip
+        end
       end
     end
   end

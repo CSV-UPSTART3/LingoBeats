@@ -48,6 +48,27 @@ module VcrHelper
     )
   end
 
+  # ----------------- Genius -----------------
+  CASSETTE_FILE_GENIUS = 'genius_api'
+
+  def self.configure_vcr_for_genius
+    VCR.configure do |c|
+      c.filter_sensitive_data('<GENIUS_CLIENT_ACCESS_TOKEN>') { GENIUS_CLIENT_ACCESS_TOKEN if defined?(GENIUS_CLIENT_ACCESS_TOKEN) }
+      c.before_record do |interaction|
+        # 遮掉 Genius bearer token
+        if interaction.request.headers['Authorization']&.first&.start_with?('Bearer ')
+          interaction.request.headers['Authorization'] = ['Bearer <GENIUS_CLIENT_ACCESS_TOKEN>']
+        end
+      end
+    end
+
+    VCR.insert_cassette(
+      CASSETTE_FILE_GENIUS,
+      record: :new_episodes,
+      match_requests_on: %i[method uri headers]
+    )
+  end
+
   def self.eject_vcr
     VCR.eject_cassette
   end

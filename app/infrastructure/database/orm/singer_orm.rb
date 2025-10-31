@@ -14,10 +14,6 @@ module LingoBeats
                    left_key: :singer_id, right_key: :song_id
 
       plugin :timestamps, update_on_create: true
-
-      def self.find_or_create(singer_info)
-        first(id: singer_info[:id]) || create(singer_info) # 都是內建方法
-      end
     end
   end
 end
