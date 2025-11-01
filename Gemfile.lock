@@ -222,6 +222,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  base64
   dry-struct (~> 1.8)
   dry-types (~> 1.8)
   figaro (~> 1.0)
