@@ -51,3 +51,9 @@ gem 'sequel', '~> 5.0'
 group :development, :test do
   gem 'sqlite3', '~> 1.0'
 end
+
+ruby File.read('.ruby-version').strip
+
+group :production do
+gem 'pg'
+end
