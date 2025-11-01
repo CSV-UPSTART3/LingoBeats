@@ -6,6 +6,7 @@ source 'https://rubygems.org'
 gem 'figaro', '~> 1.0'
 gem 'pry'
 gem 'rake'
+gem 'base64'
 
 # Web Application
 gem 'logger', '~> 1.0'
