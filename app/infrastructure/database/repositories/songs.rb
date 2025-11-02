@@ -39,20 +39,7 @@ module LingoBeats
       def self.rebuild_entity(db_record)
         return nil unless db_record
 
-        Entity::Song.new(
-          id: db_record.id,
-          name: db_record.name,
-          uri: db_record.uri,
-          external_url: db_record.external_url,
-          album_id: db_record.album_id,
-          album_name: db_record.album_name,
-          album_url: db_record.album_url,
-          album_image_url: db_record.album_image_url,
-          # 一對一：歌詞
-          lyric: Lyrics.rebuild_entity(db_record.lyric),
-          # 多對多：歌手
-          singers: Singers.rebuild_many(db_record.singers)
-        )
+        EntityBuilder.new(db_record).build
       end
 
       def self.create(entity)
@@ -84,6 +71,39 @@ module LingoBeats
           config.SPOTIFY_CLIENT_ID,
           config.SPOTIFY_CLIENT_SECRET
         )
+      end
+
+      # Helper class to rebuild entity from DB
+      class EntityBuilder
+        SIMPLE_FIELDS = %i[id name uri external_url album_id
+                           album_name album_url album_image_url].freeze
+
+        def initialize(db_record)
+          @db_record = db_record
+        end
+
+        def build
+          Entity::Song.new(**attributes)
+        end
+
+        private
+
+        def attributes
+          simple_attributes.merge(relationship_attributes)
+        end
+
+        def simple_attributes
+          SIMPLE_FIELDS.each_with_object({}) do |field, attrs|
+            attrs[field] = @db_record.public_send(field)
+          end
+        end
+
+        def relationship_attributes
+          {
+            lyric: Lyrics.rebuild_entity(@db_record.lyric),
+            singers: Singers.rebuild_many(@db_record.singers)
+          }
+        end
       end
 
       # helper class to persist song, lyric, singers
