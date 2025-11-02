@@ -24,18 +24,16 @@ module LingoBeats
       attribute :singers,         Strict::Array.of(Singer)
 
       def ==(other)
-        return false unless other.is_a?(Song) # 這個物件是不是某個類別（class）的實例
+        return false unless other.is_a?(Song)
 
-        first_singer_id = singers.first&.id
-        other_first_singer_id = other.singers.first&.id
-        name == other.name && first_singer_id == other_first_singer_id
+        comparison_key == other.comparison_key
+      end
+
+      def comparison_key
+        [name, singers.first&.id]
       end
 
       alias eql? ==
-
-      def detect_duplicate_song
-        [name, singers.first&.id].hash
-      end
 
       def to_attr_hash
         to_h.except(:lyric, :singers)
