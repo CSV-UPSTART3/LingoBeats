@@ -13,10 +13,7 @@ module LingoBeats
       attribute :lyric,           Strict::String
 
       def to_attr_hash
-        {
-          song_id: song_id,
-          lyric: lyric
-        }
+        to_h
       end
     end
   end

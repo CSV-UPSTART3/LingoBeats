@@ -10,7 +10,9 @@ module LingoBeats
   # Web App
   class App < Roda
     plugin :render, engine: 'slim', views: 'app/views'
-    plugin :assets, css: 'style.css', path: 'app/views/assets'
+    plugin :public, root: 'app/views/public'
+    plugin :assets, path: 'app/views/assets',
+                    css: 'style.css', js: 'main.js'
     plugin :common_logger, $stderr
     plugin :halt
     plugin :multi_route
@@ -27,11 +29,13 @@ module LingoBeats
 
     route do |routing|
       routing.assets # load CSS
+      routing.public # load public assets
       response['Content-Type'] = 'text/html; charset=utf-8'
 
       # GET /
       # routing.root { view 'home' }
       routing.root do
+        @current_page = :home
         popular = @spotify_mapper.display_popular_songs
 
         song_repo = LingoBeats::Repository::For.klass(LingoBeats::Entity::Song)
@@ -87,6 +91,18 @@ module LingoBeats
         view 'home', locals: { popular: popular }
       end
 
+      # GET /tutorial
+      routing.on 'tutorial' do
+        @current_page = :tutorial
+        view 'tutorial'
+      end
+
+      # GET /history
+      routing.on 'history' do
+        @current_page = :history
+        view 'history'
+      end
+
       # sub route for spotify
       routing.multi_route
     end
@@ -105,7 +121,7 @@ module LingoBeats
         routing.get do
           category, query = SpotifyHelper.get_params(routing)
           songs = @spotify_mapper.public_send("search_songs_by_#{category}", query)
-          view 'project', locals: { songs: songs, category: category, query: query }
+          view 'song', locals: { songs: songs, category: category, query: query }
         end
       end
     end

@@ -1,0 +1,20 @@
+/ locals: songs, title: nil, icon: nil, no_result_id: nil
+.results-container
+  - if songs && songs.any?
+    .row.justify-content-center.g-0
+      - if title
+        .col-12.col-md-10.col-lg-9
+          h5.text-warning.d-flex.align-items-center.fs-6.mb-2.mt-4
+            - if icon
+              i class="fas fa-#{icon} text-warning me-2"
+            = title
+
+      - songs.each do |song|
+        .col-12.col-md-10.col-lg-9.mb-3
+          == render('partials/_song_card', locals: { song: song })
+  - else
+    .text-center.mt-5
+      - if no_result_id
+        h4.text-muted id=no_result_id
+      - else
+        h4.text-muted No songs found.

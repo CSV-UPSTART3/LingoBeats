@@ -2,8 +2,10 @@
     Base & Global
    ========================================================= */
 body {
-  padding-top: 4.5rem; /* for fixed header */
+  padding-top: 4rem; /* for fixed header */
   overflow: hidden;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 :root {
@@ -16,6 +18,19 @@ body {
 
 .bg-lingobeats {
   background-color: var(--lingobeats-green) !important;
+}
+
+.text-main {
+  color: var(--lingobeats-green) !important;
+}
+
+/* =========================================================
+    Header
+   ========================================================= */
+.navbar .nav-link.active {
+  text-decoration: underline;
+  pointer-events: none;   /* prevent clicking */
+  cursor: default;
 }
 
 /* =========================================================
@@ -152,8 +167,9 @@ body {
     Scrollable Results Container
    ========================================================= */
 .results-container {
-  max-height: calc(100vh - 260px);
+  max-height: calc(100vh - 295px);
   overflow-y: scroll !important;
+  overflow-x: hidden !important;
   overscroll-behavior: contain;
   -ms-overflow-style: none;  
   scrollbar-width: thin;

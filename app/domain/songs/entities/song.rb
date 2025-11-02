@@ -33,21 +33,12 @@ module LingoBeats
 
       alias eql? ==
 
-      def hash
+      def detect_duplicate_song
         [name, singers.first&.id].hash
       end
 
       def to_attr_hash
-        {
-          id: id,
-          name: name,
-          uri: uri,
-          external_url: external_url,
-          album_id: album_id,
-          album_name: album_name,
-          album_url: album_url,
-          album_image_url: album_image_url
-        }
+        to_h.except(:lyric, :singers)
       end
     end
   end

@@ -1,6 +1,6 @@
 # **LingoBeats**
 
-An application that transforms *songs* into AI-generated content for an engaging language-learning experience.
+An application that transforms *songs* into AI-generated *materials* for an engaging language-learning experience.
 
 ## **Overview**
 
@@ -30,7 +30,7 @@ By combining music, AI, and intelligent content generation, LingoBeats hopes to 
 ### Entity-Relationship Diagram
 
 <p>
-  <img src="app/domain/songs/entities/er-diagram.svg" width="600" alt="ERD Preview">
+  <img src="app/views/public/er-diagram.svg" width="600" alt="ERD Preview">
 </p>
 
 ## **Setup**
@@ -39,8 +39,8 @@ By combining music, AI, and intelligent content generation, LingoBeats hopes to 
 2. Copy `config/secrets_example.yml` to `config/secrets.yml` and update token
 3. Ensure correct version of Ruby install (see `.ruby-version` for `rbenv`)
 4. Run `bundle install`
-5. Rub `bundle exec rake db:migrate` to create dev database
-6. Rub `RACK_ENV=test bundle exec rake db:migrate` to create test database
+5. Run `bundle exec rake db:migrate` to create dev database
+6. Run `RACK_ENV=test bundle exec rake db:migrate` to create test database
 
 ## **Running Tests**
 

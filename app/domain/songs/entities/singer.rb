@@ -14,11 +14,7 @@ module LingoBeats
       attribute :external_url,    Strict::String
 
       def to_attr_hash
-        {
-          id: id,
-          name: name,
-          external_url: external_url
-        }
+        to_h
       end
     end
   end
