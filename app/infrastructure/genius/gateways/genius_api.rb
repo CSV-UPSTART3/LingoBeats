@@ -42,7 +42,7 @@ module LingoBeats
       private
 
       def raise_api_error(res, _msg = nil)
-        raise LingoBeats::HttpHelper::Response::ApiError.new(
+        raise HttpHelper::Response::ApiError.new(
           status_code: res.status
         )
       end

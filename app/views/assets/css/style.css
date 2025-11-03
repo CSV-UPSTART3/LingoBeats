@@ -2,7 +2,7 @@
     Base & Global
    ========================================================= */
 body {
-  padding-top: 4rem; /* for fixed header */
+  padding-top: 50px; /* for fixed header */
   overflow: hidden;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -10,10 +10,11 @@ body {
 
 :root {
   --lingobeats-green: #1DB954;
+  --text-midgray: #666;
 }
 
 .text-midgray {
-  color: #666;
+  color: var(--text-midgray);
 }
 
 .bg-lingobeats {
@@ -27,9 +28,20 @@ body {
 /* =========================================================
     Header
    ========================================================= */
+.navbar {
+  height: 50px !important;
+}
+
+.navbar-custom {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
 .navbar .nav-link.active {
   text-decoration: underline;
-  pointer-events: none;   /* prevent clicking */
+  pointer-events: none;
   cursor: default;
 }
 
@@ -106,9 +118,18 @@ body {
 /* =========================================================
     Card Layout (Song Results)
    ========================================================= */
-.card.flex-row {
-  transition: none;
+.card.song-card {
+  cursor: pointer;
   align-items: stretch;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card.song-card:hover {
+  box-shadow: 0 10px 32px rgba(0,0,0,.22);
+}
+
+.card.song-card:active {
+  border: 1px solid var(--lingobeats-green);
 }
 
 .start-img {
@@ -116,28 +137,67 @@ body {
   height: 120px;
   object-fit: cover;
   flex-shrink: 0;
+  transition: opacity .2s ease, filter .2s ease;
 }
 
-.spotify-btn-square {
-  background-color: var(--lingobeats-green);
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
+.cover-wrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+}
+
+.play-overlay,
+#modalPlayOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0);
+  opacity: 0;
+  border-radius: 0.5rem;
+  transition: background-color .2s ease, opacity .2s ease;
+  text-decoration: none !important;
+  pointer-events: none;
+}
+
+.card.song-card:hover .play-overlay,
+.modal-body .position-relative:hover #modalPlayOverlay {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.play-btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--lingobeats-green);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: none;
-  transition: background-color 0.2s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none !important;
+  pointer-events: auto;
 }
 
-.spotify-btn-square i {
+.play-btn i {
+  font-size: 0.95rem;
   color: #fff;
-  font-size: 1.2rem;
+  text-decoration: none !important;
+  transform: translateX(1.5px);
 }
 
-.spotify-btn-square:hover {
-  background-color: var(--lingobeats-green);
-  transition: all 0.25s ease;
+.play-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 12px rgba(29, 185, 84, 0.35);
 }
 
-.card.flex-row .card-body { 
+.card-body {
   min-width: 0;
 }
 
@@ -156,6 +216,15 @@ body {
   text-overflow: ellipsis;
 }
 
+.singer-text {
+  color: var(--text-midgray);
+}
+
+.singer-link {
+  color: var(--text-midgray);
+  text-decoration: underline !important;
+}
+
 /* =========================================================
     Tooltip
    ========================================================= */
@@ -167,7 +236,7 @@ body {
     Scrollable Results Container
    ========================================================= */
 .results-container {
-  max-height: calc(100vh - 295px);
+  max-height: calc(100vh - 320px);
   overflow-y: scroll !important;
   overflow-x: hidden !important;
   overscroll-behavior: contain;
@@ -175,21 +244,23 @@ body {
   scrollbar-width: thin;
 }
 
+/* =========================================================
+    Scrollbar Styling
+   ========================================================= */
 .results-container::-webkit-scrollbar,
-.results-container:hover::-webkit-scrollbar {
+#modalLyrics::-webkit-scrollbar {
   width: 4px;
   background: transparent;
 }
 
 .results-container::-webkit-scrollbar-thumb,
-.results-container:hover::-webkit-scrollbar-thumb,
-.results-container::-webkit-scrollbar-thumb:hover {
+#modalLyrics::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.15);
   border-radius: 3px;
 }
 
 .results-container::-webkit-scrollbar-track,
-.results-container::-webkit-scrollbar-track:hover  {
+#modalLyrics::-webkit-scrollbar-track {
   background: transparent;
   border-color: transparent;
 }
@@ -200,4 +271,78 @@ body {
 footer {
   font-size: 11px !important;
   justify-content: center !important;
+}
+
+/* =========================================================
+    Modal
+   ========================================================= */
+body.modal-open {
+  overflow: hidden !important;
+}
+
+.modal {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+.modal-dialog {
+  margin: 1.75rem auto;
+}
+
+.modal-body {
+  min-height: 56vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-body .row {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.modal-body .col-md-3 {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-body .col-md-9 {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+#modalLyrics {
+  flex: 1 1 auto;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 52vh;
+  text-align: left;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  font-family: 'Space Mono', monospace !important;
+  font-size: 0.9rem;
+}
+
+#modalLyrics:empty,
+#modalLyrics.loading {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+#modalSingers {
+  word-break: break-word;
+}
+
+#modalSingers p,
+#modalSingers a {
+  color: var(--text-midgray);
+}
+
+#modalCover {
+  cursor: pointer;
 }

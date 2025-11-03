@@ -1,16 +1,43 @@
 / locals: song
-.card.flex-row.align-items-center.shadow-sm.border-0.p-2
-  img.img-fluid.rounded.start-img.me-3 src=song[:album_image_url] alt=song[:album_name] onerror="this.src='/assets/img/placeholder-album.png';this.onerror=null;"
-  .card-body.p-2
-    h5.card-title.mb-1.fw-semibold.song-title = song[:name]
-    .text-secondary.small.mb-1.album-line = song[:album_name]
-    .d-flex.align-items-end.justify-content-between.mt-auto
-      .singer-line.d-flex.align-items-center
-        i.fas.fa-user.me-2.text-black-50
-        .singer-text
-          - song[:singers].each_with_index do |singer, idx|
-            a.singer-link.text-black-50 href=singer[:external_url] target="_blank" rel="noopener" = singer[:name]
-            - unless idx == song[:singers].length - 1
-              | , 
-      a.spotify-btn-square.btn.d-flex.align-items-center.justify-content-center href=song[:external_url] target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Listen on Spotify"
-        i.fab.fa-spotify
+.card.song-card.flex-row.shadow-sm.border-0.p-2(
+  role="button"
+  data-song-name=song[:name]
+  data-album-name=song[:album_name]
+  data-cover=song[:album_image_url]
+  data-url=song[:external_url]
+  data-id=song[:id]
+)
+  / --- cover + overlay ---
+  .cover-wrap.position-relative.me-3
+    img.start-img.rounded(
+      src=song[:album_image_url]
+      alt=song[:album_name]
+      onerror="this.src='/assets/img/placeholder-album.png';this.onerror=null;"
+    )
+    a.play-overlay.d-flex.align-items-center.justify-content-center(
+      href=song[:external_url]
+      target="_blank"
+      rel="noopener"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="Listen on Spotify"
+    )
+      span.play-btn
+        i.fas.fa-play
+
+  / --- info ---
+  .card-body.p-2.d-flex.flex-column.justify-content-between
+    .song-info
+      h5.card-title.mb-1.fw-semibold.song-title = song[:name]
+      .text-secondary.small.mb-1.album-line = song[:album_name]
+    .singer-line.mt-auto.pt-1
+      i.fas.fa-user.me-2.text-black-50
+      .singer-text
+        - song[:singers].each_with_index do |singer, idx|
+          a.singer-link(
+            href=singer[:external_url]
+            target="_blank"
+            rel="noopener"
+          ) = singer[:name]
+          - unless idx == song[:singers].length - 1
+            | ,

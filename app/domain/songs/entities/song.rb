@@ -23,20 +23,28 @@ module LingoBeats
       attribute :lyric,           Lyric.optional
       attribute :singers,         Strict::Array.of(Singer)
 
-      def ==(other)
-        return false unless other.is_a?(Song)
-
-        comparison_key == other.comparison_key
+      def to_attr_hash
+        to_h.except(:lyric, :singers)
       end
+
+      # Remove duplicates by name + first singer id
+      def ==(other)
+        other.respond_to?(:comparison_key) && comparison_key == other.comparison_key
+      end
+      alias eql? ==
 
       def comparison_key
         [name, singers.first&.id]
       end
 
-      alias eql? ==
+      def hash
+        comparison_key.hash
+      end
 
-      def to_attr_hash
-        to_h.except(:lyric, :singers)
+      # Check if the song is instrumental version
+      def instrumental?
+        song_name = name.to_s.downcase
+        song_name.include?('instrumental')
       end
     end
   end

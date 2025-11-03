@@ -1,0 +1,33 @@
+#songModal.modal.fade(tabindex="-1" aria-labelledby="songModalLabel" aria-hidden="true" data-bs-backdrop="static")
+  .modal-dialog.modal-dialog-centered.modal-xl.modal-dialog-scrollable
+    .modal-content
+      .modal-header.border-bottom.p-4
+        h5#songModalLabel.modal-title.text-main.fw-bold Lyrics
+        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+      
+      .modal-body.p-4.d-flex.flex-column
+        .row.g-4.flex-grow-1.flex-fill
+          / Left: song info
+          .col-md-3.d-flex.flex-column
+
+            / cover + hover overlay
+            .position-relative.mb-3.flex-shrink-0
+              img#modalCover.img-fluid.rounded.shadow-sm.w-100(alt="Cover")
+              a#modalPlayOverlay.play-overlay.d-flex.align-items-center.justify-content-center(target="_blank" rel="noopener")
+                span.play-btn
+                  i.fas.fa-play 
+
+            / song name
+            h6#modalSongTitle.fw-semibold.mb-1.text-black.flex-shrink-0
+
+            / album name
+            .text-secondary.small.mb-3.flex-shrink-0#modalAlbum
+
+            / singer
+            .d-flex.align-items-start.text-midgray.small.mt-auto
+              i.fas.fa-user.text-black-50.me-2.mt-1.flex-shrink-0
+              #modalSingers.flex-grow-1
+
+          / Right: lyrics
+          .col-md-9.d-flex.flex-column
+            #modalLyrics.flex-grow-1.overflow-auto

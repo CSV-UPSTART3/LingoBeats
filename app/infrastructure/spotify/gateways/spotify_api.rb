@@ -4,7 +4,6 @@ require 'base64'
 require 'fileutils'
 require 'http'
 require 'yaml'
-require_relative 'http_helper'
 
 module LingoBeats
   module Spotify

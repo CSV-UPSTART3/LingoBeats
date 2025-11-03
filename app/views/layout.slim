@@ -33,9 +33,11 @@ html
 
     / Fixed Header
     nav.navbar.navbar-expand-lg.navbar-dark.bg-lingobeats.fixed-top.shadow-sm
-      .container
+      .container-fluid.navbar-custom
         / ---- left: brand name ----
-        a.navbar-brand.mb-1.fw-bold.text-white href="/" LingoBeats
+        a.navbar-brand.mb-1.fw-bold.text-white.d-flex.align-items-center href="/"
+          img.me-2 src="/logo.png" alt="LingoBeats" height="24" style="filter: brightness(0) invert(1);"
+          | LingoBeats
 
         / ---- right: page routes ----
         ul.navbar-nav.ms-auto.d-none.d-lg-flex
@@ -49,7 +51,7 @@ html
           li.nav-item
             a.nav-link class=(@current_page == :history ? 'active' : nil) href="/history" History
 
-    section.mt-3
+    section
       == yield
 
       / Fixed Footer
@@ -58,5 +60,7 @@ html
           | LingoBeats is made for demonstration purposes. We cannot warrant full correctness of all content.
           br
           | LingoBeats may use cookies for sessions but does not track users.
+    
+    == render 'partials/_song_modal'
 
     == assets(:js)

@@ -19,73 +19,28 @@ module LingoBeats
 
     def initialize(*)
       super
-      @allowed_categories = %w[singer song_name].freeze
-      @spotify_mapper = LingoBeats::Spotify::SongMapper
-                        .new(App.config.SPOTIFY_CLIENT_ID, App.config.SPOTIFY_CLIENT_SECRET)
+      cfg = App.config
 
-      @lyric_mapper = LingoBeats::Genius::LyricMapper
-                      .new(App.config.GENIUS_CLIENT_ACCESS_TOKEN)
+      @allowed_categories = %w[singer song_name].freeze
+      @spotify_mapper = Spotify::SongMapper
+                        .new(cfg.SPOTIFY_CLIENT_ID, cfg.SPOTIFY_CLIENT_SECRET)
+      @lyric_mapper = Genius::LyricMapper
+                      .new(cfg.GENIUS_CLIENT_ACCESS_TOKEN)
     end
 
     route do |routing|
-      routing.assets # load CSS
-      routing.public # load public assets
+      routing.assets   # load CSS/JS from assets plugin
+      routing.public   # serve /public files
       response['Content-Type'] = 'text/html; charset=utf-8'
 
       # GET /
-      # routing.root { view 'home' }
       routing.root do
         @current_page = :home
         popular = @spotify_mapper.display_popular_songs
 
-        song_repo = LingoBeats::Repository::For.klass(LingoBeats::Entity::Song)
-        lyric_repo = LingoBeats::Repository::For.klass(LingoBeats::Entity::Lyric)
-
+        # load/store lyrics for popular songs
         popular.each do |song_entity|
-          db_song_entity = song_repo.find_id(song_entity.id)
-          existing_lyric = lyric_repo.find_by_song_id(song_entity.id)
-
-          # if song already exists in DB
-          if db_song_entity
-            # 歌已經存在了
-            # 如果它還沒有歌詞 -> 試著補歌詞
-            if existing_lyric.nil?
-              first_singer_name = song_entity.singers.first&.name
-              lyric_text = @lyric_mapper.lyrics_for(
-                song_name: song_entity.name,
-                artist_name: first_singer_name
-              )
-
-              if lyric_text
-                lyric_entity = LingoBeats::Entity::Lyric.new(
-                  song_id: song_entity.id,
-                  lyric: lyric_text
-                )
-                lyric_repo.create(lyric_entity)
-              end
-            end
-
-            next
-          end
-
-          # if song does not exist in DB
-          # 先把歌（跟歌手關聯）寫進 songs 資料表
-          song_repo.create(song_entity)
-
-          # 再去拿歌詞，然後再存入 lyrics
-          first_singer_name = song_entity.singers.first&.name
-          lyric_text = @lyric_mapper.lyrics_for(
-            song_name: song_entity.name,
-            artist_name: first_singer_name
-          )
-
-          next unless lyric_text
-
-          lyric_entity = LingoBeats::Entity::Lyric.new(
-            song_id: song_entity.id,
-            lyric: lyric_text
-          )
-          lyric_repo.create(lyric_entity)
+          GeniusHelper.fetch_lyrics_by_song_id(@lyric_mapper, song_entity.id)
         end
 
         view 'home', locals: { popular: popular }
@@ -103,12 +58,12 @@ module LingoBeats
         view 'history'
       end
 
-      # sub route for spotify
+      # 子路由
       routing.multi_route
     end
 
     route('spotify') do |routing|
-      # Post /spotify
+      # POST /spotify
       routing.is do
         routing.post do
           category, query = SpotifyHelper.get_params(routing)
@@ -126,7 +81,75 @@ module LingoBeats
       end
     end
 
-    # Helper methods for Spotify flow
+    route('genius') do |routing|
+      # GET /genius/search?song_id=xxx&song_name=...&artist_name=...
+      routing.on 'search' do
+        routing.get do
+          song_id = routing.params['song_id']
+          song_name = routing.params['song_name']
+          artist_name = routing.params['artist_name']
+          result = GeniusHelper.fetch_lyrics_by_song_id(@lyric_mapper, song_id, song_name, artist_name)
+          return view('lyrics_error', locals: { message: result[:error] }, layout: false) if result.key?(:error)
+
+          view('lyrics_block', locals: { lyrics: result[:lyrics], cached: result[:cached] }, layout: false)
+        end
+      end
+    end
+
+    # ===== Helper methods for Genius flow =====
+    module GeniusHelper
+      module_function
+
+      def song_repo
+        Repository::For.klass(Entity::Song)
+      end
+
+      def lyric_repo
+        Repository::For.klass(Entity::Lyric)
+      end
+
+      def fetch_lyrics_by_song_id(lyric_mapper, song_id = nil, song_name = nil, artist_name = nil)
+        song_id = song_id.strip if song_id
+
+        # 1. get from DB
+        if song_id && (hit = find_in_db(song_id))
+          return hit
+        end
+
+        # 2. get from API and cache
+        fetch_from_api_and_cache(lyric_mapper, song_id, song_name, artist_name) || { error: 'Lyrics not found' }
+      end
+
+      def find_in_db(song_id)
+        if (record = lyric_repo.find_by_song_id(song_id))
+          { lyrics: record.lyric, cached: true }
+        end
+      end
+
+      def fetch_from_api_and_cache(lyric_mapper, song_id = nil, song_name = nil, artist_name = nil)
+        if (song = song_repo.find_id(song_id))
+          song_name   ||= song.name
+          artist_name ||= song.singers.first&.name
+        end
+
+        lyric_text = lyric_mapper.lyrics_for(song_name: song_name, artist_name: artist_name)
+
+        # write to DB
+        write_data_to_db(song_id, lyric_text)
+
+        { lyrics: lyric_text, cached: false }
+      end
+
+      def write_data_to_db(song_id, lyric_text)
+        # TODO: 要先存歌曲本人
+        return unless song_id && !lyric_repo.find_by_song_id(song_id)
+
+        lyric_repo.create(LingoBeats::Entity::Lyric.new(song_id: song_id, lyric: lyric_text))
+      end
+      private_class_method :find_in_db, :fetch_from_api_and_cache
+    end
+
+    # ===== Helper methods for Spotify flow =====
     module SpotifyHelper
       module_function
 

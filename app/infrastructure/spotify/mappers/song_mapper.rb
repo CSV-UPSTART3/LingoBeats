@@ -17,13 +17,13 @@ module LingoBeats
       def search_songs_by_singer(query)
         data = @gateway.songs_data(category: 'singer', query: query, limit: 20)
         tracks = FieldExtractor.extract_search_track(data)
-        self.class.build_entities(tracks)
+        self.class.build_entities(tracks).reject(&:instrumental?).uniq
       end
 
       def search_songs_by_song_name(query)
         data = @gateway.songs_data(category: 'song_name', query: query, limit: 20)
         tracks = FieldExtractor.extract_search_track(data)
-        self.class.build_entities(tracks)
+        self.class.build_entities(tracks).reject(&:instrumental?).uniq
       end
 
       def display_popular_songs

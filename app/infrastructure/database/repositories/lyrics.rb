@@ -27,6 +27,8 @@ module LingoBeats
           .insert(song_id: song_id, lyric: entity.lyric)
 
         find_by_song_id(song_id)
+      rescue Sequel::ForeignKeyConstraintViolation
+        nil
       end
     end
   end
