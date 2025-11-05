@@ -2,6 +2,7 @@ doctype html
 html
   head
     title LingoBeats
+    link rel="icon" href="/favicon.ico" sizes="any"
 
     / Bootstrap CSS and theme (United Theme)
     link{
@@ -31,35 +32,49 @@ html
     }
 
     / Fixed Header
-    nav.navbar.navbar-dark.bg-lingobeats.fixed-top.shadow-sm
-      .container.justify-content-center
-        a.navbar-brand.mb-0.fw-bold.text-white href="/" LingoBeats
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-lingobeats.fixed-top.shadow-sm
+      .container-fluid.h-100.navbar-custom
+        / ---- left: brand name ----
+        a.navbar-brand.p-0.mb-0.fw-bold.text-white.d-flex.align-items-center href="/"
+          img.me-2 src="/logo.png" alt="LingoBeats" height="24" style="filter: brightness(0) invert(1);"
+          | LingoBeats
 
-    main.container.mt-3
-      / ---- Tabs ----
-      .d-flex.justify-content-center
-        .pill-switch.position-relative.bg-light.rounded-pill.p-1
-          .slider.position-absolute.rounded-pill aria-hidden="true"
-          ul.nav.nav-pills(role="tablist")
-            li.nav-item.flex-fill
-              a.nav-link.text-dark.fw-semibold.py-1.px-4 href="#" role="button" Singer
-              span.d-none data-category="singer"
-            li.nav-item.flex-fill
-              a.nav-link.text-dark.fw-semibold.py-1.px-4 href="#" role="button" Song
-              span.d-none data-category="song_name"
+        / ---- right: page routes ----
+        / toggler view for small screens
+        button.navbar-toggler.position-relative.ms-auto.border-0.shadow-none.p-1(type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarNav"
+                  aria-controls="navbarNav"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation")
+              span.navbar-toggler-icon
 
-      / ---- Search ----
-      form#spotify-form.role-form.mt-3 action="/spotify" method="POST"
-        input type="hidden" name="category" id="category" value="singer"
-        .row.justify-content-center.mt-3
-          .col-12.col-md-8.col-lg-6
-            .position-relative
-              input#spotify_query_input.form-control.form-control-lg.rounded-pill.ps-4.pe-5 type="text" name="query" placeholder="e.g. Taylor Swift" autocomplete="off"
-              button#submitBtn.btn.btn-link.position-absolute.top-50.end-0.translate-middle-y.pe-4 type="submit" 
-                i.fas.fa-search.text-midgray
+        / collapsible menu
+        .collapse.navbar-collapse#navbarNav
+          ul.navbar-nav.ms-auto
+            / Home
+            li.nav-item.d-none.d-lg-block
+              - if @current_page == :home
+                a.nav-link.active.text-white aria-current="page" href="#" onclick="return false;" Home
+              - else
+                a.nav-link.text-white href="/" Home
 
-      section.mt-4
-        == yield
+            / Tutorial
+            li.nav-item
+              - if @current_page == :tutorial
+                a.nav-link.active.text-white aria-current="page" href="#" onclick="return false;" Tutorial
+              - else
+                a.nav-link.text-white href="/tutorial" Tutorial
+
+            / History
+            li.nav-item
+              - if @current_page == :history
+                a.nav-link.active.text-white aria-current="page" href="#" onclick="return false;" History
+              - else
+                a.nav-link.text-white href="/history" History
+
+    section
+      == yield
 
       / Fixed Footer
       footer.navbar.fixed-bottom.bg-light.text-center.text-muted.py-1
@@ -67,84 +82,7 @@ html
           | LingoBeats is made for demonstration purposes. We cannot warrant full correctness of all content.
           br
           | LingoBeats may use cookies for sessions but does not track users.
+    
+    == render 'partials/_song_modal'
 
-
-    / Behavior Control
-    javascript:
-      document.addEventListener('DOMContentLoaded', () => {
-        const switcher = document.querySelector('.pill-switch');
-        const slider = switcher.querySelector('.slider');
-        const links = switcher.querySelectorAll('.nav-link');
-        const submitBtn = document.getElementById('submitBtn');
-        const searchInput = document.getElementById('spotify_query_input');
-        const categoryInput = document.getElementById('category');
-        const form = document.getElementById('spotify-form');
-        const placeholders = { singer: 'e.g. Taylor Swift', song_name: 'e.g. Blank Space' };
-
-        function activeCategory(el) {
-          const span = el.parentElement.querySelector('span[data-category]');
-          return (span && span.dataset.category) || 'singer';
-        }
-
-        function moveSlider() {
-          const active = switcher.querySelector('.nav-link.active');
-          if (!active) return;
-          const left = active.offsetLeft;
-          const width = active.offsetWidth;
-          slider.style.left = left + 'px';
-          slider.style.width = width + 'px';
-        }
-
-        // store search info
-        form.addEventListener('submit', function() {
-          sessionStorage.setItem('lastSearchQuery', searchInput.value.trim());
-          sessionStorage.setItem('lastCategory', categoryInput.value);
-        });
-
-        // switch tabs
-        links.forEach(link => {
-          link.addEventListener('click', (e) => {
-            e.preventDefault();
-            links.forEach(a => a.classList.remove('active', 'text-white'));
-            link.classList.add('active', 'text-white');
-
-            const category = activeCategory(link);
-            categoryInput.value = category;
-            searchInput.placeholder = placeholders[category];
-
-            // animation
-            requestAnimationFrame(moveSlider);
-          });
-        });
-
-        // last status
-        const isHomePage = window.location.pathname === '/';
-        let lastCategory = 'singer';
-
-        if (!isHomePage) {
-          lastCategory = sessionStorage.getItem('lastCategory') || 'singer';
-        } else {
-          // clear history
-          sessionStorage.removeItem('lastCategory');
-          //sessionStorage.removeItem('lastSearchQuery');
-        }
-
-        categoryInput.value = lastCategory;
-        searchInput.placeholder = placeholders[lastCategory];
-
-        // active tab
-        links.forEach(link => {
-          const cat = activeCategory(link);
-          link.classList.toggle('active', cat === lastCategory);
-        });
-
-        // send button status control
-        function toggleSubmit() { submitBtn.disabled = !searchInput.value.trim(); }
-        searchInput.addEventListener('input', toggleSubmit);
-
-        // init
-        toggleSubmit();
-        requestAnimationFrame(moveSlider);
-        window.addEventListener('resize', moveSlider);
-        window.addEventListener('load', moveSlider);
-      });
+    == assets(:js)

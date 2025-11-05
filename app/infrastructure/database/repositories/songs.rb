@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'singers'
+require_relative 'lyrics'
 require_relative '../../spotify/mappers/song_mapper' # for SongMapper
 # require_relative '../genius/mappers/lyric_mapper'       # (可能之後用)
 require_relative '../../../controllers/app' # so App.config is loaded
@@ -9,6 +10,11 @@ module LingoBeats
   module Repository
     # Repository for Song Entities
     class Songs
+      def self.find_or_create(song_info)
+        orm = LingoBeats::Database::SongOrm
+        orm.first(uri: song_info[:uri]) || orm.create(song_info)
+      end
+
       def self.all
         rows = Database::SongOrm.all
         return rebuild_many(rows) unless rows.empty?
@@ -34,24 +40,7 @@ module LingoBeats
       def self.rebuild_entity(db_record)
         return nil unless db_record
 
-        Entity::Song.new(
-          id: db_record.id,
-          name: db_record.name,
-          uri: db_record.uri,
-          external_url: db_record.external_url,
-          album_id: db_record.album_id,
-          album_name: db_record.album_name,
-          album_url: db_record.album_url,
-          album_image_url: db_record.album_image_url,
-          # 一對一：歌詞
-          lyric: Lyrics.rebuild_entity(db_record.lyric),
-          # 多對多：歌手
-          singers: Singers.rebuild_many(db_record.singers)
-        )
-      end
-
-      def self.db_find_or_create(entity)
-        Database::SongOrm.find_or_create(entity.to_attr_hash)
+        EntityBuilder.new(db_record).build
       end
 
       def self.create(entity)
@@ -64,10 +53,7 @@ module LingoBeats
 
       def self.seed_from_spotify
         # 初始化 mapper
-        mapper = LingoBeats::Spotify::SongMapper.new(
-          LingoBeats::App.config.SPOTIFY_CLIENT_ID,
-          LingoBeats::App.config.SPOTIFY_CLIENT_SECRET
-        )
+        mapper = build_spotify_mapper
 
         # 從 Spotify 抓熱門歌:回來是一個 [Entity::Song, ...]
         songs_from_api = mapper.display_popular_songs
@@ -78,6 +64,47 @@ module LingoBeats
         end
 
         songs_from_api
+      end
+
+      def self.build_spotify_mapper
+        config = LingoBeats::App.config
+        LingoBeats::Spotify::SongMapper.new(
+          config.SPOTIFY_CLIENT_ID,
+          config.SPOTIFY_CLIENT_SECRET
+        )
+      end
+
+      # Helper class to rebuild entity from DB
+      class EntityBuilder
+        SIMPLE_FIELDS = %i[id name uri external_url album_id
+                           album_name album_url album_image_url].freeze
+
+        def initialize(db_record)
+          @db_record = db_record
+        end
+
+        def build
+          Entity::Song.new(**attributes)
+        end
+
+        private
+
+        def attributes
+          simple_attributes.merge(relationship_attributes)
+        end
+
+        def simple_attributes
+          SIMPLE_FIELDS.each_with_object({}) do |field, attrs|
+            attrs[field] = @db_record.public_send(field)
+          end
+        end
+
+        def relationship_attributes
+          {
+            lyric: Lyrics.rebuild_entity(@db_record.lyric),
+            singers: Singers.rebuild_many(@db_record.singers)
+          }
+        end
       end
 
       # helper class to persist song, lyric, singers
@@ -92,14 +119,33 @@ module LingoBeats
 
         def call
           db_song = create_song
+          relation = BuildRelationships.new(@entity, db_song)
+          relation.attach_singers
+          relation.attach_lyric
+          db_song
+        end
 
-          # 建立歌手關聯
-          @entity.singers.each do |singer|
-            db_singer = Singers.db_find_or_create(singer)
-            db_song.add_singer(db_singer) unless db_song.singers.include?(db_singer)
+        # helper class to build relationships
+        class BuildRelationships
+          def initialize(entity, db_song)
+            @entity = entity
+            @db_song = db_song
           end
 
-          db_song
+          def attach_singers
+            Array(@entity.singers).each do |singer|
+              db_singer = Singers.find_or_create(singer.to_attr_hash)
+              @db_song.add_singer(db_singer) unless @db_song.singers.include?(db_singer)
+            end
+          end
+
+          def attach_lyric
+            object = @entity.lyric
+            return unless object
+
+            lyric_id = Lyrics.attach_to_song(@db_song.id, object)
+            @db_song.refresh if lyric_id
+          end
         end
       end
     end

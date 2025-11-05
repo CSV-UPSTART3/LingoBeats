@@ -35,3 +35,4 @@ CORRECT_RESULT_BY_SONG = YAML.safe_load_file('spec/fixtures/spotify_result_by_so
                                              permitted_classes: [Symbol])
 CORRECT_RESULT_BY_BILLBOARD = YAML.safe_load_file('spec/fixtures/billboard_result.yml',
                                              permitted_classes: [Symbol])
+CORRECT_RESULT_BY_LYRICS = File.read('spec/fixtures/lyrics_output.txt')

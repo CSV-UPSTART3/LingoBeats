@@ -6,7 +6,6 @@ require_relative 'helpers/yaml_helper'
 require_relative 'helpers/database_helper'
 
 describe 'Integration Tests of Spotify API and Database' do
-
   before do
     VcrHelper.configure_vcr_for_spotify
     DatabaseHelper.wipe_database
@@ -18,21 +17,20 @@ describe 'Integration Tests of Spotify API and Database' do
 
   describe 'Retrieve and store songs' do
     it 'HAPPY: should retrieve song data from Spotify and store to DB' do
-
       # get data from Spotify API
       results = LingoBeats::Spotify::SongMapper
-              .new(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
-              .search_songs_by_song_name(SONG_NAME)
+                .new(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
+                .search_songs_by_song_name(SONG_NAME)
       lyric_mapper = LingoBeats::Genius::LyricMapper
-                      .new(GENIUS_CLIENT_ACCESS_TOKEN)
-      
+                     .new(GENIUS_CLIENT_ACCESS_TOKEN)
+
       # puts results.first # is an entity
       # results = YamlHelper.to_hash_array(results)
 
       # store to database
       song_entity = results.first
       song_repo = LingoBeats::Repository::For.entity(song_entity)
-      lyric_repo = LingoBeats::Repository::For.klass(LingoBeats::Entity::Lyric)
+      lyric_repo = LingoBeats::Repository::For.klass(LingoBeats::Value::Lyric)
 
       # if song does not exist in DB
       # 先把歌（跟歌手關聯）寫進 songs 資料表
@@ -40,16 +38,16 @@ describe 'Integration Tests of Spotify API and Database' do
 
       # 再去拿歌詞，然後再存入 lyrics
       first_singer_name = song_entity.singers.first&.name
-      # lyric_text = lyric_mapper.lyrics_for(
-      #   song_name: song_entity.name,
-      #   artist_name: first_singer_name
-      # )
+      lyric_text = lyric_mapper.lyrics_for(
+        song_name: song_entity.name,
+        artist_name: first_singer_name
+      )
 
-      # lyric_entity = LingoBeats::Entity::Lyric.new(
-      #   song_id: song_entity.id,
-      #   lyric: lyric_text
-      # )
-      # lyric_repo.create(lyric_entity)
+      lyric_entity = LingoBeats::Value::Lyric.new(
+        song_id: song_entity.id,
+        lyric: lyric_text
+      )
+      lyric_repo.create(lyric_entity)
 
       # puts rebuilt
       # puts rebuilt.singers
@@ -70,6 +68,11 @@ describe 'Integration Tests of Spotify API and Database' do
         _(singer.id).must_equal results.first.singers[index].id
         _(singer.name).must_equal results.first.singers[index].name
         _(singer.external_url).must_equal results.first.singers[index].external_url
+        # verify stored lyric
+        stored_lyric = lyric_repo.find_by_song_id(song_entity.id)
+        _(stored_lyric).wont_be_nil
+        _(stored_lyric.lyric).must_equal lyric_text
+        _(stored_lyric.song_id).must_equal song_entity.id
       end
     end
   end

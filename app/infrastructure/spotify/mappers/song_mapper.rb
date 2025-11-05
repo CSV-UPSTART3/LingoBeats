@@ -35,7 +35,8 @@ module LingoBeats
       # --- class methods ---
 
       def self.build_entities(data)
-        Array(data).map { |track| build_entity(track) }
+        songs = Array(data).map { |track| build_entity(track) }
+        Entity::Song.remove_unqualified_songs(songs.uniq)
       end
 
       def self.build_entity(data)
@@ -65,7 +66,6 @@ module LingoBeats
         def build_entity
           Entity::Song.new(
             name:, id:, uri:, external_url:,
-            # artist_name:, artist_id:, artist_url:,
             singers:,
             album_name:, album_id:, album_url:, album_image_url:,
             lyric: nil

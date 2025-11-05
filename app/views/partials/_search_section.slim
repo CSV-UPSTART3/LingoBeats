@@ -1,0 +1,28 @@
+/ Hero + Search
+.section-intro.mt-4.mb-4
+  .row.justify-content-center.g-0
+    .col-12.col-md-10.col-lg-9
+      h2.display-6.fw-semibold.mb-1.text-main
+        | Feel the Beat.
+        br
+        | Learn the Language.
+      p.text-muted.mb-3 Begin your learning journey by searching for a song!
+
+      .d-flex.align-items-center.gap-3.flex-wrap
+        / --- Left: Pill Switch ---
+        .pill-switch.position-relative.bg-light.rounded-pill.p-1
+          .slider.position-absolute.rounded-pill aria-hidden="true"
+          ul.nav.nav-pills(role="tablist")
+            li.nav-item.flex-fill
+              a.nav-link.text-dark.fw-semibold.py-1.px-4.active href="#" role="button" data-category="song_name" Song
+            li.nav-item.flex-fill
+              a.nav-link.text-dark.fw-semibold.py-1.px-4 href="#" role="button" data-category="singer" Singer
+
+        / --- Right: Search (GET /search) ---
+        .flex-grow-1
+          form#spotify-form.role-form action="/spotify/search" method="GET"
+            input type="hidden" name="category" id="category" value="song_name"
+            .position-relative
+              input#spotify_query_input.form-control.rounded-pill.ps-4.pe-5.control-h type="text" name="query"
+              button#submitBtn.btn.btn-link.position-absolute.top-50.end-0.translate-middle-y.pe-4 type="submit"
+                i.fas.fa-search.text-midgray data-bs-toggle="tooltip" data-bs-placement="top" title="Search"
