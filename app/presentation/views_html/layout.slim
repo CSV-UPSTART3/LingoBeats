@@ -74,14 +74,15 @@ html
                 a.nav-link.text-white href="/history" History
 
     section
+      include :flash_bar
       == yield
 
-      / Fixed Footer
-      footer.navbar.fixed-bottom.bg-light.text-center.text-muted.py-1
-        small
-          | LingoBeats is made for demonstration purposes. We cannot warrant full correctness of all content.
-          br
-          | LingoBeats may use cookies for sessions but does not track users.
+    / Fixed Footer
+    footer.navbar.fixed-bottom.bg-light.text-center.text-muted.py-1
+      small
+        | LingoBeats is made for demonstration purposes. We cannot warrant full correctness of all content.
+        br
+        | LingoBeats may use cookies for sessions but does not track users.
     
     == render 'partials/_song_modal'
 

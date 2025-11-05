@@ -66,34 +66,50 @@
       });
     };
 
-    // --- Tab switching ---
+    // --- URL, session, default, home logic ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlCategory = urlParams.get('category');
+    const serverDefault = 'song_name';
+
+    // Determine which category to use
+    let categoryToUse = sessionStorage.getItem('lastCategory');
+
+    if (urlCategory && ['song_name', 'singer'].includes(urlCategory)) {
+      // Priority 1: Use URL category if specified
+      categoryToUse = urlCategory;
+      sessionStorage.setItem('lastCategory', categoryToUse);
+      console.log('[Use URL category]', categoryToUse);
+    } else if (categoryToUse && ['song_name', 'singer'].includes(categoryToUse)) {
+      // Priority 2: Use session category if available
+      console.log('[Use session category]', categoryToUse);
+    } else {
+      // Priority 3: Default to song_name
+      categoryToUse = 'song_name';
+      sessionStorage.setItem('lastCategory', categoryToUse);
+      console.log('[Init default]', categoryToUse);
+    }
+
+    // Initialize UI state
+    const initialLink = Array.from(links).find(a => (a.dataset.category || '') === categoryToUse) || links[0];
+    if (initialLink) setActive(initialLink);
+
     links.forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
         setActive(link);
+        sessionStorage.setItem('lastCategory', link.dataset.category || serverDefault);
       });
     });
 
-    // --- Save search info on submit ---
     if (form) {
       form.addEventListener('submit', () => {
+        const active = getActiveLink();
+        const cat = (active?.dataset.category) || categoryInput.value || serverDefault;
+        categoryInput.value = cat;
+        sessionStorage.setItem('lastCategory', cat);
         sessionStorage.setItem('lastSearchQuery', searchInput.value.trim());
-        sessionStorage.setItem('lastCategory', categoryInput.value);
       });
     }
-
-    // --- Clear search storage when on home page ---
-    const isHome = window.location.pathname === '/' || window.location.pathname === '/home';
-    if (isHome) {
-      sessionStorage.removeItem('lastSearchQuery');
-      sessionStorage.removeItem('lastCategory');
-    }
-
-    // --- Restore last category if not home ---
-    const lastCategory = isHome ? 'song_name' : sessionStorage.getItem('lastCategory') || 'song_name';
-    const initialLink =
-      Array.from(links).find(a => (a.dataset.category || '') === lastCategory) || links[0];
-    if (initialLink) setActive(initialLink);
 
     // --- Enable/disable submit button dynamically ---
     const toggleSubmit = () => {
@@ -105,21 +121,14 @@
     // --- Relocate slider on resize/load ---
     const relocate = () => {
       const a = getActiveLink();
-      if (a) setActive(a);
+      if (!a) return;
+      requestAnimationFrame(() => {
+        slider.style.left = a.offsetLeft + 'px';
+        slider.style.width = a.offsetWidth + 'px';
+      });
     };
     window.addEventListener('resize', relocate);
     window.addEventListener('load', relocate);
-
-    // --- Clear sessionStorage when navigating back to home ---
-    document.addEventListener('click', e => {
-      const link = e.target.closest('a');
-      if (!link) return;
-
-      const href = link.getAttribute('href');
-      if (href === '/' || href === '/home') {
-        sessionStorage.clear();
-      }
-    });
 
     // --- Song Modal Logic ---
     const songModal = document.getElementById('songModal');
@@ -233,7 +242,7 @@
       loadLyrics(data.id, data.name, primaryArtist);
     }
 
-    async function loadLyrics(songId, songName, artistName) {
+    async function loadLyrics(songId, songName, singerName) {
       const lyricsEl = document.getElementById('modalLyrics');
       lyricsEl.classList.add('loading');
       lyricsEl.innerHTML = `
@@ -244,11 +253,11 @@
 
       try {
         const params = new URLSearchParams();
-        if (songId) params.set('song_id', songId);
-        if (songName) params.set('song_name', songName);
-        if (artistName) params.set('artist_name', artistName);
+        if (songId) params.set('id', songId);
+        if (songName) params.set('name', songName);
+        if (singerName) params.set('singer', singerName);
 
-        const res  = await fetch(`/genius/search?${params.toString()}`, { cache: 'no-store' });
+        const res  = await fetch(`/lyrics/song?${params.toString()}`, { cache: 'no-store' });
         const html = await res.text();
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
@@ -258,7 +267,7 @@
         lyricsEl.classList.remove('loading');
         lyricsEl.innerHTML = `
           <div class="text-center text-danger py-5">
-            <i class="fas fa-exclamation-triangle fa-2x mb-3 d-block"></i>
+            <i class="fas fa-exclamation-triangle fa-2x mb-1 d-block"></i>
             <p>Failed to load lyrics: ${e.message}</p>
           </div>`;
       }

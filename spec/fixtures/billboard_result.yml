@@ -7,20 +7,6 @@
   :album_name: The Life of a Showgirl
   :album_url: https://open.spotify.com/album/4a6NzYL1YHRUgx9e3YZI6I
   :album_image_url: https://i.scdn.co/image/ab67616d0000b273d7812467811a7da6e6a44902
-  :lyric:
-  :singers:
-  - :id: 06HL4z0CvFAxyc27GXpf02
-    :name: Taylor Swift
-    :external_url: https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02
-- :id: 3yWuTOYDztXjZxdE2cIRUa
-  :name: Opalite
-  :uri: spotify:track:3yWuTOYDztXjZxdE2cIRUa
-  :external_url: https://open.spotify.com/track/3yWuTOYDztXjZxdE2cIRUa
-  :album_id: 4a6NzYL1YHRUgx9e3YZI6I
-  :album_name: The Life of a Showgirl
-  :album_url: https://open.spotify.com/album/4a6NzYL1YHRUgx9e3YZI6I
-  :album_image_url: https://i.scdn.co/image/ab67616d0000b273d7812467811a7da6e6a44902
-  :lyric:
   :singers:
   - :id: 06HL4z0CvFAxyc27GXpf02
     :name: Taylor Swift
@@ -33,7 +19,6 @@
   :album_name: KPop Demon Hunters (Soundtrack from the Netflix Film)
   :album_url: https://open.spotify.com/album/14JkAa6IiFaOh5s0nMyMU9
   :album_image_url: https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4
-  :lyric:
   :singers:
   - :id: 2yNNYQBChuox9A5Ka93BIn
     :name: HUNTR/X
@@ -58,11 +43,22 @@
   :album_name: Ordinary
   :album_url: https://open.spotify.com/album/6xomx5ekO7qHDvDh57rZ5S
   :album_image_url: https://i.scdn.co/image/ab67616d0000b273fa2bcf3df669bde08b2e7d36
-  :lyric:
   :singers:
   - :id: 0fTSzq9jAh4c36UVb4V7CB
     :name: Alex Warren
     :external_url: https://open.spotify.com/artist/0fTSzq9jAh4c36UVb4V7CB
+- :id: 3yWuTOYDztXjZxdE2cIRUa
+  :name: Opalite
+  :uri: spotify:track:3yWuTOYDztXjZxdE2cIRUa
+  :external_url: https://open.spotify.com/track/3yWuTOYDztXjZxdE2cIRUa
+  :album_id: 4a6NzYL1YHRUgx9e3YZI6I
+  :album_name: The Life of a Showgirl
+  :album_url: https://open.spotify.com/album/4a6NzYL1YHRUgx9e3YZI6I
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b273d7812467811a7da6e6a44902
+  :singers:
+  - :id: 06HL4z0CvFAxyc27GXpf02
+    :name: Taylor Swift
+    :external_url: https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02
 - :id: 1jgTiNob5cVyXeJ3WgX5bL
   :name: Elizabeth Taylor
   :uri: spotify:track:1jgTiNob5cVyXeJ3WgX5bL
@@ -71,7 +67,6 @@
   :album_name: The Life of a Showgirl
   :album_url: https://open.spotify.com/album/4a6NzYL1YHRUgx9e3YZI6I
   :album_image_url: https://i.scdn.co/image/ab67616d0000b273d7812467811a7da6e6a44902
-  :lyric:
   :singers:
   - :id: 06HL4z0CvFAxyc27GXpf02
     :name: Taylor Swift
@@ -84,63 +79,55 @@
   :album_name: The Life of a Showgirl
   :album_url: https://open.spotify.com/album/4a6NzYL1YHRUgx9e3YZI6I
   :album_image_url: https://i.scdn.co/image/ab67616d0000b273d7812467811a7da6e6a44902
-  :lyric:
   :singers:
   - :id: 06HL4z0CvFAxyc27GXpf02
     :name: Taylor Swift
     :external_url: https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02
-- :id: 2TEQvxxQabwLQMqWMg1qGu
-  :name: Wi$h Li$t
-  :uri: spotify:track:2TEQvxxQabwLQMqWMg1qGu
-  :external_url: https://open.spotify.com/track/2TEQvxxQabwLQMqWMg1qGu
-  :album_id: 4a6NzYL1YHRUgx9e3YZI6I
-  :album_name: The Life of a Showgirl
-  :album_url: https://open.spotify.com/album/4a6NzYL1YHRUgx9e3YZI6I
-  :album_image_url: https://i.scdn.co/image/ab67616d0000b273d7812467811a7da6e6a44902
-  :lyric:
+- :id: 5BZsQlgw21vDOAjoqkNgKb
+  :name: DAISIES
+  :uri: spotify:track:5BZsQlgw21vDOAjoqkNgKb
+  :external_url: https://open.spotify.com/track/5BZsQlgw21vDOAjoqkNgKb
+  :album_id: 5vD5M5VW62LL78Ko8x0CVZ
+  :album_name: SWAG
+  :album_url: https://open.spotify.com/album/5vD5M5VW62LL78Ko8x0CVZ
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b273d65c4773bc5061fd27facc5b
   :singers:
-  - :id: 06HL4z0CvFAxyc27GXpf02
-    :name: Taylor Swift
-    :external_url: https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02
-- :id: 5ylJtmaWPJ33cW3En7WOu0
-  :name: Wood
-  :uri: spotify:track:5ylJtmaWPJ33cW3En7WOu0
-  :external_url: https://open.spotify.com/track/5ylJtmaWPJ33cW3En7WOu0
-  :album_id: 4a6NzYL1YHRUgx9e3YZI6I
-  :album_name: The Life of a Showgirl
-  :album_url: https://open.spotify.com/album/4a6NzYL1YHRUgx9e3YZI6I
-  :album_image_url: https://i.scdn.co/image/ab67616d0000b273d7812467811a7da6e6a44902
-  :lyric:
+  - :id: 1uNFoZAHBGtllmzznpCI3s
+    :name: Justin Bieber
+    :external_url: https://open.spotify.com/artist/1uNFoZAHBGtllmzznpCI3s
+- :id: 1qbmS6ep2hbBRaEZFpn7BX
+  :name: Man I Need
+  :uri: spotify:track:1qbmS6ep2hbBRaEZFpn7BX
+  :external_url: https://open.spotify.com/track/1qbmS6ep2hbBRaEZFpn7BX
+  :album_id: 0Bv6OJO0L5gcf20DMww54a
+  :album_name: Man I Need
+  :album_url: https://open.spotify.com/album/0Bv6OJO0L5gcf20DMww54a
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b273e3d69e17dde129037a1f09e2
   :singers:
-  - :id: 06HL4z0CvFAxyc27GXpf02
-    :name: Taylor Swift
-    :external_url: https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02
-- :id: 5eXgqtg3T8Av0m1FUaGHex
-  :name: The Life of a Showgirl (feat. Sabrina Carpenter)
-  :uri: spotify:track:5eXgqtg3T8Av0m1FUaGHex
-  :external_url: https://open.spotify.com/track/5eXgqtg3T8Av0m1FUaGHex
-  :album_id: 4a6NzYL1YHRUgx9e3YZI6I
-  :album_name: The Life of a Showgirl
-  :album_url: https://open.spotify.com/album/4a6NzYL1YHRUgx9e3YZI6I
-  :album_image_url: https://i.scdn.co/image/ab67616d0000b273d7812467811a7da6e6a44902
-  :lyric:
+  - :id: 00x1fYSGhdqScXBRpSj3DW
+    :name: Olivia Dean
+    :external_url: https://open.spotify.com/artist/00x1fYSGhdqScXBRpSj3DW
+- :id: 4GBNnoGf1FgsPtsgghZ381
+  :name: I Got Better
+  :uri: spotify:track:4GBNnoGf1FgsPtsgghZ381
+  :external_url: https://open.spotify.com/track/4GBNnoGf1FgsPtsgghZ381
+  :album_id: 1o844O5I0qVpZKiePtIGcF
+  :album_name: I’m The Problem
+  :album_url: https://open.spotify.com/album/1o844O5I0qVpZKiePtIGcF
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b273a70a80359930eea5bfdf11f5
   :singers:
-  - :id: 06HL4z0CvFAxyc27GXpf02
-    :name: Taylor Swift
-    :external_url: https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02
-  - :id: 74KM79TiuVKeVCqs8QtB0B
-    :name: Sabrina Carpenter
-    :external_url: https://open.spotify.com/artist/74KM79TiuVKeVCqs8QtB0B
-- :id: 2x3mwb96B6TquRqMtbxUE1
-  :name: Actually Romantic
-  :uri: spotify:track:2x3mwb96B6TquRqMtbxUE1
-  :external_url: https://open.spotify.com/track/2x3mwb96B6TquRqMtbxUE1
-  :album_id: 4a6NzYL1YHRUgx9e3YZI6I
-  :album_name: The Life of a Showgirl
-  :album_url: https://open.spotify.com/album/4a6NzYL1YHRUgx9e3YZI6I
-  :album_image_url: https://i.scdn.co/image/ab67616d0000b273d7812467811a7da6e6a44902
-  :lyric:
+  - :id: 4oUHIQIBe0LHzYfvXNW4QM
+    :name: Morgan Wallen
+    :external_url: https://open.spotify.com/artist/4oUHIQIBe0LHzYfvXNW4QM
+- :id: 1mh9eHVRdNhzryG43PXdW1
+  :name: MUTT
+  :uri: spotify:track:1mh9eHVRdNhzryG43PXdW1
+  :external_url: https://open.spotify.com/track/1mh9eHVRdNhzryG43PXdW1
+  :album_id: 0b64yYszabe2wxhG1PiSQo
+  :album_name: MUTT
+  :album_url: https://open.spotify.com/album/0b64yYszabe2wxhG1PiSQo
+  :album_image_url: https://i.scdn.co/image/ab67616d0000b27382a5b97ffaf87e21ce6fdf4a
   :singers:
-  - :id: 06HL4z0CvFAxyc27GXpf02
-    :name: Taylor Swift
-    :external_url: https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02
+  - :id: 0nnBZ8FXWjG9wZgM2cpfeb
+    :name: Leon Thomas
+    :external_url: https://open.spotify.com/artist/0nnBZ8FXWjG9wZgM2cpfeb

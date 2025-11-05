@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'figaro'
+require 'logger'
+require 'rack/session/cookie'
 require 'roda'
 require 'sequel'
 require 'yaml'
@@ -18,12 +20,21 @@ module LingoBeats
     Figaro.load
     def self.config = Figaro.env
 
+    use Rack::Session::Cookie, secret: config.SESSION_SECRET
+
     configure :development, :test do
+      require 'pry'; # for breakpoints
       ENV['DATABASE_URL'] = "sqlite://#{config.DB_FILENAME}"
     end
 
     # Database Setup
     @db = Sequel.connect(ENV.fetch('DATABASE_URL'))
     def self.db = @db # rubocop:disable Style/TrivialAccessors
+
+    # Logger Setup
+    @logger = Logger.new($stderr)
+    class << self
+      attr_reader :logger
+    end
   end
 end

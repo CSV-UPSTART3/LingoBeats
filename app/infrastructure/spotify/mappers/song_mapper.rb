@@ -32,6 +32,11 @@ module LingoBeats
         self.class.build_entities(tracks)
       end
 
+      def fetch_song_info_by_id(song_id)
+        data = @gateway.song_info(song_id: song_id)
+        self.class.build_entity(data)
+      end
+
       # --- class methods ---
 
       def self.build_entities(data)

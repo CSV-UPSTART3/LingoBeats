@@ -51,6 +51,14 @@ module LingoBeats
         rebuild_entity(db_song)
       end
 
+      def self.ensure_song_exists(song_id)
+        find_id(song_id) || begin
+          mapper = build_spotify_mapper
+          song_info = mapper.fetch_song_info_by_id(song_id)
+          create(song_info) if song_info
+        end
+      end
+
       def self.seed_from_spotify
         # 初始化 mapper
         mapper = build_spotify_mapper

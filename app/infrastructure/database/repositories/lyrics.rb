@@ -38,7 +38,7 @@ module LingoBeats
         ds = Database::LyricOrm.dataset
 
         # only insert if not exists
-        ds.insert_conflict(target: :id).insert(id: id, text: object.normalized_text)
+        ds.insert_conflict(target: :id).insert(id: id, text: object&.text)
         id
       end
 

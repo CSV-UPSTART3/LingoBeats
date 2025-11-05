@@ -5,6 +5,8 @@ require 'fileutils'
 require 'http'
 require 'yaml'
 
+require_relative '../../http_helper'
+
 module LingoBeats
   module Spotify
     # Library for Spotify Web API
@@ -35,6 +37,12 @@ module LingoBeats
                            .get(spotify_playlist_url(BILLBORAD_PLAYLIST_ID), params: params)
       end
 
+      # get song details by id
+      def song_info(song_id:)
+        HttpHelper::Request.new('Authorization' => "Bearer #{@token_manager.access_token}")
+                           .get(spotify_track_url(song_id))
+      end
+
       private
 
       def spotify_search_url
@@ -43,6 +51,10 @@ module LingoBeats
 
       def spotify_playlist_url(id)
         "#{BASE_PATH}/playlists/#{id}/tracks"
+      end
+
+      def spotify_track_url(id)
+        "#{BASE_PATH}/tracks/#{id}"
       end
 
       # ---- nested class (internal) ----

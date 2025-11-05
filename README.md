@@ -30,7 +30,7 @@ By combining music, AI, and intelligent content generation, LingoBeats hopes to 
 ### Entity-Relationship Diagram
 
 <p>
-  <img src="app/views/public/er-diagram.svg" width="600" alt="ERD Preview">
+  <img src="app/presentation/public/er-diagram.svg" width="600" alt="ERD Preview">
 </p>
 
 ## **Setup**
