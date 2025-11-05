@@ -33,23 +33,45 @@ html
 
     / Fixed Header
     nav.navbar.navbar-expand-lg.navbar-dark.bg-lingobeats.fixed-top.shadow-sm
-      .container-fluid.navbar-custom
+      .container-fluid.h-100.navbar-custom
         / ---- left: brand name ----
-        a.navbar-brand.mb-1.fw-bold.text-white.d-flex.align-items-center href="/"
+        a.navbar-brand.p-0.mb-0.fw-bold.text-white.d-flex.align-items-center href="/"
           img.me-2 src="/logo.png" alt="LingoBeats" height="24" style="filter: brightness(0) invert(1);"
           | LingoBeats
 
         / ---- right: page routes ----
-        ul.navbar-nav.ms-auto.d-none.d-lg-flex
-          li.nav-item
-            - if @current_page == :home
-              a.nav-link.active aria-current="page" aria-disabled="true" tabindex="-1" href="#" onclick="return false;" Home
-            - else
-              a.nav-link href="/" Home
-          li.nav-item
-            a.nav-link class=(@current_page == :tutorial ? 'active' : nil) href="/tutorial" Tutorial
-          li.nav-item
-            a.nav-link class=(@current_page == :history ? 'active' : nil) href="/history" History
+        / toggler view for small screens
+        button.navbar-toggler.position-relative.ms-auto.border-0.shadow-none.p-1(type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarNav"
+                  aria-controls="navbarNav"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation")
+              span.navbar-toggler-icon
+
+        / collapsible menu
+        .collapse.navbar-collapse#navbarNav
+          ul.navbar-nav.ms-auto
+            / Home
+            li.nav-item.d-none.d-lg-block
+              - if @current_page == :home
+                a.nav-link.active.text-white aria-current="page" href="#" onclick="return false;" Home
+              - else
+                a.nav-link.text-white href="/" Home
+
+            / Tutorial
+            li.nav-item
+              - if @current_page == :tutorial
+                a.nav-link.active.text-white aria-current="page" href="#" onclick="return false;" Tutorial
+              - else
+                a.nav-link.text-white href="/tutorial" Tutorial
+
+            / History
+            li.nav-item
+              - if @current_page == :history
+                a.nav-link.active.text-white aria-current="page" href="#" onclick="return false;" History
+              - else
+                a.nav-link.text-white href="/history" History
 
     section
       == yield

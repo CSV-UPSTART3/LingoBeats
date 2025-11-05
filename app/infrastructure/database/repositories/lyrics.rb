@@ -7,29 +7,69 @@ module LingoBeats
       def self.rebuild_entity(db_record)
         return nil unless db_record
 
-        Entity::Lyric.new(
-          song_id: db_record[:song_id] || db_record.song_id,
-          lyric: db_record[:lyric] || db_record.lyric
-        )
+        Value::Lyric.new(text: db_record[:text] || db_record.text)
       end
 
-      def self.find_by_song_id(song_id)
-        db_record = Database::LyricOrm.first(song_id: song_id)
-        rebuild_entity(db_record)
+      def self.find_id(id)
+        rebuild_entity Database::LyricOrm.first(id: id)
       end
 
-      def self.create(entity)
-        ds = Database::LyricOrm.dataset # 或 DB[:lyrics]
-        song_id = entity.song_id
+      def self.find_id_by_value(object)
+        return nil unless object&.text
 
-        ds.insert_conflict(target: :song_id,
-                           update: { lyric: Sequel[:excluded][:lyric] })
-          .insert(song_id: song_id, lyric: entity.lyric)
+        object.checksum
+      end
 
-        find_by_song_id(song_id)
-      rescue Sequel::ForeignKeyConstraintViolation
+      def self.for_song(song_id)
+        song = Database::SongOrm.first(id: song_id)
+        return nil unless song
+
+        lyric_id = song[:lyric_id]
+        return nil unless lyric_id
+
+        find_id(lyric_id)
+      end
+
+      # create lyric and link to song
+      def self.find_or_create_by_value(object)
+        return nil unless object&.text
+
+        id = object.checksum
+        ds = Database::LyricOrm.dataset
+
+        # only insert if not exists
+        ds.insert_conflict(target: :id).insert(id: id, text: object.normalized_text)
+        id
+      end
+
+      # attach lyric to song
+      def self.attach_to_song(song_id, lyric_object)
+        return nil unless song_id && lyric_object&.text
+
+        lyric_id = find_or_create_by_value(lyric_object)
+        Database::SongOrm.where(id: song_id).update(lyric_id: lyric_id)
+        lyric_id
+      rescue Sequel::ForeignKeyConstraintViolation, Sequel::NoExistingObject
         nil
       end
+
+      # def self.find_by_song_id(song_id)
+      #   db_record = Database::LyricOrm.first(song_id: song_id)
+      #   rebuild_entity(db_record)
+      # end
+
+      # def self.create(entity)
+      #   ds = Database::LyricOrm.dataset # 或 DB[:lyrics]
+      #   song_id = entity.song_id
+
+      #   ds.insert_conflict(target: :song_id,
+      #                      update: { lyric: Sequel[:excluded][:lyric] })
+      #     .insert(song_id: song_id, lyric: entity.lyric)
+
+      #   find_by_song_id(song_id)
+      # rescue Sequel::ForeignKeyConstraintViolation
+      #   nil
+      # end
     end
   end
 end

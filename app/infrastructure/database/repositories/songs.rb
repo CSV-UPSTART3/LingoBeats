@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'singers'
+require_relative 'lyrics'
 require_relative '../../spotify/mappers/song_mapper' # for SongMapper
 # require_relative '../genius/mappers/lyric_mapper'       # (可能之後用)
 require_relative '../../../controllers/app' # so App.config is loaded
@@ -118,14 +119,33 @@ module LingoBeats
 
         def call
           db_song = create_song
+          relation = BuildRelationships.new(@entity, db_song)
+          relation.attach_singers
+          relation.attach_lyric
+          db_song
+        end
 
-          # 建立歌手關聯
-          @entity.singers.each do |singer|
-            db_singer = LingoBeats::Repository::Singers.find_or_create(singer.to_attr_hash)
-            db_song.add_singer(db_singer) unless db_song.singers.include?(db_singer)
+        # helper class to build relationships
+        class BuildRelationships
+          def initialize(entity, db_song)
+            @entity = entity
+            @db_song = db_song
           end
 
-          db_song
+          def attach_singers
+            Array(@entity.singers).each do |singer|
+              db_singer = Singers.find_or_create(singer.to_attr_hash)
+              @db_song.add_singer(db_singer) unless @db_song.singers.include?(db_singer)
+            end
+          end
+
+          def attach_lyric
+            object = @entity.lyric
+            return unless object
+
+            lyric_id = Lyrics.attach_to_song(@db_song.id, object)
+            @db_song.refresh if lyric_id
+          end
         end
       end
     end

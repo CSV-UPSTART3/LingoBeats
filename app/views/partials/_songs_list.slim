@@ -15,7 +15,7 @@
             = title
 
       - songs.each do |song|
-        .col-12.col-md-10.col-lg-9.mb-3
+        .col-12.col-md-10.col-lg-9.mb-2
           == render('partials/_song_card', locals: { song: song })
   - else
     .text-center.mt-5

@@ -17,13 +17,13 @@ module LingoBeats
       def search_songs_by_singer(query)
         data = @gateway.songs_data(category: 'singer', query: query, limit: 20)
         tracks = FieldExtractor.extract_search_track(data)
-        self.class.build_entities(tracks).reject(&:instrumental?).uniq
+        self.class.build_entities(tracks)
       end
 
       def search_songs_by_song_name(query)
         data = @gateway.songs_data(category: 'song_name', query: query, limit: 20)
         tracks = FieldExtractor.extract_search_track(data)
-        self.class.build_entities(tracks).reject(&:instrumental?).uniq
+        self.class.build_entities(tracks)
       end
 
       def display_popular_songs
@@ -36,7 +36,7 @@ module LingoBeats
 
       def self.build_entities(data)
         songs = Array(data).map { |track| build_entity(track) }
-        songs.uniq
+        Entity::Song.remove_unqualified_songs(songs.uniq)
       end
 
       def self.build_entity(data)
@@ -66,7 +66,6 @@ module LingoBeats
         def build_entity
           Entity::Song.new(
             name:, id:, uri:, external_url:,
-            # artist_name:, artist_id:, artist_url:,
             singers:,
             album_name:, album_id:, album_url:, album_image_url:,
             lyric: nil

@@ -8,9 +8,12 @@ module LingoBeats
     class LyricOrm < Sequel::Model(:lyrics)
       unrestrict_primary_key
 
-      many_to_one :song,
+      # many_to_one :song,
+      #             class: :'LingoBeats::Database::SongOrm',
+      #             key: :song_id
+      one_to_many :songs,
                   class: :'LingoBeats::Database::SongOrm',
-                  key: :song_id
+                  key: :lyric_id
 
       plugin :timestamps, update_on_create: true
     end

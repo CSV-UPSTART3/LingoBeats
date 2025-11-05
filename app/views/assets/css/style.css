@@ -2,10 +2,11 @@
     Base & Global
    ========================================================= */
 body {
-  padding-top: 50px; /* for fixed header */
+  padding-top: 50px;
+  /* for fixed header */
   overflow: hidden;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 :root {
@@ -35,14 +36,99 @@ body {
 .navbar-custom {
   padding-left: 2rem;
   padding-right: 2rem;
-  display: flex;
-  justify-content: space-between;
 }
 
-.navbar .nav-link.active {
-  text-decoration: underline;
-  pointer-events: none;
-  cursor: default;
+.navbar-collapse {
+  transition: height 0.2s ease;
+}
+
+.navbar-toggler-icon {
+  width: 1em;
+  height: 1em;
+  transition: transform 0.2s ease;
+  background-size: 100%;
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+  opacity: 0;
+}
+
+.navbar-toggler::before,
+.navbar-toggler::after {
+  content: '';
+  position: absolute;
+  width: 1em;
+  height: 1.5px;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.navbar-toggler[aria-expanded="true"]::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+  opacity: 1;
+}
+
+.navbar-toggler[aria-expanded="true"]::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+  opacity: 1;
+}
+
+@media (min-width: 992px) {
+    .navbar-nav .nav-link.active {
+    text-decoration: underline;
+    pointer-events: none;
+    cursor: default;
+  }
+}
+
+@media (max-width: 992px) {
+  .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    right: 2rem;
+    background: #fff;
+    padding: 0;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 110px;
+  }
+
+  .navbar-nav {
+    width: 100%;
+  }
+
+  .navbar-nav .nav-item {
+    position: relative;
+  }
+
+  .navbar-nav .nav-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0.5rem;
+    right: 0.5rem;
+    height: 1px;
+    background-color: #e0e0e0;
+  }
+
+  .navbar-nav .nav-link {
+    color: #333 !important;
+    padding: 0.75rem 1rem;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .navbar-nav .nav-link:hover {
+    color: var(--lingobeats-green) !important;
+    background-color: #f8f9fa;
+  }
 }
 
 /* =========================================================
@@ -118,46 +204,25 @@ body {
 /* =========================================================
     Card Layout (Song Results)
    ========================================================= */
-.card.song-card {
-  cursor: pointer;
-  align-items: stretch;
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
-}
-
-.card.song-card:hover {
-  box-shadow: 0 10px 32px rgba(0,0,0,.22);
-}
-
-.card.song-card:active {
-  border: 1px solid var(--lingobeats-green);
+/* Cover image */
+.cover-wrap {
+  width: 120px;
+  height: 120px;
+  flex: 0 0 120px;
 }
 
 .start-img {
-  width: 120px;
-  height: 120px;
   object-fit: cover;
-  flex-shrink: 0;
-  transition: opacity .2s ease, filter .2s ease;
+  display: block;
+  transition: opacity 0.2s ease, filter 0.2s ease;
 }
 
-.cover-wrap {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  overflow: hidden;
-}
-
+/* Hover overlay for play button */
 .play-overlay,
 #modalPlayOverlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: rgba(0, 0, 0, 0);
   opacity: 0;
-  border-radius: 0.5rem;
-  transition: background-color .2s ease, opacity .2s ease;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
   text-decoration: none !important;
   pointer-events: none;
 }
@@ -166,18 +231,14 @@ body {
 .modal-body .position-relative:hover #modalPlayOverlay {
   opacity: 1;
   background-color: rgba(0, 0, 0, 0.4);
-  pointer-events: none;
 }
 
+/* Play button */
 .play-btn {
   position: relative;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
   background: var(--lingobeats-green);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   border: none;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -187,8 +248,6 @@ body {
 
 .play-btn i {
   font-size: 0.95rem;
-  color: #fff;
-  text-decoration: none !important;
   transform: translateX(1.5px);
 }
 
@@ -197,32 +256,22 @@ body {
   box-shadow: 0 8px 12px rgba(29, 185, 84, 0.35);
 }
 
-.card-body {
+/* Singer text color */
+.singer-text,
+.singer-link {
+  color: var(--text-midgray);
+}
+
+/* truncate text */
+.card-body,
+.song-info,
+.singer-line,
+.singer-text {
   min-width: 0;
 }
 
-.singer-line {
-  display: flex;
-  align-items: center;
-  overflow: hidden !important;
-}
-
-.song-title,
-.album-line,
-.singer-text {
-  display: block;
-  white-space: nowrap;
-  overflow: hidden !important;
-  text-overflow: ellipsis;
-}
-
-.singer-text {
-  color: var(--text-midgray);
-}
-
-.singer-link {
-  color: var(--text-midgray);
-  text-decoration: underline !important;
+.card-body {
+  flex: 1;
 }
 
 /* =========================================================
@@ -240,7 +289,7 @@ body {
   overflow-y: scroll !important;
   overflow-x: hidden !important;
   overscroll-behavior: contain;
-  -ms-overflow-style: none;  
+  -ms-overflow-style: none;
   scrollbar-width: thin;
 }
 
@@ -285,43 +334,82 @@ body.modal-open {
   overflow-x: hidden !important;
 }
 
-.modal-dialog {
-  margin: 1.75rem auto;
+.modal-custom-width {
+  max-width: 960px;
+  width: calc(100% - 4rem);
+  margin: 0 auto;
 }
 
-.modal-body {
-  min-height: 56vh;
+.min-h-0 {
+  min-height: 0;
+}
+
+/* Cover */
+.cover-box {
+  width: 96px;
+  height: 96px;
+}
+
+@media (min-width: 576px) {
+  .cover-box {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (min-width: 992px) {
+  .song-info-wrap {
+    display: block !important;
+  }
+
+  .cover-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+}
+
+/* Song info */
+.truncate-1line {
+  display: block;
+  white-space: nowrap;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
-.modal-body .row {
-  flex: 1 1 auto;
-  min-height: 0;
+@media (min-width: 992px) {
+  .song-meta {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    min-height: 0;
+  }
+
+  #modalSongTitle {
+    font-size: 1.25rem;
+  }
+
+  .song-meta .d-flex.small.mt-auto {
+    margin-top: auto !important;
+  }
+
+  .song-info-wrap {
+    display: flex !important;
+    flex-direction: column;
+    height: 100%;
+  }
 }
 
-.modal-body .col-md-3 {
-  display: flex;
-  flex-direction: column;
-}
-
-.modal-body .col-md-9 {
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-}
-
+/* Lyrics content */
 #modalLyrics {
-  flex: 1 1 auto;
   overflow-y: auto !important;
   overflow-x: hidden;
   white-space: pre-wrap;
   word-break: break-word;
   max-height: 52vh;
   text-align: left;
-  align-items: flex-start !important;
-  justify-content: flex-start !important;
   font-family: 'Space Mono', monospace !important;
   font-size: 0.9rem;
 }
@@ -334,15 +422,9 @@ body.modal-open {
   text-align: center !important;
 }
 
-#modalSingers {
-  word-break: break-word;
-}
-
+/* Singer text color */
+#modalSingers,
 #modalSingers p,
 #modalSingers a {
   color: var(--text-midgray);
-}
-
-#modalCover {
-  cursor: pointer;
 }

@@ -4,7 +4,7 @@ require 'dry-types'
 require 'dry-struct'
 
 require_relative 'singer'
-require_relative 'lyric'
+require_relative '../values/lyric'
 
 module LingoBeats
   module Entity
@@ -20,7 +20,7 @@ module LingoBeats
       attribute :album_name,      Strict::String
       attribute :album_url,       Strict::String
       attribute :album_image_url, Strict::String
-      attribute :lyric,           Lyric.optional
+      attribute :lyric,           Value::Lyric.optional
       attribute :singers,         Strict::Array.of(Singer)
 
       def to_attr_hash
@@ -41,10 +41,23 @@ module LingoBeats
         comparison_key.hash
       end
 
+      # Remove unqualified songs (e.g., instrumental, non-English)
+      def self.remove_unqualified_songs(songs)
+        songs.select(&:qualified?)
+      end
+
+      def qualified?
+        !instrumental? && english_name?
+      end
+
       # Check if the song is instrumental version
       def instrumental?
-        song_name = name.to_s.downcase
-        song_name.include?('instrumental')
+        name.match?(/instrument(al)?/i)
+      end
+
+      # Check if the song name is in English
+      def english_name?
+        name.ascii_only?
       end
     end
   end

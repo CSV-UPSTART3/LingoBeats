@@ -13,9 +13,12 @@ module LingoBeats
                    join_table: :songs_singers,
                    left_key: :song_id, right_key: :singer_id
 
-      one_to_one :lyric,
-                 class: :'LingoBeats::Database::LyricOrm',
-                 key: :song_id
+      # one_to_one :lyric,
+      #            class: :'LingoBeats::Database::LyricOrm',
+      #            key: :song_id
+      many_to_one :lyric,
+                  class: :'LingoBeats::Database::LyricOrm',
+                  key: :lyric_id
 
       plugin :timestamps, update_on_create: true
     end

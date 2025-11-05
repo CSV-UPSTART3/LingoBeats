@@ -1,5 +1,5 @@
 / locals: song
-.card.song-card.flex-row.shadow-sm.border-0.p-2(
+.card.song-card.d-flex.flex-row.shadow-sm.border-0.p-2.gap-3(
   role="button"
   data-song-name=song[:name]
   data-album-name=song[:album_name]
@@ -8,13 +8,13 @@
   data-id=song[:id]
 )
   / --- cover + overlay ---
-  .cover-wrap.position-relative.me-3
-    img.start-img.rounded(
+  .cover-wrap.position-relative.flex-shrink-0.rounded.overflow-hidden
+    img.start-img.rounded.w-100.h-100(
       src=song[:album_image_url]
       alt=song[:album_name]
-      onerror="this.src='/assets/img/placeholder-album.png';this.onerror=null;"
+      onerror="this.src='/placeholder-album.jpg';this.onerror=null;"
     )
-    a.play-overlay.d-flex.align-items-center.justify-content-center(
+    a.play-overlay.position-absolute.top-0.start-0.bottom-0.end-0.d-flex.align-items-center.justify-content-center.rounded(
       href=song[:external_url]
       target="_blank"
       rel="noopener"
@@ -22,19 +22,19 @@
       data-bs-placement="top"
       title="Listen on Spotify"
     )
-      span.play-btn
-        i.fas.fa-play
+      span.play-btn.rounded-circle.d-inline-flex.align-items-center.justify-content-center
+        i.fas.fa-play.text-white
 
   / --- info ---
-  .card-body.p-2.d-flex.flex-column.justify-content-between
-    .song-info
-      h5.card-title.mb-1.fw-semibold.song-title = song[:name]
-      .text-secondary.small.mb-1.album-line = song[:album_name]
-    .singer-line.mt-auto.pt-1
-      i.fas.fa-user.me-2.text-black-50
-      .singer-text
+  .card-body.p-1.d-flex.flex-column.justify-content-between(style="min-width: 0; flex: 1;")
+    .song-info(style="min-width: 0;")
+      h5.card-title.mb-1.fw-semibold.text-truncate = song[:name]
+      .text-secondary.small.mb-1.text-truncate = song[:album_name]
+    .singer-line.d-flex.align-items-center(style="min-width: 0;")
+      i.fas.fa-user.me-2.text-black-50.flex-shrink-0
+      .singer-text.text-truncate(style="min-width: 0;")
         - song[:singers].each_with_index do |singer, idx|
-          a.singer-link(
+          a.singer-link.text-decoration-underline(
             href=singer[:external_url]
             target="_blank"
             rel="noopener"
