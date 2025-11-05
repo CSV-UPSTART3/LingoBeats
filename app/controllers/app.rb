@@ -20,14 +20,8 @@ module LingoBeats
     def initialize(*)
       super
       cfg = App.config
-
-      @allowed_categories = %w[singer song_name].freeze
       @spotify_mapper = Spotify::SongMapper
                         .new(cfg.SPOTIFY_CLIENT_ID, cfg.SPOTIFY_CLIENT_SECRET)
-      @lyric_mapper = Genius::LyricMapper
-                      .new(cfg.GENIUS_CLIENT_ACCESS_TOKEN)
-      @song_repo = Repository::For.klass(Entity::Song)
-      @lyric_repo = Repository::For.klass(Value::Lyric)
     end
 
     route do |routing|
@@ -39,13 +33,6 @@ module LingoBeats
       routing.root do
         @current_page = :home
         popular = @spotify_mapper.display_popular_songs
-
-        # # load/store lyrics for popular songs
-        # genius = GeniusHelper.new(lyric_mapper: @lyric_mapper, song_repo: @song_repo, lyric_repo: @lyric_repo)
-        # popular.each do |song_entity|
-        #   genius.fetch_lyrics(song_entity.id)
-        # end
-
         view 'home', locals: { popular: popular }
       end
 
@@ -90,59 +77,57 @@ module LingoBeats
         routing.get do
           # TODO: store song data first with session
 
-          genius = GeniusHelper.new(lyric_mapper: @lyric_mapper, song_repo: @song_repo, lyric_repo: @lyric_repo)
-          song_id, song_name, artist_name = genius.get_params(routing)
-          result = genius.fetch_lyrics(song_id, song_name, artist_name)
+          song_id, song_name, artist_name = GeniusHelper.get_params(routing)
+          result = GeniusHelper.fetch_lyrics(song_id, song_name, artist_name)
           view('lyrics_block', locals: { lyrics: result[:lyrics], cached: result[:cached] }, layout: false)
         end
       end
     end
 
     # ===== Helper methods for Genius flow =====
-    class GeniusHelper
-      def initialize(lyric_mapper:, song_repo:, lyric_repo:)
-        @lyric_mapper = lyric_mapper
-        @song_repo = song_repo
-        @lyric_repo = lyric_repo
-      end
+    module GeniusHelper
+      module_function
+
+      def lyric_mapper = Genius::LyricMapper.new(App.config.GENIUS_CLIENT_ACCESS_TOKEN)
+      def lyric_repo   = Repository::For.klass(Value::Lyric)
+      def song_repo    = Repository::For.klass(Entity::Song)
 
       def get_params(req)
         req.params.values_at('song_id', 'song_name', 'artist_name').map(&:to_s)
       end
 
       def fetch_lyrics(song_id, song_name = nil, artist_name = nil)
-        song_id = song_id.to_s.strip
-        return { error: 'missing song_id' } if song_id.empty?
+        sid = song_id.to_s.strip
+        return { error: 'missing song_id' } if sid.empty?
 
         # 1. get from DB
-        if (hit = find_in_db(song_id))
+        if (hit = find_in_db(sid))
           return hit
         end
 
-        # 2. call API if not in DB
-        fetch_from_api_and_cache(song_id, song_name, artist_name) || { error: 'Lyrics not found' }
+        # 2. call api if not found in DB
+        fetch_from_api_and_cache(sid, song_name, artist_name)
       end
 
-      private
-
+      # --- internals ---
       def find_in_db(song_id)
-        vo = @lyric_repo.for_song(song_id)
-        return unless vo && !vo.text.to_s.strip.empty?
+        vo = lyric_repo.for_song(song_id)
+        text = vo&.text.to_s.strip
+        return unless text.length.positive?
 
-        { lyrics: vo.text, cached: true }
+        { lyrics: text, cached: true }
       end
 
       def fetch_from_api_and_cache(song_id, song_name, artist_name)
-        if (song = @song_repo.find_id(song_id))
-          song_name   ||= song.name
-          artist_name ||= song.singers.first&.name
-        end
+        text = lyric_mapper.lyrics_for(song_name: song_name, artist_name: artist_name).to_s
+        return { error: 'Lyrics not found' } if text.strip.empty?
 
-        lyric_text = @lyric_mapper.lyrics_for(song_name: song_name, artist_name: artist_name)
+        persist_lyrics(song_id, text) if song_repo.find_id(song_id)
+        { lyrics: text, cached: false }
+      end
 
-        vo = Value::Lyric.new(text: lyric_text)
-        lyric_id = @lyric_repo.attach_to_song(song_id, vo)
-        { lyrics: lyric_text, cached: false } if lyric_id
+      def persist_lyrics(song_id, text)
+        lyric_repo.attach_to_song(song_id, Value::Lyric.new(text: text))
       end
     end
 
