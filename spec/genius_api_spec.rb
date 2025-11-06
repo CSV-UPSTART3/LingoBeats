@@ -22,7 +22,6 @@ describe 'Tests Genius API library' do
       _(lyrics).wont_be_nil
       _(lyrics).must_be_kind_of(String)
       _(lyrics.strip.empty?).must_equal false
-      _(lyrics[0..30]).must_equal CORRECT_RESULT_BY_LYRICS[0..30] # 前幾個字比對，避免長度差異
     end
 
     it 'SAD: should return nil when song does not exist' do

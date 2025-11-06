@@ -108,8 +108,10 @@ module LingoBeats
         end
 
         def relationship_attributes
+          lyric_record = @db_record.lyric
           {
-            lyric: Lyrics.rebuild_entity(@db_record.lyric),
+
+            lyric: lyric_record ? Lyrics.rebuild_entity(lyric_record) : nil,
             singers: Singers.rebuild_many(@db_record.singers)
           }
         end

@@ -49,7 +49,7 @@ module LingoBeats
         @current_page = :home
         # Get cookie viewer's previously seen songs
         watching = session[:watching] || {}
-        puts "Watching: #{watching.inspect}"
+        # puts "Watching: #{watching.inspect}"
 
         # check if internal navigation
         referer = request.referer
