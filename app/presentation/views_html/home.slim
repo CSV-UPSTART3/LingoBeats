@@ -1,5 +1,5 @@
 / 頂部 Hero + Search
-== render('partials/_search_section')
+== render('partials/_search_section', locals: { search_history: search_history })
 
 - if !defined?(popular) || popular.empty?
   .text-center.mt-5

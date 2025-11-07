@@ -9,7 +9,6 @@ Sequel.migration do
       String :text, null: false
 
       DateTime :created_at
-      DateTime :updated_at
     end
 
     alter_table(:songs) do
