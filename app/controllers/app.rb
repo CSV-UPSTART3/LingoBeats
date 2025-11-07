@@ -13,7 +13,7 @@ require_relative '../presentation/views_object/search_history'
 # LingoBeats: include routing and service
 module LingoBeats
   # Web App
-  class App < Roda
+  class App < Roda # rubocop:disable Metrics/ClassLength
     plugin :flash
     plugin :all_verbs # allows HTTP verbs beyond GET/POST (e.g., DELETE)
     plugin :render, engine: 'slim', views: 'app/presentation/views_html'
@@ -30,8 +30,7 @@ module LingoBeats
     MESSAGES = {
       invalid_query: 'Invalid search query',
       search_failed: 'Error in searching songs',
-      no_songs_found: 'No songs found for the given query',
-      lyrics_not_found: 'Lyrics not found'
+      no_songs_found: 'No songs found for the given query'
     }.freeze
 
     def initialize(*)
@@ -53,9 +52,9 @@ module LingoBeats
         # Get cookie viewer's previously searched
         session[:song_search_history] ||= []
         session[:singer_search_history] ||= []
+        # puts "[DEBUG] data session: #{session.inspect}"
 
         popular = @spotify_mapper.display_popular_songs
-        # puts "[DEBUG] data session: #{session.inspect}"
 
         view 'home', locals: { popular: popular,
                                search_history: Views::SearchHistory.new(

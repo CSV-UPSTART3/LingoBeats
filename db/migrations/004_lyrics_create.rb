@@ -6,7 +6,7 @@ Sequel.migration do
   change do
     create_table(:lyrics) do
       String :id, primary_key: true
-      String :text, null: false
+      String :text, null: true
 
       DateTime :created_at
     end
