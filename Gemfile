@@ -7,6 +7,8 @@ ruby File.read('.ruby-version').strip
 gem 'figaro', '~> 1.0'
 gem 'pry'
 gem 'rake'
+gem 'cld3'
+gem 'pycall'
 
 # Web Application
 gem 'base64'
