@@ -34,6 +34,8 @@ module LingoBeats
       def self.find_or_create_by_value(object)
         return nil unless object&.text
 
+        return nil unless object.english?
+
         id = object.checksum
         ds = Database::LyricOrm.dataset
 
@@ -45,6 +47,8 @@ module LingoBeats
       # attach lyric to song
       def self.attach_to_song(song_id, lyric_object)
         return nil unless song_id && lyric_object&.text
+        
+        return nil unless lyric_object.english?
 
         lyric_id = find_or_create_by_value(lyric_object)
         Database::SongOrm.where(id: song_id).update(lyric_id: lyric_id)
@@ -53,14 +57,14 @@ module LingoBeats
         nil
       end
 
-      def self.rebuild_entity_by_lyrics(lyrics)
-        return nil unless lyrics
+      # def self.rebuild_entity_by_lyrics(lyrics)
+      #   return nil unless lyrics
 
-        id = find_id_by_value(lyrics)
-        Value::Lyric.new(
-          text: lyrics
-        )
-      end
+      #   id = find_id_by_value(lyrics)
+      #   Value::Lyric.new(
+      #     text: lyrics
+      #   )
+      # end
 
       # def self.find_by_song_id(song_id)
       #   db_record = Database::LyricOrm.first(song_id: song_id)

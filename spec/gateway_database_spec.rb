@@ -38,17 +38,17 @@ describe 'Integration Tests of Spotify API and Database' do
 
       # 再去拿歌詞，然後再存入 lyrics
       first_singer_name = song_entity.singers.first&.name
-      lyric_text = lyric_mapper.lyrics_for(
+      lyric_value_object = lyric_mapper.lyrics_for(
         song_name: song_entity.name,
         artist_name: first_singer_name
       )
 
-      lyric_entity = LingoBeats::Value::Lyric.new(
-        text: lyric_text
+      # lyric_entity = LingoBeats::Value::Lyric.new(
+      #   text: lyric_text
         # song_id: song_entity.id,
         # lyric: lyric_text
-      )
-      LingoBeats::Repository::Lyrics.attach_to_song(song_entity.id, lyric_entity)
+      # )
+      LingoBeats::Repository::Lyrics.attach_to_song(song_entity.id, lyric_value_object)
       # lyric_repo.create(lyric_entity)
 
       # puts rebuilt
@@ -77,7 +77,7 @@ describe 'Integration Tests of Spotify API and Database' do
       _(stored_lyric).wont_be_nil
       # _(stored_lyric.lyric).must_equal lyric_text
       # _(stored_lyric.song_id).must_equal song_entity.id
-      _(stored_lyric.text[0..30]).must_equal lyric_text[0..30] # 前幾個字比對，避免長度差異
+      _(stored_lyric.text[0..30]).must_equal lyric_value_object.text[0..30] # 前幾個字比對，避免長度差異
     end
   end
 end
