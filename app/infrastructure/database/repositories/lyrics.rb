@@ -7,7 +7,7 @@ module LingoBeats
       def self.rebuild_entity(db_record)
         return nil unless db_record
 
-        Value::Lyric.new(text: db_record[:text] || db_record.text)
+        Value::Lyric.new(text: db_record[:text] || db_record.text || nil)
       end
 
       def self.find_id(id)
@@ -38,7 +38,7 @@ module LingoBeats
         ds = Database::LyricOrm.dataset
 
         # only insert if not exists
-        ds.insert_conflict(target: :id).insert(id: id, text: object.normalized_text)
+        ds.insert_conflict(target: :id).insert(id: id, text: object&.text)
         id
       end
 
@@ -51,6 +51,15 @@ module LingoBeats
         lyric_id
       rescue Sequel::ForeignKeyConstraintViolation, Sequel::NoExistingObject
         nil
+      end
+
+      def self.rebuild_entity_by_lyrics(lyrics)
+        return nil unless lyrics
+
+        id = find_id_by_value(lyrics)
+        Value::Lyric.new(
+          text: lyrics
+        )
       end
 
       # def self.find_by_song_id(song_id)

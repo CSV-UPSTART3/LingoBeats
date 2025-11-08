@@ -1,0 +1,2 @@
+== render('partials/_search_section', locals: { search_history: search_history })
+== render('partials/_songs_list', locals: { songs: (defined?(songs) ? songs : []), no_result_id: 'noResultMsg' })

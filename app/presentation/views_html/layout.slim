@@ -1,0 +1,95 @@
+doctype html
+html
+  head
+    title LingoBeats
+    link rel="icon" href="/favicon.ico" sizes="any"
+
+    / Bootstrap CSS and theme (United Theme)
+    link{
+      href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.8/dist/cerulean/bootstrap.min.css"
+      rel="stylesheet" 
+      crossorigin="anonymous"
+    }
+
+    / Material Symbols
+    link{
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=history"
+      rel="stylesheet"
+    }
+
+    / Font Awesome
+    link{
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet" 
+    } 
+    == assets(:css)
+
+  body
+    / Popper
+    script{ 
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      crossorigin="anonymous" 
+    }
+
+    / Bootstrap
+    script{
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    }
+
+    / Fixed Header
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-lingobeats.fixed-top.shadow-sm
+      .container-fluid.h-100.navbar-custom
+        / ---- left: brand name ----
+        a.navbar-brand.p-0.mb-0.fw-bold.text-white.d-flex.align-items-center href="/"
+          img.me-2 src="/logo.png" alt="LingoBeats" height="24" style="filter: brightness(0) invert(1);"
+          | LingoBeats
+
+        / ---- right: page routes ----
+        / toggler view for small screens
+        button.navbar-toggler.position-relative.ms-auto.border-0.shadow-none.p-1(type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarNav"
+                  aria-controls="navbarNav"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation")
+              span.navbar-toggler-icon
+
+        / collapsible menu
+        .collapse.navbar-collapse#navbarNav
+          ul.navbar-nav.ms-auto
+            / Home
+            li.nav-item.d-none.d-lg-block
+              - if @current_page == :home
+                a.nav-link.active.text-white aria-current="page" href="#" onclick="return false;" Home
+              - else
+                a.nav-link.text-white href="/" Home
+
+            / Tutorial
+            li.nav-item
+              - if @current_page == :tutorial
+                a.nav-link.active.text-white aria-current="page" href="#" onclick="return false;" Tutorial
+              - else
+                a.nav-link.text-white href="/tutorial" Tutorial
+
+            / History
+            li.nav-item
+              - if @current_page == :history
+                a.nav-link.active.text-white aria-current="page" href="#" onclick="return false;" History
+              - else
+                a.nav-link.text-white href="/history" History
+
+    section
+      include :flash_bar
+      == yield
+
+    / Fixed Footer
+    footer.navbar.fixed-bottom.bg-light.text-center.text-muted.py-1
+      small
+        | LingoBeats is made for demonstration purposes. We cannot warrant full correctness of all content.
+        br
+        | LingoBeats may use cookies for sessions but does not track users.
+    
+    == render 'partials/_song_modal'
+
+    == assets(:js)

@@ -1,9 +1,0 @@
-/ 頂部 Hero + Search
-== render('partials/_search_section')
-
-- if !defined?(popular) || popular.empty?
-  .text-center.mt-5
-    i.fas.fa-music.fa-3x.text-success.mb-3
-    h4.text-muted Start exploring songs!
-- else
-  == render('partials/_songs_list', locals: { songs: popular, title: 'Hot Trends', icon: 'arrow-trend-up' })

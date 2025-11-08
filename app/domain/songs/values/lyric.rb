@@ -6,7 +6,7 @@ require 'digest'
 
 module LingoBeats
   module Value
-    # Domain value object for song
+    # Value object for song
     class Lyric < Dry::Struct
       include Dry.Types
 

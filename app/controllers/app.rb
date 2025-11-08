@@ -3,19 +3,35 @@
 require 'uri'
 require 'roda'
 require 'slim'
+require 'rack'
 require 'rack/utils'
+require 'slim/include'
+
+require_relative '../presentation/views_object/songs_list'
+require_relative '../presentation/views_object/search_history'
 
 # LingoBeats: include routing and service
 module LingoBeats
   # Web App
-  class App < Roda
-    plugin :render, engine: 'slim', views: 'app/views'
-    plugin :public, root: 'app/views/public'
-    plugin :assets, path: 'app/views/assets',
+  class App < Roda # rubocop:disable Metrics/ClassLength
+    plugin :flash
+    plugin :all_verbs # allows HTTP verbs beyond GET/POST (e.g., DELETE)
+    plugin :render, engine: 'slim', views: 'app/presentation/views_html'
+    plugin :public, root: 'app/presentation/public'
+    plugin :assets, path: 'app/presentation/assets',
                     css: 'style.css', js: 'main.js'
     plugin :common_logger, $stderr
     plugin :halt
     plugin :multi_route
+
+    use Rack::MethodOverride # allows HTTP verbs beyond GET/POST (e.g., DELETE)
+
+    ALLOWED_CATEGORIES = %w[singer song_name].freeze
+    MESSAGES = {
+      invalid_query: 'Invalid search query',
+      search_failed: 'Error in searching songs',
+      no_songs_found: 'No songs found for the given query'
+    }.freeze
 
     def initialize(*)
       super
@@ -32,8 +48,19 @@ module LingoBeats
       # GET /
       routing.root do
         @current_page = :home
+
+        # Get cookie viewer's previously searched
+        session[:song_search_history] ||= []
+        session[:singer_search_history] ||= []
+        # puts "[DEBUG] data session: #{session.inspect}"
+
         popular = @spotify_mapper.display_popular_songs
-        view 'home', locals: { popular: popular }
+
+        view 'home', locals: { popular: popular,
+                               search_history: Views::SearchHistory.new(
+                                 song_search_history: session[:song_search_history],
+                                 singer_search_history: session[:singer_search_history] || []
+                               ) }
       end
 
       # GET /tutorial
@@ -52,34 +79,71 @@ module LingoBeats
       routing.multi_route
     end
 
-    route('spotify') do |routing|
-      # POST /spotify
+    route('songs') do |routing|
+      # POST /songs
       routing.is do
         routing.post do
           category, query = SpotifyHelper.get_params(routing)
+
+          unless ALLOWED_CATEGORIES.include?(category) && query.to_s.strip.length.positive?
+            flash[:error] = MESSAGES[:invalid_query]
+            response.status = 400
+            routing.redirect '/'
+          end
+
           routing.redirect SpotifyHelper.search_path(category, query)
         end
       end
 
-      # GET /spotify/search?category=...&query=...
+      # GET /songs/search?category=...&query=...
       routing.on 'search' do
         routing.get do
           category, query = SpotifyHelper.get_params(routing)
           songs = @spotify_mapper.public_send("search_songs_by_#{category}", query)
-          view 'song', locals: { songs: songs, category: category, query: query }
+
+          # update search history in session
+          SearchHistoryHelper.add_search(session, category, query)
+          puts "[DEBUG] data session: #{session.inspect}"
+
+          view 'song', locals: { songs:, category:, query:,
+                                 search_history: Views::SearchHistory.new(
+                                   song_search_history: session[:song_search_history],
+                                   singer_search_history: session[:singer_search_history] || []
+                                 ) }
         end
       end
     end
 
-    route('genius') do |routing|
-      # GET /genius/search?song_id=xxx&song_name=...&artist_name=...
-      routing.on 'search' do
-        routing.get do
-          # TODO: store song data first with session
+    route('search_history') do |routing|
+      # DELETE /search_history?category=...&query=...
+      routing.is do
+        routing.delete do
+          category = routing.params['category'].to_s
+          query = routing.params['query'].to_s
 
-          song_id, song_name, artist_name = GeniusHelper.get_params(routing)
-          result = GeniusHelper.fetch_lyrics(song_id, song_name, artist_name)
-          view('lyrics_block', locals: { lyrics: result[:lyrics], cached: result[:cached] }, layout: false)
+          SearchHistoryHelper.remove_search(session, category, query)
+          response.status = 204
+          routing.halt
+        end
+      end
+    end
+
+    route('lyrics') do |routing|
+      # GET /lyrics/song?id=...&name=...&singer=...
+      routing.on 'song' do
+        routing.get do
+          song_id, song_name, singer_name = GeniusHelper.get_params(routing)
+          song_id = song_id.to_s.strip
+
+          if song_id.empty?
+            flash[:error] = MESSAGES[:invalid_query]
+            response.status = 400
+            routing.redirect '/'
+          end
+
+          # fetch lyrics (from DB or API)
+          result = GeniusHelper.fetch_lyrics(song_id, song_name, singer_name)
+          view 'lyrics_block', locals: { lyrics: result[:lyrics], cached: result[:cached] }, layout: false
         end
       end
     end
@@ -88,25 +152,28 @@ module LingoBeats
     module GeniusHelper
       module_function
 
-      def lyric_mapper = Genius::LyricMapper.new(App.config.GENIUS_CLIENT_ACCESS_TOKEN)
-      def lyric_repo   = Repository::For.klass(Value::Lyric)
-      def song_repo    = Repository::For.klass(Entity::Song)
+      def lyric_mapper = @lyric_mapper ||= Genius::LyricMapper.new(App.config.GENIUS_CLIENT_ACCESS_TOKEN)
+      def lyric_repo = @lyric_repo ||= Repository::For.klass(Value::Lyric)
+      def song_repo = @song_repo ||= Repository::For.klass(Entity::Song)
 
       def get_params(req)
-        req.params.values_at('song_id', 'song_name', 'artist_name').map(&:to_s)
+        req.params.values_at('id', 'name', 'singer').map(&:to_s)
       end
 
-      def fetch_lyrics(song_id, song_name = nil, artist_name = nil)
-        sid = song_id.to_s.strip
-        return { error: 'missing song_id' } if sid.empty?
-
+      def fetch_lyrics(song_id, song_name = nil, singer_name = nil)
         # 1. get from DB
-        if (hit = find_in_db(sid))
+        if (hit = find_in_db(song_id))
           return hit
         end
 
         # 2. call api if not found in DB
-        fetch_from_api_and_cache(sid, song_name, artist_name)
+        lyrics = fetch_from_api(song_name, singer_name)
+
+        # 3. save in background
+        save_in_background(song_id, lyrics)
+
+        # 4. return lyrics immediately
+        { lyrics: lyrics, cached: false }
       end
 
       # --- internals ---
@@ -118,16 +185,21 @@ module LingoBeats
         { lyrics: text, cached: true }
       end
 
-      def fetch_from_api_and_cache(song_id, song_name, artist_name)
+      def fetch_from_api(song_name, artist_name)
         text = lyric_mapper.lyrics_for(song_name: song_name, artist_name: artist_name).to_s
-        return { error: 'Lyrics not found' } if text.strip.empty?
-
-        persist_lyrics(song_id, text) if song_repo.find_id(song_id)
-        { lyrics: text, cached: false }
+        text.strip.empty? ? nil : text
       end
 
-      def persist_lyrics(song_id, text)
-        lyric_repo.attach_to_song(song_id, Value::Lyric.new(text: text))
+      def save_in_background(song_id, lyrics_text)
+        Thread.new do
+          # ensure song exists in DB
+          song_repo.ensure_song_exists(song_id)
+          # store lyrics
+          lyric_repo.attach_to_song(song_id, Value::Lyric.new(text: lyrics_text))
+        rescue StandardError
+          # log error but do not affect main flow
+          App.logger.error("Failed to save lyrics for song #{song_id}")
+        end
       end
     end
 
@@ -141,7 +213,30 @@ module LingoBeats
 
       def search_path(category, query)
         qs = Rack::Utils.build_query('category' => category, 'query' => query)
-        "/spotify/search?#{qs}"
+        "/songs/search?#{qs}"
+      end
+    end
+
+    # ===== Search History Helper =====
+    module SearchHistoryHelper
+      module_function
+
+      def search_history_repo(session)
+        LingoBeats::Repository::SearchHistories.new(session)
+      end
+
+      def add_search(session, category, query)
+        repo = search_history_repo(session)
+        entity = repo.load
+        entity = entity.add(category:, query:)
+        repo.store(entity)
+      end
+
+      def remove_search(session, category, query)
+        repo = search_history_repo(session)
+        entity = repo.load
+        entity = entity.remove(category:, query:)
+        repo.store(entity)
       end
     end
   end
