@@ -41,6 +41,7 @@ module LingoBeats
 
       def clean_words
         return [] if text.nil? || text.strip.empty?
+
         cleaned_text = Cleaner.new(text).call
         Tokenizer.new(cleaned_text).call # array of words
       end
@@ -50,7 +51,7 @@ module LingoBeats
         results = DifficultyEstimator.new(words).call
 
         # 過濾掉 None 或 nil 的評級結果
-        results.reject { |_word, level| level.nil? || level == "None" }
+        results.reject { |_word, level| level.nil? || level == 'None' }
       end
     end
   end

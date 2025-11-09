@@ -45,8 +45,8 @@ describe 'Integration Tests of Spotify API and Database' do
 
       # lyric_entity = LingoBeats::Value::Lyric.new(
       #   text: lyric_text
-        # song_id: song_entity.id,
-        # lyric: lyric_text
+      # song_id: song_entity.id,
+      # lyric: lyric_text
       # )
       LingoBeats::Repository::Lyrics.attach_to_song(song_entity.id, lyric_value_object)
       # lyric_repo.create(lyric_entity)

@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 require 'open3'
 require 'json'
 
 module LingoBeats
   module Value
+    # Difficulty estimator using external Python script
     class DifficultyEstimator
       def initialize(words)
         @words = words
@@ -11,20 +14,18 @@ module LingoBeats
       def call
         return {} if @words.empty?
 
-        # 將 words 轉成逗號分隔字串傳給 Python
-        command = [
-          "python3",
-          "app/domain/songs/services/cefrpy_service.py",
-          @words.join(",")
-        ]
+        stdout, stderr, status = run_python(@words)
+        return JSON.parse(stdout) if status.success?
 
-        stdout, stderr, status = Open3.capture3(*command)
-        if status.success?
-          JSON.parse(stdout)
-        else
-          warn "Python failed (#{status.exitstatus}): #{stderr}"
-          {}
-        end
+        warn "Python failed (#{status.exitstatus}): #{stderr}"
+        {}
+      end
+
+      private
+
+      def run_python(words)
+        command = ['python3', 'app/domain/songs/services/cefrpy_service.py', words.join(',')]
+        Open3.capture3(*command)
       end
     end
   end

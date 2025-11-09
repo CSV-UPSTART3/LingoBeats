@@ -47,7 +47,7 @@ module LingoBeats
       # attach lyric to song
       def self.attach_to_song(song_id, lyric_object)
         return nil unless song_id && lyric_object&.text
-        
+
         return nil unless lyric_object.english?
 
         lyric_id = find_or_create_by_value(lyric_object)

@@ -65,16 +65,14 @@ module LingoBeats
       def evaluate_words
         return [] unless lyric
 
-        evaluated_words = lyric&.evaluate_difficulty || {} # 呼叫 Lyric 的斷詞邏輯，並且進行評級
-        evaluated_words
-        
+        lyric&.evaluate_difficulty || {} # 呼叫 Lyric 的斷詞邏輯，並且進行評級
       end
 
       def difficulty_distribution
         results = evaluate_words
         distribution = ::Hash.new(0)
 
-        results.values.each do |level|
+        results.each_value do |level|
           distribution[level] += 1 if level
         end
 
@@ -82,30 +80,33 @@ module LingoBeats
         levels = %w[A1 A2 B1 B2 C1 C2]
         levels.each { |level| distribution[level] ||= 0 }
 
-        ordered = levels.to_h { |level| [level, distribution[level]] }
-
-        ordered
+        levels.to_h { |level| [level, distribution[level]] }
       end
 
       def average_difficulty
-        ordered_distribution = difficulty_distribution
-        return nil if ordered_distribution.empty?
+        dist = difficulty_distribution
+        return nil if dist.empty?
 
-        total_words = ordered_distribution.values.sum
-        return nil if total_words.zero?
+        total = dist.values.sum
+        return nil if total.zero?
 
-        level_scores = {
+        avg_score = weighted_average_score(dist, total)
+        level_scores.key(avg_score.round)
+      end
+
+      private
+
+      def level_scores
+        {
           'A1' => 1, 'A2' => 2,
           'B1' => 3, 'B2' => 4,
           'C1' => 5, 'C2' => 6
         }.freeze
+      end
 
-        weighted_score = ordered_distribution.sum do |level, count|
-          level_scores[level] * count
-        end.to_f
-
-        avg_score = weighted_score / total_words
-        level_scores.key(avg_score.round)
+      def weighted_average_score(dist, total)
+        weighted = dist.sum { |level, count| level_scores[level] * count }.to_f
+        weighted / total
       end
     end
   end

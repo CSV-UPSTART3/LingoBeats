@@ -10505,4 +10505,438 @@ http_interactions:
       string: '{"error":"invalid_token","error_description":"The access token provided
         is expired, revoked, malformed or invalid for other reasons."}'
   recorded_at: Sat, 08 Nov 2025 14:54:43 GMT
+- request:
+    method: get
+    uri: https://api.genius.com/search?q=Photograph%20Ed%20Sheeran
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <GENIUS_CLIENT_ACCESS_TOKEN>
+      User-Agent:
+      - LingoBeats
+      Connection:
+      - close
+      Host:
+      - api.genius.com
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Sun, 09 Nov 2025 12:10:53 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '134'
+      Connection:
+      - close
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 99bd359ecc493309-TPE
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cache-Control:
+      - no-cache
+      Via:
+      - 1.1 heroku-router
+      Www-Authenticate:
+      - Bearer realm="Rack::OAuth2", error="invalid_token", error_description="The
+        access token provided is expired, revoked, malformed or invalid for other
+        reasons."
+      Nel:
+      - '{"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}'
+      Report-To:
+      - '{"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=STcG2honXhMch%2Fe1tx25jMRWsTJyZVX5bbUerm6jBWA%3D\u0026sid=929419e7-33ea-4e2f-85f0-7d8b7cd5cbd6\u0026ts=1762690253"}],"max_age":3600}'
+      Reporting-Endpoints:
+      - heroku-nel="https://nel.heroku.com/reports?s=STcG2honXhMch%2Fe1tx25jMRWsTJyZVX5bbUerm6jBWA%3D&sid=929419e7-33ea-4e2f-85f0-7d8b7cd5cbd6&ts=1762690253"
+      X-Request-Id:
+      - 3abb312d-6be6-7ec1-2971-f46dbff3dec0
+      X-Runtime:
+      - '0.004805'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Set-Cookie:
+      - _cfuvid=_XRP5AhmS5PdQjos9PxNGl7qD8ciup5Lt5_ryNZf7qM-1762690253544-0.0.1.1-604800000;
+        path=/; domain=.genius.com; HttpOnly; Secure; SameSite=None
+    body:
+      encoding: UTF-8
+      string: '{"error":"invalid_token","error_description":"The access token provided
+        is expired, revoked, malformed or invalid for other reasons."}'
+  recorded_at: Sun, 09 Nov 2025 12:10:54 GMT
+- request:
+    method: get
+    uri: https://api.genius.com/search?q=Photograph%20Ed%20Sheeran
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <GENIUS_CLIENT_ACCESS_TOKEN>
+      User-Agent:
+      - LingoBeats
+      Connection:
+      - close
+      Host:
+      - api.genius.com
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Sun, 09 Nov 2025 12:17:33 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '134'
+      Connection:
+      - close
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 99bd3f6559f33303-TPE
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cache-Control:
+      - no-cache
+      Via:
+      - 1.1 heroku-router
+      Www-Authenticate:
+      - Bearer realm="Rack::OAuth2", error="invalid_token", error_description="The
+        access token provided is expired, revoked, malformed or invalid for other
+        reasons."
+      Nel:
+      - '{"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}'
+      Report-To:
+      - '{"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=5urp%2FP4geRvH%2B1esMcG0Ky1ntXT9h%2FGEmntcSZ4ZW1E%3D\u0026sid=929419e7-33ea-4e2f-85f0-7d8b7cd5cbd6\u0026ts=1762690653"}],"max_age":3600}'
+      Reporting-Endpoints:
+      - heroku-nel="https://nel.heroku.com/reports?s=5urp%2FP4geRvH%2B1esMcG0Ky1ntXT9h%2FGEmntcSZ4ZW1E%3D&sid=929419e7-33ea-4e2f-85f0-7d8b7cd5cbd6&ts=1762690653"
+      X-Request-Id:
+      - 64244727-a56c-a5ff-7dc0-2814b2f247e5
+      X-Runtime:
+      - '0.004490'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Set-Cookie:
+      - _cfuvid=XebVLYxipa4MkTUZrCjmdo8ArlrTC2nWGIEjGUG_atI-1762690653985-0.0.1.1-604800000;
+        path=/; domain=.genius.com; HttpOnly; Secure; SameSite=None
+    body:
+      encoding: UTF-8
+      string: '{"error":"invalid_token","error_description":"The access token provided
+        is expired, revoked, malformed or invalid for other reasons."}'
+  recorded_at: Sun, 09 Nov 2025 12:17:34 GMT
+- request:
+    method: get
+    uri: https://api.genius.com/search?q=Photograph%20Ed%20Sheeran
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <GENIUS_CLIENT_ACCESS_TOKEN>
+      User-Agent:
+      - LingoBeats
+      Connection:
+      - close
+      Host:
+      - api.genius.com
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Sun, 09 Nov 2025 12:20:11 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '134'
+      Connection:
+      - close
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 99bd433e4bee3319-TPE
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cache-Control:
+      - no-cache
+      Via:
+      - 1.1 heroku-router
+      Www-Authenticate:
+      - Bearer realm="Rack::OAuth2", error="invalid_token", error_description="The
+        access token provided is expired, revoked, malformed or invalid for other
+        reasons."
+      Nel:
+      - '{"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}'
+      Report-To:
+      - '{"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=7tJjBcLjfOV2jSMWlQssfan%2B4rVHNFRTJHPcgS%2Bgz8k%3D\u0026sid=929419e7-33ea-4e2f-85f0-7d8b7cd5cbd6\u0026ts=1762690811"}],"max_age":3600}'
+      Reporting-Endpoints:
+      - heroku-nel="https://nel.heroku.com/reports?s=7tJjBcLjfOV2jSMWlQssfan%2B4rVHNFRTJHPcgS%2Bgz8k%3D&sid=929419e7-33ea-4e2f-85f0-7d8b7cd5cbd6&ts=1762690811"
+      X-Request-Id:
+      - bcbb7b0c-a28c-c423-ad1b-4c78224c99e0
+      X-Runtime:
+      - '0.004036'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Set-Cookie:
+      - _cfuvid=U3oOZb8NWIfonlGlSxGeRR1f7bnvgs2.hKqp4x.dmqM-1762690811576-0.0.1.1-604800000;
+        path=/; domain=.genius.com; HttpOnly; Secure; SameSite=None
+    body:
+      encoding: UTF-8
+      string: '{"error":"invalid_token","error_description":"The access token provided
+        is expired, revoked, malformed or invalid for other reasons."}'
+  recorded_at: Sun, 09 Nov 2025 12:20:12 GMT
+- request:
+    method: get
+    uri: https://api.genius.com/search?q=Photograph%20Ed%20Sheeran
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <GENIUS_CLIENT_ACCESS_TOKEN>
+      User-Agent:
+      - LingoBeats
+      Connection:
+      - close
+      Host:
+      - api.genius.com
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Sun, 09 Nov 2025 12:37:29 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '134'
+      Connection:
+      - close
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 99bd5c9339c43318-TPE
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cache-Control:
+      - no-cache
+      Via:
+      - 1.1 heroku-router
+      Www-Authenticate:
+      - Bearer realm="Rack::OAuth2", error="invalid_token", error_description="The
+        access token provided is expired, revoked, malformed or invalid for other
+        reasons."
+      Nel:
+      - '{"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}'
+      Report-To:
+      - '{"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=UlFJT1QTEmLXeSjAilfCrmljlYgL0G6Cho1b0LT5FqU%3D\u0026sid=929419e7-33ea-4e2f-85f0-7d8b7cd5cbd6\u0026ts=1762691849"}],"max_age":3600}'
+      Reporting-Endpoints:
+      - heroku-nel="https://nel.heroku.com/reports?s=UlFJT1QTEmLXeSjAilfCrmljlYgL0G6Cho1b0LT5FqU%3D&sid=929419e7-33ea-4e2f-85f0-7d8b7cd5cbd6&ts=1762691849"
+      X-Request-Id:
+      - 85b93520-db45-8fab-5b48-fd02f1d86c52
+      X-Runtime:
+      - '0.005059'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Set-Cookie:
+      - _cfuvid=7jBeW4jHB5GZaojSmLCd3dvCqrA3G.LGvDCi2zIV0IE-1762691849112-0.0.1.1-604800000;
+        path=/; domain=.genius.com; HttpOnly; Secure; SameSite=None
+    body:
+      encoding: UTF-8
+      string: '{"error":"invalid_token","error_description":"The access token provided
+        is expired, revoked, malformed or invalid for other reasons."}'
+  recorded_at: Sun, 09 Nov 2025 12:37:29 GMT
+- request:
+    method: get
+    uri: https://api.genius.com/search?q=Photograph%20Ed%20Sheeran
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <GENIUS_CLIENT_ACCESS_TOKEN>
+      User-Agent:
+      - LingoBeats
+      Connection:
+      - close
+      Host:
+      - api.genius.com
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Sun, 09 Nov 2025 12:38:48 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '134'
+      Connection:
+      - close
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 99bd5e84da1c3311-TPE
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cache-Control:
+      - no-cache
+      Via:
+      - 1.1 heroku-router
+      Www-Authenticate:
+      - Bearer realm="Rack::OAuth2", error="invalid_token", error_description="The
+        access token provided is expired, revoked, malformed or invalid for other
+        reasons."
+      Nel:
+      - '{"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}'
+      Report-To:
+      - '{"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=HpbPgrGbcovdYmcRJyuUxM1p3l2xQaqHy8wYT0IHBRY%3D\u0026sid=929419e7-33ea-4e2f-85f0-7d8b7cd5cbd6\u0026ts=1762691928"}],"max_age":3600}'
+      Reporting-Endpoints:
+      - heroku-nel="https://nel.heroku.com/reports?s=HpbPgrGbcovdYmcRJyuUxM1p3l2xQaqHy8wYT0IHBRY%3D&sid=929419e7-33ea-4e2f-85f0-7d8b7cd5cbd6&ts=1762691928"
+      X-Request-Id:
+      - 98805e49-0c5e-addc-437a-a80447eac724
+      X-Runtime:
+      - '0.004561'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Set-Cookie:
+      - _cfuvid=96ZbmoKz2J25VlEV5ZgyJVg2GCmKQMmTyo2ntviBkYQ-1762691928735-0.0.1.1-604800000;
+        path=/; domain=.genius.com; HttpOnly; Secure; SameSite=None
+    body:
+      encoding: UTF-8
+      string: '{"error":"invalid_token","error_description":"The access token provided
+        is expired, revoked, malformed or invalid for other reasons."}'
+  recorded_at: Sun, 09 Nov 2025 12:38:50 GMT
+- request:
+    method: get
+    uri: https://api.genius.com/search?q=Photograph%20Ed%20Sheeran
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <GENIUS_CLIENT_ACCESS_TOKEN>
+      User-Agent:
+      - LingoBeats
+      Connection:
+      - close
+      Host:
+      - api.genius.com
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Sun, 09 Nov 2025 12:42:56 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '134'
+      Connection:
+      - close
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 99bd6492ce443318-TPE
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cache-Control:
+      - no-cache
+      Via:
+      - 1.1 heroku-router
+      Www-Authenticate:
+      - Bearer realm="Rack::OAuth2", error="invalid_token", error_description="The
+        access token provided is expired, revoked, malformed or invalid for other
+        reasons."
+      Nel:
+      - '{"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}'
+      Report-To:
+      - '{"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=e15J9fzEgcjj3deq4uVQq%2FJKdHvhua9gwPcsRj3EWZU%3D\u0026sid=929419e7-33ea-4e2f-85f0-7d8b7cd5cbd6\u0026ts=1762692176"}],"max_age":3600}'
+      Reporting-Endpoints:
+      - heroku-nel="https://nel.heroku.com/reports?s=e15J9fzEgcjj3deq4uVQq%2FJKdHvhua9gwPcsRj3EWZU%3D&sid=929419e7-33ea-4e2f-85f0-7d8b7cd5cbd6&ts=1762692176"
+      X-Request-Id:
+      - ed8b30e1-245b-ce59-5b06-9357b35eff78
+      X-Runtime:
+      - '0.004547'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Set-Cookie:
+      - _cfuvid=QEhrkncWTLxLTTKqb6CjOZOpEJEaNuci7WFQuPXdO0w-1762692176745-0.0.1.1-604800000;
+        path=/; domain=.genius.com; HttpOnly; Secure; SameSite=None
+    body:
+      encoding: UTF-8
+      string: '{"error":"invalid_token","error_description":"The access token provided
+        is expired, revoked, malformed or invalid for other reasons."}'
+  recorded_at: Sun, 09 Nov 2025 12:42:58 GMT
+- request:
+    method: get
+    uri: https://api.genius.com/search?q=Photograph%20Ed%20Sheeran
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <GENIUS_CLIENT_ACCESS_TOKEN>
+      User-Agent:
+      - LingoBeats
+      Connection:
+      - close
+      Host:
+      - api.genius.com
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Sun, 09 Nov 2025 12:52:12 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '134'
+      Connection:
+      - close
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 99bd72259f3d3317-TPE
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cache-Control:
+      - no-cache
+      Via:
+      - 1.1 heroku-router
+      Www-Authenticate:
+      - Bearer realm="Rack::OAuth2", error="invalid_token", error_description="The
+        access token provided is expired, revoked, malformed or invalid for other
+        reasons."
+      Nel:
+      - '{"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}'
+      Report-To:
+      - '{"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=7Q2ZfZuFfKtxo684s6mLHrhV%2FzN6qWBSIKkjfnKvF%2Bs%3D\u0026sid=929419e7-33ea-4e2f-85f0-7d8b7cd5cbd6\u0026ts=1762692732"}],"max_age":3600}'
+      Reporting-Endpoints:
+      - heroku-nel="https://nel.heroku.com/reports?s=7Q2ZfZuFfKtxo684s6mLHrhV%2FzN6qWBSIKkjfnKvF%2Bs%3D&sid=929419e7-33ea-4e2f-85f0-7d8b7cd5cbd6&ts=1762692732"
+      X-Request-Id:
+      - 5684a792-3068-6d14-0af8-17288c3141b6
+      X-Runtime:
+      - '0.005112'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Set-Cookie:
+      - _cfuvid=dTzc0uPmmonte0H5m8jUYc8aI8z2Q4Mt4sZcXXOgaF0-1762692732698-0.0.1.1-604800000;
+        path=/; domain=.genius.com; HttpOnly; Secure; SameSite=None
+    body:
+      encoding: UTF-8
+      string: '{"error":"invalid_token","error_description":"The access token provided
+        is expired, revoked, malformed or invalid for other reasons."}'
+  recorded_at: Sun, 09 Nov 2025 12:52:14 GMT
 recorded_with: VCR 6.3.1

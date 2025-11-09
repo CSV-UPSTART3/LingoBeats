@@ -4,11 +4,11 @@ source 'https://rubygems.org'
 ruby File.read('.ruby-version').strip
 
 # Configuration and Utilities
+gem 'cld3'
 gem 'figaro', '~> 1.0'
 gem 'pry'
-gem 'rake'
-gem 'cld3'
 gem 'pycall'
+gem 'rake'
 
 # Web Application
 gem 'base64'
