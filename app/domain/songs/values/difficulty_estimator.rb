@@ -21,11 +21,14 @@ module LingoBeats
         {}
       end
 
-      private
+      # Run the Python script to evaluate word difficulties
+      module PythonRunner
+        module_function
 
-      def run_python(words)
-        command = ['python3', 'app/domain/songs/services/cefrpy_service.py', words.join(',')]
-        Open3.capture3(*command)
+        def run_python(words)
+          command = ['python3', 'app/domain/songs/services/cefrpy_service.py', words.join(',')]
+          Open3.capture3(*command)
+        end
       end
     end
   end

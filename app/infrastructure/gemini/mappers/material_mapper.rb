@@ -10,7 +10,7 @@ module LingoBeats
     class MaterialMapper
       def self.to_material(payload)
         text = extract_text(payload)
-        return nil if text.nil? || text.strip.empty?
+        return nil if text.to_s.strip.empty?
 
         # 模型回來的是純文字或 JSON，統一成 hash
         begin
@@ -29,20 +29,20 @@ module LingoBeats
         parts = candidate&.dig('content', 'parts')
         return nil unless parts.is_a?(Array) && !parts.empty?
 
-        parts.map { |p| p['text'] }.compact.join("\n")
+        parts.map { |part| part['text'] }.compact.join("\n")
       end
       private_class_method :extract_text
 
+      def self.symbolize_hash(obj)
+        obj.each_with_object({}) { |(key, value), hash| hash[key.to_sym] = symbolize_keys(value) }
+      end
+      private_class_method :symbolize_hash
+
       def self.symbolize_keys(obj)
         case obj
-        when Hash
-          obj.each_with_object({}) do |(k, v), h|
-            h[k.to_sym] = symbolize_keys(v)
-          end
-        when Array
-          obj.map { |v| symbolize_keys(v) }
-        else
-          obj
+        when Hash then symbolize_hash(obj)
+        when Array then obj.map { |value| symbolize_keys(value) }
+        else obj
         end
       end
       private_class_method :symbolize_keys
@@ -50,7 +50,7 @@ module LingoBeats
       # --- class methods ---
 
       def self.build_entities(payloads, song_id:, level:)
-        Array(payloads).map { |p| build_entity(p, song_id:, level:) }
+        Array(payloads).map { |payload| build_entity(payload, song_id:, level:) }
       end
 
       def self.build_entity(payload, song_id:, level:)
@@ -79,18 +79,23 @@ module LingoBeats
 
         def parse_content(payload)
           text = extract_text(payload)
-          raise 'Empty model output' if text.nil? || text.strip.empty?
+          raise 'Empty model output' if text.to_s.strip.empty?
 
           JSON.parse(text, symbolize_names: true)
         rescue JSON::ParserError
           { raw_text: text }
         end
 
-        def extract_text(payload)
-          parts = payload.dig('candidates', 0, 'content', 'parts')
-          return nil unless parts.is_a?(Array) && !parts.empty?
+        # Extract text of data
+        module ExtractData
+          module_function
 
-          parts.map { |p| p['text'] }.compact.join("\n")
+          def extract_text(payload)
+            parts = payload.dig('candidates', 0, 'content', 'parts')
+            return nil unless parts.is_a?(Array) && !parts.empty?
+
+            parts.map { |part| part['text'] }.compact.join("\n")
+          end
         end
       end
     end

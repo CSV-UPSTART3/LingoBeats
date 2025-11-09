@@ -25,10 +25,6 @@ module LingoBeats
 
       private
 
-      def validate_prompt!(prompt)
-        raise ArgumentError, 'prompt required' if prompt.nil? || (prompt.respond_to?(:empty?) && prompt.empty?)
-      end
-
       def request_url
         "#{BASE}/#{@model}:generateContent?key=#{@token_provider.api_key}"
       end
@@ -37,9 +33,39 @@ module LingoBeats
         { contents: [{ role: 'user', parts: build_parts(prompt) }] }
       end
 
-      def build_parts(prompt)
-        arr = prompt.is_a?(Array) ? prompt : [prompt]
-        arr.map { |t| { text: t.to_s } }
+      # Functionality module for Gemini API
+      module Functionality
+        module_function
+
+        def validate_prompt?(prompt)
+          case prompt
+          when String
+            nonblank_string?(prompt)
+          when Array
+            nonblank_array?(prompt)
+          else
+            false
+          end
+        end
+
+        def validate_prompt!(prompt)
+          raise ArgumentError, 'prompt required' unless validate_prompt?(prompt)
+        end
+
+        def build_parts(prompt)
+          arr = prompt.is_a?(Array) ? prompt : [prompt]
+          arr.map { |text| { text: text.to_s } }
+        end
+
+        def nonblank_string?(prompt)
+          prompt.is_a?(String) && !prompt.strip.empty?
+        end
+
+        def nonblank_array?(prompt)
+          return false if prompt.empty?
+
+          prompt.all? { |prompt| nonblank_string?(prompt) }
+        end
       end
     end
   end

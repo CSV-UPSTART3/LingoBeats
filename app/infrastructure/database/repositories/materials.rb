@@ -17,7 +17,7 @@ module LingoBeats
       def self.latest(limit = 20)
         LingoBeats::Database::MaterialOrm.reverse_order(:id)
                                          .limit(limit).all
-                                         .map { |r| rebuild_entity(r) }
+                                         .map { |rec| rebuild_entity(rec) }
       end
 
       # 查一筆
@@ -44,7 +44,7 @@ module LingoBeats
 
       # --- helpers ---
       def self.rebuild_many(db_records)
-        Array(db_records).map { |r| rebuild_entity(r) }
+        Array(db_records).map { |rec| rebuild_entity(rec) }
       end
       private_class_method :rebuild_many
 

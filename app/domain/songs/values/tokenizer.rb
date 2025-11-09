@@ -11,25 +11,29 @@ module LingoBeats
       def call
         return [] if blank?(@cleaned_text)
 
-        words = extract_words(@cleaned_text)
-        words.reject { |w| stopwords.include?(w) }.uniq
+        extract_words(@cleaned_text)
+          .reject { |word| stopwords.include?(word) }
+          .uniq
       end
 
-      private
+      # Helper methods for tokenization
+      module TokenizerHelpers
+        module_function
 
-      def blank?(text)
-        text.nil? || text.strip.empty?
-      end
+        def blank?(text)
+          text.to_s.strip.empty?
+        end
 
-      def extract_words(text)
-        text.downcase.scan(/[a-z']+/)
-      end
+        def extract_words(text)
+          text.downcase.scan(/[a-z']+/)
+        end
 
-      def stopwords
-        common = %w[a an the in on at for to of is am are was were do did have has had and or but]
-        lyric  = %w[verse chorus bridge outro pre-chorus post-chorus
-                    oh ah hah yeah woah ooh la na uh yo hey ha haaa]
-        (common + lyric).to_set(&:downcase)
+        def stopwords
+          common = %w[a an the in on at for to of is am are was were do did have has had and or but]
+          lyric  = %w[verse chorus bridge outro pre-chorus post-chorus
+                      oh ah hah yeah woah ooh la na uh yo hey ha haaa]
+          (common + lyric).to_set(&:downcase)
+        end
       end
     end
   end
