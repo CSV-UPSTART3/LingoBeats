@@ -191,15 +191,10 @@ module LingoBeats
       end
 
       def save_in_background(song_id, lyrics_text)
-        Thread.new do
           # ensure song exists in DB
           song_repo.ensure_song_exists(song_id)
           # store lyrics
           lyric_repo.attach_to_song(song_id, Value::Lyric.new(text: lyrics_text))
-        rescue StandardError
-          # log error but do not affect main flow
-          App.logger.error("Failed to save lyrics for song #{song_id}")
-        end
       end
     end
 
