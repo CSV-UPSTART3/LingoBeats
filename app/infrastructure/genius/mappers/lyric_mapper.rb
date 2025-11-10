@@ -30,7 +30,7 @@ module LingoBeats
         return nil unless lyrics_page_url
 
         html_doc = @gateway.fetch_lyrics_html(lyrics_page_url)
-        App.logger.info html_doc
+        # App.logger.info html_doc
         return nil unless html_doc
 
         LyricsExtractor.extract_lyrics_text(html_doc)
