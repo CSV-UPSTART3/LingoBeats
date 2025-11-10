@@ -14,6 +14,7 @@ gem 'logger', '~> 1.0'
 gem 'puma', '~> 7.0'
 gem 'rack-session', '~> 0'
 gem 'roda', '~> 3.0'
+gem 'rack-cors'
 gem 'slim', '~> 4.0'
 
 # Networking
