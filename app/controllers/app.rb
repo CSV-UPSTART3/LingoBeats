@@ -143,6 +143,8 @@ module LingoBeats
 
           # fetch lyrics (from DB or API)
           result = GeniusHelper.fetch_lyrics(song_id, song_name, singer_name)
+
+          warn "[Lyrics] search_status=#{result.code} content=#{result['content-type']}"
           view 'lyrics_block', locals: { lyrics: result[:lyrics], cached: result[:cached] }, layout: false
         end
       end
@@ -161,10 +163,6 @@ module LingoBeats
       end
 
       def fetch_lyrics(song_id, song_name = nil, singer_name = nil)
-        logger = App.logger rescue Logger.new($stdout)
-        logger.info "[Genius] === fetch_lyrics start ==="
-        logger.info "[Genius] song_id=#{song_id.inspect}, song_name=#{song_name.inspect}, singer_name=#{singer_name.inspect}"
-
         # 1. get from DB
         if (hit = find_in_db(song_id))
           return hit
@@ -172,11 +170,9 @@ module LingoBeats
 
         # 2. call api if not found in DB
         lyrics = fetch_from_api(song_name, singer_name)
-        logger.info "[Genius] fetched from API, size=#{lyrics&.size || 0}, head=#{lyrics&.slice(0,120).inspect}"
 
         # 3. save in background
         save_in_background(song_id, lyrics)
-        logger.info "[Genius] save_in_background done"
 
         # 4. return lyrics immediately
         { lyrics: lyrics, cached: false }

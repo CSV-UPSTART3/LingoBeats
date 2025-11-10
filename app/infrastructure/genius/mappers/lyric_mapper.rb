@@ -27,9 +27,11 @@ module LingoBeats
       # 給歌名/歌手名字，回傳乾淨歌詞字串，或 nil
       def lyrics_for(song_name:, artist_name:)
         lyrics_page_url = first_lyrics_url(self.class.build_query(song_name, artist_name))
+        App.logger.info "[Genius] lyrics_page_url=#{lyrics_page_url.inspect}"
         return nil unless lyrics_page_url
 
         html_doc = @gateway.fetch_lyrics_html(lyrics_page_url)
+        App.logger.info "[Genius] html_doc head=#{html_doc&.slice(0,200).inspect}"
         return nil unless html_doc
 
         LyricsExtractor.extract_lyrics_text(html_doc)

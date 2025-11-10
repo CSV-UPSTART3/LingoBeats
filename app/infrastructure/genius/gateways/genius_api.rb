@@ -11,7 +11,7 @@ module LingoBeats
       def initialize(token_provider:)
         @http = HTTP.headers(
           'Authorization' => "Bearer #{token_provider.access_token}",
-          'User-Agent' => 'LingoBeats'
+          'User-Agent' => 'Mozilla/5.0 (compatible; LingoBeats/1.0; +https://github.com/CSV-UPSTART3)'
         )
       end
 
