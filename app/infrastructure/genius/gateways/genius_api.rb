@@ -18,10 +18,23 @@ module LingoBeats
       # 從 Genius 給的歌曲網址把 HTML 抓回來
       # 回傳 Nokogiri::HTML::Document 或 nil
       def fetch_lyrics_html(url)
-        response = @http.get(url)
-        return unless response.status.success?
+        # 用沒有 token 的乾淨 HTTP client 來抓 HTML
+        plain_http = HTTP.headers(
+          'User-Agent' => 'Mozilla/5.0 (compatible; LingoBeats/1.0; +https://github.com/CSV-UPSTART3)'
+        )
 
+        response = plain_http.get(url)
+        App.logger.info "[Genius] fetch_lyrics_html status=#{response.status} size=#{response.body.to_s.bytesize}"
+
+        return unless response.status.success?
         self.class.parse_html(response)
+      rescue => e
+        App.logger.error "[Genius] fetch_lyrics_html error: #{e.class} #{e.message}"
+        # nil
+        # response = @http.get(url)
+        # return unless response.status.success?
+
+        # self.class.parse_html(response)
       end
 
       def self.parse_html(response)
