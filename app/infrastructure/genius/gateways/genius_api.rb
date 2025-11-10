@@ -20,17 +20,17 @@ module LingoBeats
       def fetch_lyrics_html(url)
         # 用沒有 token 的乾淨 HTTP client 來抓 HTML
         plain_http = HTTP.headers(
-          'User-Agent' => 'Mozilla/5.0 (compatible; LingoBeats/1.0; +https://github.com/CSV-UPSTART3)'
+          'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0 Safari/537.36'
         )
 
-        response = plain_http.get(url)
+        response = plain_http.follow(max_hops: 3).get(url)
         App.logger.info "[Genius] fetch_lyrics_html status=#{response.status} size=#{response.body.to_s.bytesize}"
 
         return unless response.status.success?
         self.class.parse_html(response)
       rescue => e
         App.logger.error "[Genius] fetch_lyrics_html error: #{e.class} #{e.message}"
-        # nil
+        nil
         # response = @http.get(url)
         # return unless response.status.success?
 
