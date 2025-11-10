@@ -144,7 +144,6 @@ module LingoBeats
           # fetch lyrics (from DB or API)
           result = GeniusHelper.fetch_lyrics(song_id, song_name, singer_name)
 
-          warn "[Lyrics] search_status=#{result.code} content=#{result['content-type']}"
           view 'lyrics_block', locals: { lyrics: result[:lyrics], cached: result[:cached] }, layout: false
         end
       end
