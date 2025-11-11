@@ -28,7 +28,7 @@ module LingoBeats
       def lyrics_for(song_name:, artist_name:)
         url  = lyrics_page_url(song_name, artist_name)
         html = fetch_lyrics_html(url)
-        text = extract_lyrics_from_html(html)
+        text = LyricsExtractor.extract_lyrics_from_html(html)
 
         text ? Value::Lyric.new(text: text) : nil
       end
