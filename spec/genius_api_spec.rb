@@ -20,8 +20,8 @@ describe 'Tests Genius API library' do
       lyrics = genius_mapper.lyrics_for(song_name: 'Golden', artist_name: 'HUNTR/X')
 
       _(lyrics).wont_be_nil
-      _(lyrics).must_be_kind_of(String)
-      _(lyrics.strip.empty?).must_equal false
+      _(lyrics.text).must_be_kind_of(String)
+      _(lyrics.text.strip.empty?).must_equal false
     end
 
     it 'SAD: should return nil when song does not exist' do

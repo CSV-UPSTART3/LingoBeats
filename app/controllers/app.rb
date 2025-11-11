@@ -103,7 +103,7 @@ module LingoBeats
 
           # update search history in session
           SearchHistoryHelper.add_search(session, category, query)
-          puts "[DEBUG] data session: #{session.inspect}"
+          # puts "[DEBUG] data session: #{session.inspect}"
 
           view 'song', locals: { songs:, category:, query:,
                                  search_history: Views::SearchHistory.new(
@@ -168,13 +168,16 @@ module LingoBeats
         end
 
         # 2. call api if not found in DB
-        lyrics = fetch_from_api(song_name, singer_name)
+        lyric_value_object = fetch_from_api(song_name, singer_name)
 
-        # 3. save in background
-        save_in_background(song_id, lyrics)
+        # 3. 若沒有英文歌詞則直接 return
+        return { lyrics: nil, cached: false } unless lyric_value_object
 
-        # 4. return lyrics immediately
-        { lyrics: lyrics, cached: false }
+        # 4. save in background
+        save_in_background(song_id, lyric_value_object)
+
+        # 5. return lyrics immediately
+        { lyrics: lyric_value_object.text, cached: false }
       end
 
       # --- internals ---
@@ -182,20 +185,33 @@ module LingoBeats
         vo = lyric_repo.for_song(song_id)
         text = vo&.text.to_s.strip
         return unless text.length.positive?
+        # puts song_repo.find_id(song_id).difficulty_distribution
+        # puts song_repo.find_id(song_id).average_difficulty
 
         { lyrics: text, cached: true }
       end
 
       def fetch_from_api(song_name, artist_name)
-        text = lyric_mapper.lyrics_for(song_name: song_name, artist_name: artist_name).to_s
-        text.strip.empty? ? nil : text
+        lyric_value_object = lyric_mapper.lyrics_for(song_name: song_name, artist_name: artist_name)
+        return nil unless lyric_value_object&.english?
+        return nil if lyric_value_object.text.strip.empty?
+        
+        lyric_value_object
       end
 
-      def save_in_background(song_id, lyrics_text)
-          # ensure song exists in DB
+      def save_in_background(song_id, lyric_value_object)
+        Thread.new do
+          # store lyrics and related song/singer only if English
+          return unless lyric_value_object.is_a?(Value::Lyric)
+          return unless lyric_value_object.english?
+
           song_repo.ensure_song_exists(song_id)
-          # store lyrics
-          lyric_repo.attach_to_song(song_id, Value::Lyric.new(text: lyrics_text))
+          lyric_repo.attach_to_song(song_id, lyric_value_object)
+
+        rescue StandardError
+          # log error but do not affect main flow
+          App.logger.error("Failed to save lyrics for song #{song_id}")
+        end
       end
     end
 

@@ -39,8 +39,9 @@ By combining music, AI, and intelligent content generation, LingoBeats hopes to 
 2. Copy `config/secrets_example.yml` to `config/secrets.yml` and update token
 3. Ensure correct version of Ruby install (see `.ruby-version` for `rbenv`)
 4. Run `bundle install`
-5. Run `bundle exec rake db:migrate` to create dev database
-6. Run `RACK_ENV=test bundle exec rake db:migrate` to create test database
+5. Run `pip install -r requirements.txt` to install cefrpy model
+6. Run `bundle exec rake db:migrate` to create dev database
+7. Run `RACK_ENV=test bundle exec rake db:migrate` to create test database
 
 ## **Running Tests**
 
