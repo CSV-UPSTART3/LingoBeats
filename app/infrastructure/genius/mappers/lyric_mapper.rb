@@ -26,9 +26,8 @@ module LingoBeats
 
       # 給歌名/歌手名字，回傳乾淨歌詞字串，或 nil
       def lyrics_for(song_name:, artist_name:)
-        url  = lyrics_page_url(song_name, artist_name)
-        html = fetch_lyrics_html(url)
-        text = LyricsExtractor.extract_lyrics_from_html(html)
+        lyrics_page_url = first_lyrics_url(self.class.build_query(song_name, artist_name))
+        return nil unless lyrics_page_url
 
         html_doc = @gateway.fetch_lyrics_html(lyrics_page_url)
         # App.logger.info html_doc
@@ -56,18 +55,6 @@ module LingoBeats
         return nil unless first_hit
 
         first_hit.dig('result', 'url')
-      end
-
-      private
-
-      def lyrics_page_url(song_name, artist_name)
-        first_lyrics_url(self.class.build_query(song_name, artist_name))
-      end
-
-      def fetch_lyrics_html(url)
-        return unless url
-
-        @gateway.fetch_lyrics_html(url)
       end
 
       # Extract lyric from html document
@@ -101,12 +88,6 @@ module LingoBeats
           core.gsub(/\s*\[([^\]]+)\]\s*/, "\n\n[\\1]\n")
               .gsub(/([a-z)])(\[)/, "\\1\n\\2")
               .strip
-        end
-
-        def extract_lyrics_from_html(html)
-          return unless html
-
-          LyricsExtractor.extract_lyrics_text(html)
         end
       end
     end
