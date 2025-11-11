@@ -26,12 +26,12 @@ module LingoBeats
         )
 
         response = plain_http.follow(max_hops: 3).get(proxy_url)
-        App.logger.info "[Genius] fetch_lyrics_html via proxy status=#{response.status} size=#{response.body.to_s.bytesize}"
+        # App.logger.info "[Genius] fetch_lyrics_html via proxy status=#{response.status} size=#{response.body.to_s.bytesize}"
 
         return unless response.status.success?
         self.class.parse_html(response)
       rescue => e
-        App.logger.error "[Genius] fetch_lyrics_html via proxy error: #{e.class} #{e.message}"
+        # App.logger.error "[Genius] fetch_lyrics_html via proxy error: #{e.class} #{e.message}"
         nil
         # response = @http.get(url)
         # return unless response.status.success?
