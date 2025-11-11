@@ -29,10 +29,11 @@ CONFIG = YAML.safe_load_file('config/secrets.yml')
 SPOTIFY_CLIENT_ID = CONFIG['development']['SPOTIFY_CLIENT_ID']
 SPOTIFY_CLIENT_SECRET = CONFIG['development']['SPOTIFY_CLIENT_SECRET']
 GENIUS_CLIENT_ACCESS_TOKEN = CONFIG['development']['GENIUS_CLIENT_ACCESS_TOKEN']
+GEMINI_API_KEY = CONFIG['development']['GEMINI_API_KEY']
 CORRECT_RESULT_BY_SINGER = YAML.safe_load_file('spec/fixtures/spotify_result_by_singer.yml',
                                                permitted_classes: [Symbol])
 CORRECT_RESULT_BY_SONG = YAML.safe_load_file('spec/fixtures/spotify_result_by_song_name.yml',
                                              permitted_classes: [Symbol])
 CORRECT_RESULT_BY_BILLBOARD = YAML.safe_load_file('spec/fixtures/billboard_result.yml',
-                                             permitted_classes: [Symbol])
+                                                  permitted_classes: [Symbol])
 CORRECT_RESULT_BY_LYRICS = File.read('spec/fixtures/lyrics_output.txt')

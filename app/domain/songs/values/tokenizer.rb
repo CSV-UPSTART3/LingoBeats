@@ -1,29 +1,39 @@
+# frozen_string_literal: true
+
 module LingoBeats
   module Value
+    # Tokenizer for song lyrics
     class Tokenizer
       def initialize(cleaned_text)
         @cleaned_text = cleaned_text
       end
-      
+
       def call
-        return [] if @cleaned_text.nil? || @cleaned_text.strip.empty?
-        
-        cleaned_text = @cleaned_text
+        return [] if blank?(@cleaned_text)
 
-        # 英文斷詞
-        words = cleaned_text.downcase.scan(/[a-z']+/)
+        extract_words(@cleaned_text)
+          .reject { |word| stopwords.include?(word) }
+          .uniq
+      end
 
-        # 一般英文停用詞（可外部讀入 stopwords.txt）
-        common_stopwords = %w[a an the in on at for to of is am are was were do did have has had and or but]
+      # Helper methods for tokenization
+      module TokenizerHelpers
+        module_function
 
-        # 歌詞專用停用詞
-        lyric_stopwords = %w[
-          verse chorus bridge outro pre-chorus post-chorus
-          oh ah hah yeah woah ooh la na uh yo hey ha haaa
-        ]
-        stopwords = (common_stopwords + lyric_stopwords).map(&:downcase).to_set
-        filtered = words.reject { |word| stopwords.include?(word) }
-        filtered.uniq
+        def blank?(text)
+          text.to_s.strip.empty?
+        end
+
+        def extract_words(text)
+          text.downcase.scan(/[a-z']+/)
+        end
+
+        def stopwords
+          common = %w[a an the in on at for to of is am are was were do did have has had and or but]
+          lyric  = %w[verse chorus bridge outro pre-chorus post-chorus
+                      oh ah hah yeah woah ooh la na uh yo hey ha haaa]
+          (common + lyric).to_set(&:downcase)
+        end
       end
     end
   end

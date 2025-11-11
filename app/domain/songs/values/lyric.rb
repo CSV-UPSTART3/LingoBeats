@@ -27,7 +27,7 @@ module LingoBeats
 
       # Detect if lyric is English using CLD3
       def english?
-        return false if text.nil? || text.strip.empty?
+        return false if text.to_s.strip.empty?
 
         detector = CLD3::NNetLanguageIdentifier.new(0, 512)
         result = detector.find_language(text)
@@ -40,7 +40,8 @@ module LingoBeats
       end
 
       def clean_words
-        return [] if text.nil? || text.strip.empty?
+        return [] if text.to_s.strip.empty?
+
         cleaned_text = Cleaner.new(text).call
         Tokenizer.new(cleaned_text).call # array of words
       end
@@ -49,8 +50,7 @@ module LingoBeats
         words = clean_words
         results = DifficultyEstimator.new(words).call
 
-        # 過濾掉 None 或 nil 的評級結果
-        results.reject { |_word, level| level.nil? || level == "None" }
+        results.reject { |_word, lvl| [nil, 'None'].include?(lvl) }
       end
     end
   end

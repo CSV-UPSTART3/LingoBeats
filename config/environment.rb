@@ -21,6 +21,7 @@ module LingoBeats
     def self.config = Figaro.env
 
     raise 'Missing SESSION_SECRET!' unless config.SESSION_SECRET
+
     use Rack::Session::Cookie, secret: config.SESSION_SECRET
 
     configure :development, :test do

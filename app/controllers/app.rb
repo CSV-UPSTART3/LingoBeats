@@ -13,7 +13,7 @@ require_relative '../presentation/views_object/search_history'
 # LingoBeats: include routing and service
 module LingoBeats
   # Web App
-  class App < Roda # rubocop:disable Metrics/ClassLength
+  class App < Roda
     plugin :flash
     plugin :all_verbs # allows HTTP verbs beyond GET/POST (e.g., DELETE)
     plugin :render, engine: 'slim', views: 'app/presentation/views_html'
@@ -185,6 +185,7 @@ module LingoBeats
         vo = lyric_repo.for_song(song_id)
         text = vo&.text.to_s.strip
         return unless text.length.positive?
+
         # puts song_repo.find_id(song_id).difficulty_distribution
         # puts song_repo.find_id(song_id).average_difficulty
 
@@ -195,7 +196,7 @@ module LingoBeats
         lyric_value_object = lyric_mapper.lyrics_for(song_name: song_name, artist_name: artist_name)
         return nil unless lyric_value_object&.english?
         return nil if lyric_value_object.text.strip.empty?
-        
+
         lyric_value_object
       end
 
@@ -207,7 +208,6 @@ module LingoBeats
 
           song_repo.ensure_song_exists(song_id)
           lyric_repo.attach_to_song(song_id, lyric_value_object)
-
         rescue StandardError
           # log error but do not affect main flow
           App.logger.error("Failed to save lyrics for song #{song_id}")

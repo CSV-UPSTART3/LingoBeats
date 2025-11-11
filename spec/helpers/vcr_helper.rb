@@ -53,7 +53,9 @@ module VcrHelper
 
   def self.configure_vcr_for_genius
     VCR.configure do |c|
-      c.filter_sensitive_data('<GENIUS_CLIENT_ACCESS_TOKEN>') { GENIUS_CLIENT_ACCESS_TOKEN if defined?(GENIUS_CLIENT_ACCESS_TOKEN) }
+      c.filter_sensitive_data('<GENIUS_CLIENT_ACCESS_TOKEN>') do
+        GENIUS_CLIENT_ACCESS_TOKEN if defined?(GENIUS_CLIENT_ACCESS_TOKEN)
+      end
       c.before_record do |interaction|
         # 遮掉 Genius bearer token
         if interaction.request.headers['Authorization']&.first&.start_with?('Bearer ')
@@ -64,6 +66,22 @@ module VcrHelper
 
     VCR.insert_cassette(
       CASSETTE_FILE_GENIUS,
+      record: :new_episodes,
+      match_requests_on: %i[method uri headers]
+    )
+  end
+
+  # ----------------- Gemini -----------------
+  CASSETTE_FILE_GEMINI = 'gemini_api'
+  def self.configure_vcr_for_gemini
+    VCR.configure do |c|
+      c.filter_sensitive_data('<GEMINI_API_KEY>') { ENV.fetch('GEMINI_API_KEY', nil) }
+      c.cassette_library_dir = 'spec/fixtures/cassettes'
+      c.hook_into :webmock
+    end
+
+    VCR.insert_cassette(
+      CASSETTE_FILE_GEMINI,
       record: :new_episodes,
       match_requests_on: %i[method uri headers]
     )

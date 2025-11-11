@@ -2,6 +2,7 @@ import re
 import nltk
 import spacy
 import contractions
+import unicodedata
 from nltk.corpus import stopwords
 
 nltk.download('stopwords', quiet = True)
@@ -35,13 +36,38 @@ def normalize_leading_apostrophe(word):
 def normalize_apostrophe_endings(word):
     return re.sub(r"([a-zA-Z]+)in'$", r"\1ing", word)
 
+# 避免非英文字母之特殊字
+def normalize_basic_ascii(token: str) -> str:
+    # 先把各種彎引號換成直引號
+    token = re.sub(r"[’‘`´]", "'", token)
+    # Unicode 正規化 -> 拆音標
+    token = unicodedata.normalize("NFKD", token)
+    # 只保留 ASCII
+    token = token.encode("ascii", "ignore").decode("ascii")
+    return token
+
+def clean_lyrics_text(text: str) -> str:
+    # 移除方括號、括號內的段落標記
+    text = re.sub(r"\[[^\]]*\]|\([^)]+\)", " ", text)
+    # 只保留字母與引號、空白
+    text = re.sub(r"[^A-Za-z'’‘`´ ]+", " ", text)
+    # 多重空白合併
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
 def preprocess(words):
     """Expand contractions and remove stopwords"""
     cleaned = []
     for word in words:
+        word = clean_lyrics_text(word)
+        word = normalize_basic_ascii(word)        # 先轉成純 ASCII
+        if not word: 
+            continue
+
         expanded = contractions.fix(word) # e.g. you're -> you are
         # print(expanded)
         for sub in expanded.split(): # 拆成 ["you", "are"]
+            sub = normalize_basic_ascii(sub) 
             sub = normalize_leading_apostrophe(sub)
             # Handle words like hidin'
             sub = normalize_apostrophe_endings(sub)

@@ -16,6 +16,7 @@ module LingoBeats
       def to_attr_hash
         to_h
       end
+
       def generate_learning_material
         # MaterialGenerator.new(self, ).call  # 呼叫 Song aggregate 後，取得等級再生成
       end

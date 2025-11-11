@@ -65,47 +65,58 @@ module LingoBeats
       def evaluate_words
         return [] unless lyric
 
-        evaluated_words = lyric&.evaluate_difficulty || {} # 呼叫 Lyric 的斷詞邏輯，並且進行評級
-        evaluated_words
-        
+        lyric&.evaluate_difficulty || {} # 呼叫 Lyric 的斷詞邏輯，並且進行評級
       end
 
       def difficulty_distribution
-        results = evaluate_words
-        distribution = ::Hash.new(0)
-
-        results.values.each do |level|
-          distribution[level] += 1 if level
-        end
-
-        # 依序填滿所有級別，確保前端圖表有完整結構
-        levels = %w[A1 A2 B1 B2 C1 C2]
-        levels.each { |level| distribution[level] ||= 0 }
-
-        ordered = levels.to_h { |level| [level, distribution[level]] }
-
-        ordered
+        fill_levels(base_distribution)
       end
 
       def average_difficulty
-        ordered_distribution = difficulty_distribution
-        return nil if ordered_distribution.empty?
+        dist = difficulty_distribution
+        return if dist.empty?
 
-        total_words = ordered_distribution.values.sum
-        return nil if total_words.zero?
+        total = dist.values.sum
+        return if total.zero?
 
-        level_scores = {
-          'A1' => 1, 'A2' => 2,
-          'B1' => 3, 'B2' => 4,
-          'C1' => 5, 'C2' => 6
-        }.freeze
+        LEVEL_SCORES.key(weighted_average(dist, total).round)
+      end
 
-        weighted_score = ordered_distribution.sum do |level, count|
-          level_scores[level] * count
-        end.to_f
+      private
 
-        avg_score = weighted_score / total_words
-        level_scores.key(avg_score.round)
+      def base_distribution
+        evaluate_words.each_value.with_object(Hash.new(0)) do |level, hash|
+          hash[level] += 1 if level
+        end
+      end
+
+      # Helpers for calculating song difficulty
+      module SongDifficultyHelper
+        module_function
+
+        def weighted_average(dist, total)
+          weighted = dist.sum { |level, count| LEVEL_SCORES[level] * count }.to_f
+          weighted / total
+        end
+
+        def fill_levels(distribution)
+          %w[A1 A2 B1 B2 C1 C2].each_with_object({}) do |level, hash|
+            hash[level] = distribution.fetch(level, 0)
+          end
+        end
+
+        def level_scores
+          {
+            'A1' => 1, 'A2' => 2,
+            'B1' => 3, 'B2' => 4,
+            'C1' => 5, 'C2' => 6
+          }.freeze
+        end
+
+        def weighted_average_score(dist, total)
+          weighted = dist.sum { |level, count| level_scores[level] * count }.to_f
+          weighted / total
+        end
       end
     end
   end

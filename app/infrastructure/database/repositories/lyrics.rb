@@ -32,29 +32,44 @@ module LingoBeats
 
       # create lyric and link to song
       def self.find_or_create_by_value(object)
-        return nil unless object&.text
-
-        return nil unless object.english?
+        return unless valid_lyric?(object)
 
         id = object.checksum
-        ds = Database::LyricOrm.dataset
-
-        # only insert if not exists
-        ds.insert_conflict(target: :id).insert(id: id, text: object&.text)
+        insert_lyric_if_absent(id, object.text)
         id
+      end
+
+      def self.valid_lyric?(object)
+        object&.text && object.english?
+      end
+
+      def self.insert_lyric_if_absent(id, text)
+        Database::LyricOrm.dataset
+                          .insert_conflict(target: :id)
+                          .insert(id: id, text: text)
       end
 
       # attach lyric to song
       def self.attach_to_song(song_id, lyric_object)
-        return nil unless song_id && lyric_object&.text
-        
-        return nil unless lyric_object.english?
+        return unless valid_input?(song_id, lyric_object)
 
         lyric_id = find_or_create_by_value(lyric_object)
-        Database::SongOrm.where(id: song_id).update(lyric_id: lyric_id)
+        update_song_lyric(song_id, lyric_id)
         lyric_id
       rescue Sequel::ForeignKeyConstraintViolation, Sequel::NoExistingObject
         nil
+      end
+
+      def self.valid_input?(song_id, lyric_object)
+        song_id_present?(song_id) && lyric_acceptable?(lyric_object)
+      end
+
+      def self.song_id_present?(song_id) = !song_id.to_s.strip.empty?
+
+      def self.lyric_acceptable?(lyric)   = lyric&.text && lyric.english?
+
+      def self.update_song_lyric(song_id, lyric_id)
+        Database::SongOrm.where(id: song_id).update(lyric_id: lyric_id)
       end
 
       # def self.rebuild_entity_by_lyrics(lyrics)

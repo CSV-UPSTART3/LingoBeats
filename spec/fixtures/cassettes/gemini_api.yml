@@ -1,0 +1,85 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=<GEMINI_API_KEY>
+    body:
+      encoding: UTF-8
+      string: '{"contents":[{"role":"user","parts":[{"text":"You are an English learning
+        assistant for level A2.\nReturn ONLY compact JSON with keys:\n{\"summary\":\"...\",\"vocabulary\":[{\"word\":\"...\",\"definition\":\"...\",\"example\":\"...\"}],\"phrases\":[{\"phrase\":\"...\",\"meaning\":\"...\",\"example\":\"...\"}]}\nNo
+        commentary. No markdown. JSON only.\n\nLyrics:\nLove me like you do...\n"}]}]}'
+    headers:
+      Connection:
+      - close
+      Content-Type:
+      - application/json; charset=utf-8
+      Host:
+      - generativelanguage.googleapis.com
+      User-Agent:
+      - http.rb/5.3.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin,Accept-Encoding
+      - Referer
+      - X-Origin
+      Date:
+      - Sun, 09 Nov 2025 12:38:54 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Server-Timing:
+      - gfet4t7; dur=3893
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Accept-Ranges:
+      - none
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  {
+                    "text": "{\"summary\":\"This is a request from someone asking another person to love them in a special way – in the same way they usually love.\",\"vocabulary\":[{\"word\":\"love\",\"definition\":\"To feel a very strong emotion of affection for someone.\",\"example\":\"I love my dog very much.\"},{\"word\":\"like\",\"definition\":\"Similar to; in the same way as.\",\"example\":\"She sings like a professional singer.\"},{\"word\":\"do\",\"definition\":\"(Here, it refers to the way someone loves.) To perform an action or activity.\",\"example\":\"He plays the guitar well, and I do too.\"}],\"phrases\":[{\"phrase\":\"Love me\",\"meaning\":\"To show strong affection and care for me.\",\"example\":\"Please, love me and stay with me.\"},{\"phrase\":\"like you do\",\"meaning\":\"In the way that you usually love, or in your special way of loving.\",\"example\":\"Please cook the pasta like you do, it's always so tasty.\"}]}"
+                  }
+                ],
+                "role": "model"
+              },
+              "finishReason": "STOP",
+              "index": 0
+            }
+          ],
+          "usageMetadata": {
+            "promptTokenCount": 77,
+            "candidatesTokenCount": 200,
+            "totalTokenCount": 547,
+            "promptTokensDetails": [
+              {
+                "modality": "TEXT",
+                "tokenCount": 77
+              }
+            ],
+            "thoughtsTokenCount": 270
+          },
+          "modelVersion": "gemini-2.5-flash",
+          "responseId": "XosQafvsG6K7vr0Ph4KJgAQ"
+        }
+  recorded_at: Sun, 09 Nov 2025 12:38:56 GMT
+recorded_with: VCR 6.3.1
