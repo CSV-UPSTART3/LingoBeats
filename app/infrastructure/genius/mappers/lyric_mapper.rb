@@ -30,7 +30,14 @@ module LingoBeats
         html = fetch_lyrics_html(url)
         text = LyricsExtractor.extract_lyrics_from_html(html)
 
-        text ? Value::Lyric.new(text: text) : nil
+        html_doc = @gateway.fetch_lyrics_html(lyrics_page_url)
+        # App.logger.info html_doc
+        return nil unless html_doc
+
+        lyrics_text = LyricsExtractor.extract_lyrics_text(html_doc)
+        return nil unless lyrics_text
+
+        Value::Lyric.new(text: lyrics_text)
       end
 
       def self.build_query(song_name, artist_name)
