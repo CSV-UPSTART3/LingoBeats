@@ -82,6 +82,21 @@ module LingoBeats
         )
       end
 
+      def self.find_with_lyrics(song_id:, song_name:, artist_name:)
+        config = LingoBeats::App.config
+        lyric_mapper = LingoBeats::Genius::LyricMapper.new(App.config.GENIUS_CLIENT_ACCESS_TOKEN)
+        lyric_repo = Repository::For.klass(Value::Lyric)
+        lyric_value_object = lyric_mapper.lyrics_for(song_name: song_name, artist_name: artist_name)
+        return nil unless lyric_value_object&.english?
+        return nil if lyric_value_object.text.strip.empty?
+        return unless lyric_value_object.is_a?(Value::Lyric)
+
+        ensure_song_exists(song_id)
+        lyric_repo.attach_to_song(song_id, lyric_value_object)
+
+        find_id(song_id)
+      end
+
       # Helper class to rebuild entity from DB
       class EntityBuilder
         SIMPLE_FIELDS = %i[id name uri external_url album_id
@@ -111,8 +126,8 @@ module LingoBeats
           lyric_record = @db_record.lyric
           {
 
-            lyric: lyric_record ? Lyrics.rebuild_entity(lyric_record) : nil,
-            singers: Singers.rebuild_many(@db_record.singers)
+            lyric: lyric_record ? Lyrics.rebuild_value(lyric_record) : nil,
+            singers: @db_record.singers ? Singers.rebuild_many(@db_record.singers) : []
           }
         end
       end

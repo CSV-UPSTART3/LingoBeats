@@ -4,14 +4,14 @@ module LingoBeats
   module Repository
     # Repository for Lyrics
     class Lyrics
-      def self.rebuild_entity(db_record)
+      def self.rebuild_value(db_record)
         return nil unless db_record
 
         Value::Lyric.new(text: db_record[:text] || db_record.text || nil)
       end
 
       def self.find_id(id)
-        rebuild_entity Database::LyricOrm.first(id: id)
+        rebuild_value Database::LyricOrm.first(id: id)
       end
 
       def self.find_id_by_value(object)

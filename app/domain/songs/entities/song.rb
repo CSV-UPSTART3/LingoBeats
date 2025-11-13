@@ -27,6 +27,13 @@ module LingoBeats
         to_h.except(:lyric, :singers)
       end
 
+      def lyrics
+        text = lyric&.text&.strip
+        return nil if text.nil? || text.empty?
+
+        text
+      end
+
       # Remove duplicates by name + first singer id
       def ==(other)
         other.respond_to?(:comparison_key) && comparison_key == other.comparison_key
