@@ -132,7 +132,7 @@ module LingoBeats
       # GET /lyrics/song?id=...&name=...&singer=...
       routing.on 'song' do
         routing.get do
-          song_id, song_name, singer_name = GeniusHelper.get_params(routing)
+          song_id, song_name, singer_name = SongLyricsService.get_params(routing)
           song_id = song_id.to_s.strip
 
           if song_id.empty?
@@ -142,7 +142,7 @@ module LingoBeats
           end
 
           # fetch lyrics (from DB or API)
-          result = GeniusHelper.fetch_lyrics(song_id, song_name, singer_name)
+          result = SongLyricsService.fetch_lyrics(song_id, song_name, singer_name)
 
           view 'lyrics_block', locals: { lyrics: result[:lyrics], cached: result[:cached] }, layout: false
         end
@@ -150,11 +150,9 @@ module LingoBeats
     end
 
     # ===== Helper methods for Genius flow =====
-    module GeniusHelper
+    module SongLyricsService
       module_function
 
-      def lyric_mapper = @lyric_mapper ||= Genius::LyricMapper.new(App.config.GENIUS_CLIENT_ACCESS_TOKEN)
-      def lyric_repo = @lyric_repo ||= Repository::For.klass(Value::Lyric)
       def song_repo = @song_repo ||= Repository::For.klass(Entity::Song)
 
       def get_params(req)
@@ -168,23 +166,20 @@ module LingoBeats
         end
 
         # 2. call api if not found in DB
-        lyric_value_object = fetch_from_api(song_name, singer_name)
+        song = fetch_from_api(song_id, song_name, singer_name)
 
         # 3. 若沒有英文歌詞則直接 return
-        return { lyrics: nil, cached: false } unless lyric_value_object
+        return { lyrics: nil, cached: false } unless song
 
-        # 4. save in background
-        save_in_background(song_id, lyric_value_object)
-
-        # 5. return lyrics immediately
-        { lyrics: lyric_value_object.text, cached: false }
+        # 4. return lyrics immediately
+        { lyrics: song.lyrics, cached: false }
       end
 
       # --- internals ---
       def find_in_db(song_id)
-        vo = lyric_repo.for_song(song_id)
-        text = vo&.text.to_s.strip
-        return unless text.length.positive?
+        text = song_repo.find_id(song_id)&.lyrics
+
+        return unless text&.length&.positive?
 
         # puts song_repo.find_id(song_id).difficulty_distribution
         # puts song_repo.find_id(song_id).average_difficulty
@@ -192,27 +187,19 @@ module LingoBeats
         { lyrics: text, cached: true }
       end
 
-      def fetch_from_api(song_name, artist_name)
-        lyric_value_object = lyric_mapper.lyrics_for(song_name: song_name, artist_name: artist_name)
-        return nil unless lyric_value_object&.english?
-        return nil if lyric_value_object.text.strip.empty?
-
-        lyric_value_object
+      def fetch_from_api(song_id, song_name, artist_name)
+        song_repo.find_with_lyrics(song_id: song_id, song_name: song_name, artist_name: artist_name)
       end
+      
+      # 4. save in background
 
-      def save_in_background(song_id, lyric_value_object)
-        Thread.new do
-          # store lyrics and related song/singer only if English
-          return unless lyric_value_object.is_a?(Value::Lyric)
-          return unless lyric_value_object.english?
-
-          song_repo.ensure_song_exists(song_id)
-          lyric_repo.attach_to_song(song_id, lyric_value_object)
-        rescue StandardError
-          # log error but do not affect main flow
-          App.logger.error("Failed to save lyrics for song #{song_id}")
-        end
-      end
+      # def save_in_background(song_id, lyric_value_object)
+      #   Thread.new do
+      #   rescue StandardError
+      #     # log error but do not affect main flow
+      #     App.logger.error("Failed to save lyrics for song #{song_id}")
+      #   end
+      # end
     end
 
     # ===== Helper methods for Spotify flow =====
