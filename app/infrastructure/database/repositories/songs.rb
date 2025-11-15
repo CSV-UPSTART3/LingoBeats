@@ -4,7 +4,6 @@ require_relative 'singers'
 require_relative 'lyrics'
 require_relative '../../spotify/mappers/song_mapper' # for SongMapper
 # require_relative '../genius/mappers/lyric_mapper'       # (可能之後用)
-require_relative '../../../controllers/app' # so App.config is loaded
 
 module LingoBeats
   module Repository

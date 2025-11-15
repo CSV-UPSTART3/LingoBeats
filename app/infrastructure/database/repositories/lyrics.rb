@@ -55,7 +55,7 @@ module LingoBeats
 
         lyric_id = find_or_create_by_value(lyric_object)
         update_song_lyric(song_id, lyric_id)
-        lyric_id
+        lyric_object
       rescue Sequel::ForeignKeyConstraintViolation, Sequel::NoExistingObject
         nil
       end
